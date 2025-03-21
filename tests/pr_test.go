@@ -109,6 +109,11 @@ func TestFullyConfigurableSolution(t *testing.T) {
 				fullyConfigurableSolutionDir + "/*.*",
 				fullyConfigurableSolutionKubeconfigDir + "/*.*",
 			},
+			IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
+				List: []string{
+					"module.logs_agent.helm_release.logs_agent",
+				},
+			},
 			ResourceGroup:          resourceGroup,
 			TemplateFolder:         fullyConfigurableSolutionDir,
 			Tags:                   []string{"test-schematic"},
