@@ -1,4 +1,4 @@
-# Cloud automation for Logs Agent
+# Cloud automation for Cloud Logs Agent
 
 This architecture deploys the following observability agent on a Red Hat OpenShift cluster:
 

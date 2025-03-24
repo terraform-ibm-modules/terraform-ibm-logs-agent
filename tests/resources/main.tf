@@ -82,17 +82,14 @@ locals {
   cluster_crn               = module.landing_zone.cluster_data["${var.prefix}-workload-cluster"].crn
 }
 
-module "observability_instances" {
-  source                     = "terraform-ibm-modules/observability-instances/ibm"
-  version                    = "3.4.0"
-  cloud_monitoring_provision = false
-  resource_group_id          = local.cluster_resource_group_id
-  region                     = var.region
-  cloud_logs_instance_name   = "${var.prefix}-cloud-logs"
-  enable_platform_metrics    = false
-  enable_platform_logs       = false
-  cloud_logs_tags            = var.resource_tags
-  cloud_logs_data_storage = {
+module "cloud_logs" {
+  source            = "terraform-ibm-modules/cloud_logs/ibm"
+  version           = "1.0.0"
+  resource_group_id = local.cluster_resource_group_id
+  region            = var.region
+  instance_name     = "${var.prefix}-cloud-logs"
+  resource_tags     = var.resource_tags
+  data_storage = {
     # logs and metrics buckets must be different
     logs_data = {
       enabled         = true

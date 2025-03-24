@@ -124,18 +124,17 @@ resource "time_sleep" "wait_operators" {
 }
 
 ##############################################################################
-# Observability Instance
+# Cloud Logs Instance
 ##############################################################################
 
-module "observability_instances" {
-  source                     = "terraform-ibm-modules/observability-instances/ibm"
-  version                    = "3.4.3"
-  cloud_monitoring_provision = false
-  resource_group_id          = module.resource_group.resource_group_id
-  region                     = var.region
-  cloud_logs_plan            = "standard"
-  enable_platform_metrics    = false
-  cloud_logs_instance_name   = "${var.prefix}-cloud-logs"
+module "cloud_logs" {
+  source            = "terraform-ibm-modules/cloud_logs/ibm"
+  version           = "1.0.0"
+  resource_group_id = module.resource_group.resource_group_id
+  plan              = "standard"
+  region            = var.region
+  instance_name     = "${var.prefix}-cloud-logs"
+  resource_tags     = var.resource_tags
 }
 
 ##############################################################################
@@ -151,7 +150,7 @@ module "logs_agent" {
   # Logs Agent
   logs_agent_iam_mode         = "IAMAPIKey"
   logs_agent_iam_api_key      = module.iam_service_id.service_id_apikey
-  cloud_logs_ingress_endpoint = module.observability_instances.cloud_logs_ingress_private_endpoint
+  cloud_logs_ingress_endpoint = module.cloud_logs.cloud_logs_ingress_private_endpoint
   cloud_logs_ingress_port     = 3443
   logs_agent_enable_scc       = false # only true for Openshift
 }

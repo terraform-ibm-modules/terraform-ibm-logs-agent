@@ -1,7 +1,7 @@
 {
     "products": [
       {
-        "label": "Cloud automation for Logs Agent",
+        "label": "Cloud automation for Cloud Logs Agent",
         "name": "deploy-arch-ibm-logs-agent",
         "product_kind": "solution",
         "tags": [
@@ -62,29 +62,6 @@
                 }
               ]
             },
-            "dependencies": [
-              {
-                "flavors": [
-                  "quickstart",
-                  "standard"
-                ],
-                "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
-                "name": "deploy-arch-ibm-slz-ocp",
-                "version": ">=v3.0.0",
-                "optional": true
-              },
-              {
-                "flavors": [
-                  "instances"
-                ],
-                "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-                "id": "a3137d28-79e0-479d-8a24-758ebd5a0eab-global",
-                "name": "deploy-arch-ibm-observability",
-                "version": ">=v1.3.1",
-                "optional": true
-              }
-            ],
-            "dependency_version_2": true,
             "configuration": [
               {
                 "key": "ibmcloud_api_key",
@@ -115,8 +92,7 @@
               },
               {
                 "key": "is_ocp_cluster",
-                "required": true,
-                "default_value": true
+                "required": true
               },
               {
                 "key": "cloud_logs_ingress_endpoint",
@@ -129,6 +105,12 @@
               {
                 "key": "logs_agent_trusted_profile_id",
                 "required": true
+              },
+              {
+                "key": "logs_agent_chart_location"
+              },
+              {
+                "key": "logs_agent_version"
               },
               {
                 "key": "cluster_config_endpoint_type"

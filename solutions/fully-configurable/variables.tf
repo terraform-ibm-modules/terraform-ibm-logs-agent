@@ -47,6 +47,20 @@ variable "wait_till_timeout" {
 # Logs Agent variables
 ##############################################################################
 
+variable "logs_agent_version" {
+  description = "The version of the Logs agent to deploy."
+  type        = string
+  default     = "1.4.2"
+  nullable    = false
+}
+
+variable "logs_agent_chart_location" {
+  description = "The location of the Helm chart for the Logs agent."
+  type        = string
+  default     = "oci://icr.io/ibm/observe/logs-agent-helm" # datasource: icr.io/ibm/observe/logs-agent-helm
+  nullable    = false
+}
+
 variable "logs_agent_name" {
   description = "The name of the Logs agent. The name is used in all Kubernetes and Helm resources in the cluster."
   type        = string

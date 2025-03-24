@@ -227,3 +227,22 @@ func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 		logger.Log(t, "END: Destroy (existing resources)")
 	}
 }
+
+func TestRunAgentClassicKubernetes(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "logs-agent-iks", terraformDirLogsAgentIKS)
+	options.TerraformVars["is_vpc_cluster"] = false
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunAgentVpcKubernetes(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "logs-agent-iks", terraformDirLogsAgentIKS)
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
