@@ -190,12 +190,12 @@ module "logs_agent" {
   }]
   logs_agent_resources = {
     limits = {
-      cpu               = "500m"
-      memory            = "3Gi"
+      cpu    = "500m"
+      memory = "3Gi"
     }
     requests = {
-      cpu               = "100m"
-      memory            = "1Gi"
+      cpu    = "100m"
+      memory = "1Gi"
     }
   }
   # example of how to add additional log source path
