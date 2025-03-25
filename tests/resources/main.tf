@@ -83,7 +83,7 @@ locals {
 }
 
 module "cloud_logs" {
-  source            = "terraform-ibm-modules/cloud_logs/ibm"
+  source            = "terraform-ibm-modules/cloud-logs/ibm"
   version           = "1.0.0"
   resource_group_id = local.cluster_resource_group_id
   region            = var.region

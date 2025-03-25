@@ -38,11 +38,11 @@ output "trusted_profile_id" {
 }
 
 output "cloud_logs_instance_name" {
-  value       = module.cloud_logs.cloud_logs_name
+  value       = module.cloud_logs.name
   description = "The name of the provisioned IBM Cloud Logs instance."
 }
 
 output "cloud_logs_ingress_private_endpoint" {
-  value       = module.cloud_logs.cloud_logs_ingress_private_endpoint
+  value       = module.cloud_logs.ingress_private_endpoint
   description = "The private ingress endpoint of the provisioned Cloud Logs instance."
 }

@@ -128,7 +128,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 ##############################################################################
 
 module "cloud_logs" {
-  source            = "terraform-ibm-modules/cloud_logs/ibm"
+  source            = "terraform-ibm-modules/cloud-logs/ibm"
   version           = "1.0.0"
   resource_group_id = module.resource_group.resource_group_id
   plan              = "standard"
@@ -161,7 +161,7 @@ module "vpe" {
   security_group_ids = [for group in data.ibm_is_security_groups.vpc_security_groups.security_groups : group.id if group.name == "kube-${module.ocp_base.cluster_id}"] # Select only security group attached to the Cluster
   cloud_service_by_crn = [
     {
-      crn          = module.cloud_logs.cloud_logs_crn
+      crn          = module.cloud_logs.crn
       service_name = "logs"
     }
   ]
@@ -181,7 +181,7 @@ module "logs_agent" {
   logs_agent_trusted_profile  = module.trusted_profile.trusted_profile.id
   logs_agent_namespace        = local.logs_agent_namespace
   logs_agent_name             = local.logs_agent_name
-  cloud_logs_ingress_endpoint = module.cloud_logs.cloud_logs_ingress_private_endpoint
+  cloud_logs_ingress_endpoint = module.cloud_logs.ingress_private_endpoint
   cloud_logs_ingress_port     = 443
   # example of how to add additional metadata to the logs agent
   logs_agent_additional_metadata = [{
