@@ -188,6 +188,16 @@ module "logs_agent" {
     key   = "cluster_id"
     value = module.ocp_base.cluster_id
   }]
+  logs_agent_resources = {
+    limits = {
+      cpu               = "500m"
+      memory            = "3Gi"
+    }
+    requests = {
+      cpu               = "100m"
+      memory            = "1Gi"
+    }
+  }
   # example of how to add additional log source path
   logs_agent_additional_log_source_paths = ["/logs/*.log"]
 }

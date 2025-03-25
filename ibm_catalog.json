@@ -113,7 +113,7 @@
                 "key": "logs_agent_version"
               },
               {
-                "key": "cluster_config_endpoint_type"
+                "key": "logs_agent_resources"
               },
               {
                 "key": "logs_agent_additional_log_source_paths"
@@ -175,6 +175,9 @@
               },
               {
                 "key": "logs_agent_tolerations"
+              },
+              {
+                "key": "cluster_config_endpoint_type"
               },
               {
                 "key": "wait_till",

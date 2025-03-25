@@ -119,6 +119,30 @@ variable "logs_agent_tolerations" {
   }]
 }
 
+variable "logs_agent_resources" {
+  description = "The resources configuration for cpu/memory/storage. [Learn More](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-template-clusters#agent-helm-template-clusters-chart-options-resources)"
+  type = object({
+    limits = object({
+      cpu    = string
+      memory = string
+    })
+    requests = object({
+      cpu    = string
+      memory = string
+    })
+  })
+  default = {
+    limits = {
+      cpu    = "500m"
+      memory = "3Gi"
+    }
+    requests = {
+      cpu    = "100m"
+      memory = "1Gi"
+    }
+  }
+}
+
 variable "logs_agent_additional_log_source_paths" {
   type        = list(string)
   description = "The list of additional log sources. By default, the Logs agent collects logs from a single source at `/var/log/containers/*.log`."
