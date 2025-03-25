@@ -69,3 +69,42 @@ In this example:
 ### What It Does
 
 The `logs_agent_additional_metadata` variable is used to configure additional metadata fields that are added to the logs routed by the logs agent. This allows you to include custom metadata in the logs for better categorization or identification. The configuration is passed to the Helm chart during deployment, ensuring that the specified metadata is included in the logs.
+
+===================================================================
+
+# Configuring Logs Agent Resources
+
+When you deploy the IBM Logs agent using the `terraform-ibm-logs-agent` module, you can configure the resource requests and limits for the logs agent pods by using the `logs_agent_resources` variable. This variable allows you to specify the CPU and memory resources allocated to the logs agent.
+
+### Options for `logs_agent_resources`
+- `requests` (optional): Specifies the minimum amount of resources required. Includes:
+  - `cpu`: The amount of CPU requested (e.g., `100m` for 0.1 CPU).
+  - `memory`: The amount of memory requested (e.g., `128Mi` for 128 MiB).
+- `limits` (optional): Specifies the maximum amount of resources allowed. Includes:
+  - `cpu`: The maximum amount of CPU allowed.
+  - `memory`: The maximum amount of memory allowed.
+
+### Example `logs_agent_resources` Usage
+
+To configure resource requests and limits for the logs agent, you can set the `logs_agent_resources` variable as follows:
+
+```hcl
+logs_agent_resources = {
+  requests = {
+    cpu    = "100m"
+    memory = "128Mi"
+  }
+  limits = {
+    cpu    = "500m"
+    memory = "256Mi"
+  }
+}
+```
+
+In this example:
+- The `requests` section specifies that the logs agent requires at least `100m` CPU and `128Mi` memory to run.
+- The `limits` section specifies that the logs agent can use up to `500m` CPU and `256Mi` memory.
+
+### What It Does
+
+The `logs_agent_resources` variable is used to configure the resource requests and limits for the logs agent pods. This ensures that the logs agent has sufficient resources to operate efficiently while preventing it from consuming excessive resources on the node. The configuration is passed to the Helm chart during deployment, ensuring that the specified resource constraints are applied.
