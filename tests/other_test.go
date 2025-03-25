@@ -7,7 +7,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const terraformDirLogsAgentIKS = "examples/logs-agent-iks"
 const terraformDirLogsAgentROKS = "examples/logs-agent-ocp"
 
 func TestRunAgentVpcOcp(t *testing.T) {

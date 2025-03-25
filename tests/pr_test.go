@@ -23,6 +23,7 @@ import (
 const resourceGroup = "geretain-test-observability-agents"
 const fullyConfigurableSolutionDir = "solutions/fully-configurable"
 const fullyConfigurableSolutionKubeconfigDir = "solutions/fully-configurable/kubeconfig"
+const terraformDirLogsAgentIKS = "examples/logs-agent-iks"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
