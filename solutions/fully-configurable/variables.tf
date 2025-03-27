@@ -92,6 +92,10 @@ variable "logs_agent_iam_api_key" {
   description = "The IBM Cloud API key for the Logs agent to authenticate and communicate with the IBM Cloud Logs. It is required if `logs_agent_iam_mode` is set to `IAMAPIKey`."
   sensitive   = true
   default     = null
+  validation {
+    condition     = !(var.logs_agent_iam_mode == "IAMAPIKey" && var.logs_agent_iam_api_key == null)
+    error_message = "The `logs_agent_iam_api_key` is required when `logs_agent_iam_mode` is set to `IAMAPIKey`."
+  }
 }
 
 variable "logs_agent_tolerations" {
