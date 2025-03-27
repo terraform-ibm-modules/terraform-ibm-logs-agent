@@ -21,6 +21,7 @@ module "logs_agent" {
   cluster_config_endpoint_type = local.cluster_config_endpoint_type
   # Logs Agent
   logs_agent_chart_location              = var.logs_agent_chart_location
+  logs_agent_chart_version               = var.logs_agent_chart_version
   logs_agent_version                     = var.logs_agent_version
   logs_agent_name                        = var.logs_agent_name
   logs_agent_namespace                   = var.logs_agent_namespace

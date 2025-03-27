@@ -50,15 +50,21 @@ variable "wait_till_timeout" {
 variable "logs_agent_version" {
   description = "The version of the Logs agent to deploy."
   type        = string
-  default     = "1.4.2"
+  default     = "1.4.2" # datasource: icr.io/ibm/observe/logs-agent-helm
+  nullable    = false
+}
+
+variable "logs_agent_chart_version" {
+  description = "The version of the helm chart to deploy."
+  type        = string
+  default     = "1.4.2" # datasource: icr.io/ibm/observe/logs-agent-helm
   nullable    = false
 }
 
 variable "logs_agent_chart_location" {
   description = "The location of the Helm chart for the Logs agent."
   type        = string
-  default     = "oci://icr.io/ibm/observe/logs-agent-helm" # datasource: icr.io/ibm/observe/logs-agent-helm
-  nullable    = false
+  default     = "oci://icr.io/ibm/observe/logs-agent-helm"
 }
 
 variable "logs_agent_name" {
@@ -89,7 +95,7 @@ variable "logs_agent_iam_api_key" {
 }
 
 variable "logs_agent_tolerations" {
-  description = "List of tolerations to apply to Logs agent."
+  description = "List of tolerations to apply to Logs agent. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md)."
   type = list(object({
     key               = optional(string)
     operator          = optional(string)
@@ -103,7 +109,7 @@ variable "logs_agent_tolerations" {
 }
 
 variable "logs_agent_resources" {
-  description = "The resources configuration for cpu/memory/storage. [Learn More](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-template-clusters#agent-helm-template-clusters-chart-options-resources)"
+  description = "The resources configuration for cpu/memory/storage. Learn more [here](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-template-clusters#agent-helm-template-clusters-chart-options-resources) and [here](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md)."
   type = object({
     limits = object({
       cpu    = string
@@ -158,16 +164,24 @@ variable "logs_agent_iam_mode" {
   type        = string
   default     = "TrustedProfile"
   description = "IAM authentication mode: `TrustedProfile` or `IAMAPIKey`."
+  validation {
+    error_message = "The IAM mode can only be `TrustedProfile` or `IAMAPIKey`."
+    condition     = contains(["TrustedProfile", "IAMAPIKey"], var.logs_agent_iam_mode)
+  }
 }
 
 variable "logs_agent_iam_environment" {
   type        = string
   default     = "PrivateProduction"
   description = "IAM authentication Environment: `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`."
+  validation {
+    error_message = "The IAM environment can only be `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`."
+    condition     = contains(["Production", "PrivateProduction", "Staging", "PrivateStaging"], var.logs_agent_iam_environment)
+  }
 }
 
 variable "logs_agent_additional_metadata" {
-  description = "The list of additional metadata fields to add to the routed logs."
+  description = "The list of additional metadata fields to add to the routed logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md)."
   type = list(object({
     key   = optional(string)
     value = optional(string)
@@ -184,7 +198,6 @@ variable "is_ocp_cluster" {
 variable "cloud_logs_ingress_endpoint" {
   description = "The host for IBM Cloud Logs ingestion. Ensure you use the ingress endpoint. See https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-endpoints_ingress."
   type        = string
-  default     = null
 }
 
 variable "cloud_logs_ingress_port" {

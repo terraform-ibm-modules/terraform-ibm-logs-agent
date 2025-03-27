@@ -55,10 +55,10 @@
                 {
                   "diagram": {
                     "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/reference-architecture/deployable-architecture-logs-agent.svg",
-                    "caption": "Logs Agent on a Red Hat OpenShift cluster",
+                    "caption": "Logs Agent on a cluster",
                     "type": "image/svg+xml"
                   },
-                  "description": "Logs Agent deployed on a Red Hat OpenShift cluster."
+                  "description": "Logs Agent deployed on a cluster."
                 }
               ]
             },
@@ -108,6 +108,9 @@
               },
               {
                 "key": "logs_agent_chart_location"
+              },
+              {
+                "key": "logs_agent_chart_version"
               },
               {
                 "key": "logs_agent_version"

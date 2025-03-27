@@ -58,14 +58,21 @@ variable "wait_till_timeout" {
 variable "logs_agent_version" {
   description = "The version of the Logs agent to deploy."
   type        = string
-  default     = "1.4.2"
+  default     = "1.4.2" # datasource: icr.io/ibm/observe/logs-agent-helm
+  nullable    = false
+}
+
+variable "logs_agent_chart_version" {
+  description = "The version of the helm chart to deploy."
+  type        = string
+  default     = "1.4.2" # datasource: icr.io/ibm/observe/logs-agent-helm
   nullable    = false
 }
 
 variable "logs_agent_chart_location" {
   description = "The location of the Helm chart for the Logs agent."
   type        = string
-  default     = "oci://icr.io/ibm/observe/logs-agent-helm" # datasource: icr.io/ibm/observe/logs-agent-helm
+  default     = "oci://icr.io/ibm/observe/logs-agent-helm"
   nullable    = false
 }
 

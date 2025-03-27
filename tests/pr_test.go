@@ -27,7 +27,6 @@ const terraformDirLogsAgentIKS = "examples/logs-agent-iks"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
-// Currently only including regions that Event Notification support
 var validRegions = []string{
 	"au-syd",
 	"eu-gb",
