@@ -1,0 +1,215 @@
+{
+  "products": [
+    {
+      "label": "Cloud automation for Cloud Logs Agent",
+      "name": "deploy-arch-ibm-logs-agent",
+      "product_kind": "solution",
+      "tags": [
+        "ibm_created",
+        "logging",
+        "logging_agent",
+        "terraform",
+        "target_terraform",
+        "solution"
+      ],
+      "keywords": [
+        "logs",
+        "agent",
+        "IaC",
+        "infrastructure as code",
+        "terraform",
+        "solution"
+      ],
+      "provider_name": "IBM",
+      "short_description": "Deploys IBM Logs Agent to a cluster",
+      "long_description": "Solutions that support deploying IBM Logs Agent for logging.",
+      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/README.md",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/main/images/observability-icon.svg",
+      "flavors": [
+        {
+          "label": "Fully Configurable",
+          "name": "fully-configurable",
+          "working_directory": "solutions/fully-configurable",
+          "compliance": {},
+          "iam_permissions": [
+            {
+              "service_name": "containers-kubernetes",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Viewer"
+              ]
+            }
+          ],
+          "architecture": {
+            "features": [
+              {
+                "title": "Works with any Openshift or k8s cluster",
+                "description": "Yes"
+              },
+              {
+                "title": "Deploys the IBM Logs Agent on an existing cluster.",
+                "description": "Yes"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/reference-architecture/deployable-architecture-logs-agent.svg",
+                  "caption": "Logs Agent on a cluster",
+                  "type": "image/svg+xml"
+                },
+                "description": "Logs Agent deployed on a cluster."
+              }
+            ]
+          },
+          "configuration": [
+            {
+              "key": "ibmcloud_api_key",
+              "required": true
+            },
+            {
+              "key": "cluster_id",
+              "custom_config": {
+                  "type": "cluster_var",
+                  "grouping": "deployment",
+                  "original_grouping": "deployment"
+              }
+            },
+            {
+              "key": "cluster_resource_group_id",
+              "custom_config": {
+                  "type": "resource_group",
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "identifier": "rg_id"
+                  }
+              }
+            },
+            {
+              "key": "is_vpc_cluster",
+              "required": true
+            },
+            {
+              "key": "is_ocp_cluster",
+              "required": true
+            },
+            {
+              "key": "cloud_logs_ingress_endpoint",
+              "required": true
+            },
+            {
+              "key": "cloud_logs_ingress_port",
+              "required": true
+            },
+            {
+              "key": "logs_agent_trusted_profile_id",
+              "required": true
+            },
+            {
+              "key": "logs_agent_chart_location"
+            },
+            {
+              "key": "logs_agent_chart_version"
+            },
+            {
+              "key": "logs_agent_version"
+            },
+            {
+              "key": "logs_agent_resources"
+            },
+            {
+              "key": "logs_agent_additional_log_source_paths"
+            },
+            {
+              "key": "logs_agent_additional_metadata"
+            },
+            {
+              "key": "logs_agent_exclude_log_source_paths"
+            },
+            {
+              "key": "logs_agent_iam_api_key"
+            },
+            {
+              "key": "logs_agent_iam_environment",
+              "options": [
+                {
+                  "displayname": "Production",
+                  "value": "Production"
+                },
+                {
+                  "displayname": "Private Production",
+                  "value": "PrivateProduction"
+                },
+                {
+                  "displayname": "Staging",
+                  "value": "Staging"
+                },
+                {
+                  "displayname": "Private Staging",
+                  "value": "PrivateStaging"
+                }
+              ]
+            },
+            {
+              "key": "logs_agent_iam_mode",
+              "options": [
+                {
+                  "displayname": "Trusted Profile",
+                  "value": "TrustedProfile"
+                },
+                {
+                  "displayname": "IAM API Key",
+                  "value": "IAMAPIKey"
+                }
+              ]
+            },
+            {
+              "key": "logs_agent_log_source_namespaces"
+            },
+            {
+              "key": "logs_agent_name"
+            },
+            {
+              "key": "logs_agent_namespace"
+            },
+            {
+              "key": "logs_agent_selected_log_source_paths"
+            },
+            {
+              "key": "logs_agent_tolerations"
+            },
+            {
+              "key": "cluster_config_endpoint_type"
+            },
+            {
+              "key": "wait_till",
+              "options": [
+                {
+                  "displayname": "Master Node Ready",
+                  "value": "MasterNodeReady"
+                },
+                {
+                  "displayname": "OneWorkerNodeReady",
+                  "value": "One Worker Node Ready"
+                },
+                {
+                  "displayname": "IngressReady",
+                  "value": "Ingress Ready"
+                },
+                {
+                  "displayname": "Normal",
+                  "value": "Normal"
+                }
+              ]
+            },
+            {
+              "key": "wait_till_timeout"
+            }
+          ],
+          "install_type": "fullstack"
+        }
+      ]
+    }
+  ]
+}
