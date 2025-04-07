@@ -1,13 +1,13 @@
 {
   "products": [
     {
-      "label": "Cloud automation for Cloud Logs Agent",
+      "label": "Cloud automation for Logs Agent",
       "name": "deploy-arch-ibm-logs-agent",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
         "logging",
-        "logging_agent",
+        "logging_monitoring",
         "terraform",
         "target_terraform",
         "solution"
@@ -180,7 +180,25 @@
               "key": "logs_agent_tolerations"
             },
             {
-              "key": "cluster_config_endpoint_type"
+              "key": "cluster_config_endpoint_type",
+              "options": [
+                {
+                  "displayname": "Default",
+                  "value": "default"
+                },
+                {
+                  "displayname": "Private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "VPE",
+                  "value": "vpe"
+                },
+                {
+                  "displayname": "Link",
+                  "value": "link"
+                }
+              ]
             },
             {
               "key": "wait_till",
@@ -190,12 +208,12 @@
                   "value": "MasterNodeReady"
                 },
                 {
-                  "displayname": "OneWorkerNodeReady",
-                  "value": "One Worker Node Ready"
+                  "displayname": "One Worker Node Ready",
+                  "value": "OneWorkerNodeReady"
                 },
                 {
-                  "displayname": "IngressReady",
-                  "value": "Ingress Ready"
+                  "displayname": "Ingress Ready",
+                  "value": "IngressReady"
                 },
                 {
                   "displayname": "Normal",
