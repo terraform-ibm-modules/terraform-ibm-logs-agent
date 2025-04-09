@@ -24,8 +24,6 @@ data "ibm_container_cluster_config" "cluster_config" {
 }
 
 locals {
-  logs_agent_chart_location            = var.logs_agent_chart_location
-  logs_agent_version                   = var.logs_agent_version != null ? var.logs_agent_version : var.logs_agent_chart_version # use logs_agent_chart_version somewhere so pre-commit passes until its needed
   logs_agent_selected_log_source_paths = distinct(concat([for namespace in var.logs_agent_log_source_namespaces : "/var/log/containers/*_${namespace}_*.log"], var.logs_agent_selected_log_source_paths))
   logs_agent_iam_api_key               = var.logs_agent_iam_api_key != null ? var.logs_agent_iam_api_key : ""
   logs_agent_trusted_profile           = var.logs_agent_trusted_profile != null ? var.logs_agent_trusted_profile : ""
@@ -39,8 +37,9 @@ locals {
 
 resource "helm_release" "logs_agent" {
   name             = var.logs_agent_name
-  chart            = local.logs_agent_chart_location
-  version          = local.logs_agent_version
+  chart            = var.chart
+  repository       = var.chart_repository
+  version          = var.chart_version
   namespace        = var.logs_agent_namespace
   create_namespace = true
   timeout          = 1200
@@ -56,7 +55,7 @@ resource "helm_release" "logs_agent" {
   set {
     name  = "image.version"
     type  = "string"
-    value = local.logs_agent_version
+    value = var.chart_version
   }
   set {
     name  = "env.ingestionHost"

@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "label": "Cloud automation for Logs Agent",
+      "label": "Cloud automation for Logs agent",
       "name": "deploy-arch-ibm-logs-agent",
       "product_kind": "solution",
       "tags": [
@@ -107,13 +107,13 @@
               "required": true
             },
             {
-              "key": "logs_agent_chart_location"
+              "key": "chart"
             },
             {
-              "key": "logs_agent_chart_version"
+              "key": "chart_repository"
             },
             {
-              "key": "logs_agent_version"
+              "key": "chart_version"
             },
             {
               "key": "logs_agent_resources"
