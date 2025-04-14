@@ -47,24 +47,32 @@ variable "wait_till_timeout" {
 # Logs Agent variables
 ##############################################################################
 
-variable "chart" {
+variable "logs_agent_chart" {
   description = "The name of the Helm chart to deploy."
   type        = string
   default     = "logs-agent-helm" # Replace with the actual chart name if different
   nullable    = false
 }
 
-variable "chart_repository" {
-  description = "The repository URL for the Helm chart."
+variable "logs_agent_chart_location" {
+  description = "The location of the Logs agent helm chart."
   type        = string
   default     = "oci://icr.io/ibm/observe" # Replace with the actual repository URL if different
   nullable    = false
 }
 
-variable "chart_version" {
-  description = "The version of the Sysdig Helm chart to deploy."
+variable "logs_agent_chart_version" {
+  description = "The version of the Helm chart to deploy."
   type        = string
   default     = "1.5.1" # datasource: icr.io/ibm/observe/logs-agent-helm
+  nullable    = false
+}
+
+variable "logs_agent_image_version" {
+  description = "The version of the Logs agent image to deploy."
+  type        = string
+  default     = "1.5.1" # datasource: icr.io/ibm/observe/logs-agent-helm
+  nullable    = false
 }
 
 variable "logs_agent_name" {

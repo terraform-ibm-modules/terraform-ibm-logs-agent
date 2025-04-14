@@ -20,9 +20,10 @@ module "logs_agent" {
   cluster_resource_group_id    = var.cluster_resource_group_id
   cluster_config_endpoint_type = local.cluster_config_endpoint_type
   # Logs Agent
-  chart                                  = var.chart
-  chart_repository                       = var.chart_repository
-  chart_version                          = var.chart_version
+  logs_agent_chart                       = var.logs_agent_chart
+  logs_agent_chart_location              = var.logs_agent_chart_location
+  logs_agent_chart_version               = var.logs_agent_chart_version
+  logs_agent_image_version               = var.logs_agent_image_version
   logs_agent_name                        = var.logs_agent_name
   logs_agent_namespace                   = var.logs_agent_namespace
   logs_agent_trusted_profile             = var.logs_agent_trusted_profile_id

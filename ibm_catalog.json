@@ -107,13 +107,16 @@
               "required": true
             },
             {
-              "key": "chart"
+              "key": "logs_agent_chart"
             },
             {
-              "key": "chart_repository"
+              "key": "logs_agent_chart_location"
             },
             {
-              "key": "chart_version"
+              "key": "logs_agent_chart_version"
+            },
+            {
+              "key": "logs_agent_image_version"
             },
             {
               "key": "logs_agent_resources"

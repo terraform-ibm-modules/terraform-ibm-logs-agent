@@ -37,9 +37,9 @@ locals {
 
 resource "helm_release" "logs_agent" {
   name             = var.logs_agent_name
-  chart            = var.chart
-  repository       = var.chart_repository
-  version          = var.chart_version
+  chart            = var.logs_agent_chart
+  repository       = var.logs_agent_chart_location
+  version          = var.logs_agent_chart_version
   namespace        = var.logs_agent_namespace
   create_namespace = true
   timeout          = 1200
@@ -55,7 +55,7 @@ resource "helm_release" "logs_agent" {
   set {
     name  = "image.version"
     type  = "string"
-    value = var.chart_version
+    value = var.logs_agent_image_version
   }
   set {
     name  = "env.ingestionHost"
