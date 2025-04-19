@@ -22,7 +22,7 @@ repository:
 
   # Uncomment this description property
   # and update the description to the current repo description.
-  # description: ""
+  description: "Terraform module to deploy the IBM Cloud Logs Agent on a Cluster"
 
   # Use a comma-separated list of topics to set on the repo (ensure not to use any caps in the topic string).
-  topics: terraform, ibm-cloud, terraform-module, core-team, logs-agent, observability, agent, cloud-logs, logging-agent
+  topics: terraform, ibm-cloud, terraform-module, core-team, logs-agent, observability, logs, agent, cloud-logs, logging-agent
