@@ -73,7 +73,8 @@
                   "type": "cluster_var",
                   "grouping": "deployment",
                   "original_grouping": "deployment"
-              }
+              },
+              "required": true
             },
             {
               "key": "cluster_resource_group_id",
@@ -84,7 +85,8 @@
                   "config_constraints": {
                       "identifier": "rg_id"
                   }
-              }
+              },
+              "required": true
             },
             {
               "key": "is_vpc_cluster",
