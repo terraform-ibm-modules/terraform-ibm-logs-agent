@@ -22,9 +22,9 @@
       ],
       "provider_name": "IBM",
       "short_description": "Deploys IBM Logs Agent to a cluster",
-      "long_description": "Solutions that support deploying IBM Logs Agent for logging.",
+      "long_description": "Solution that support deploying IBM Logs Agent for logging.",
       "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/README.md",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/main/images/logs-icon.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/refs/heads/main/images/logs-icon.svg",
       "flavors": [
         {
           "label": "Fully Configurable",
@@ -54,7 +54,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/reference-architecture/deployable-architecture-logs-agent.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/refs/heads/main/reference-architecture/deployable-architecture-logs-agent.svg",
                   "caption": "Logs Agent on a cluster",
                   "type": "image/svg+xml"
                 },

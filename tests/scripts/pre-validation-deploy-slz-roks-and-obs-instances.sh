@@ -1,8 +1,8 @@
 #! /bin/bash
 
 ############################################################################################################
-## This script is used by the catalog pipeline to deploy the SLZ ROKS and Observability instances,
-## which are the prerequisites for the Logs Agent extension.
+## This script is used by the catalog pipeline to deploy the OCP and Monitoring instances,
+## which are the prerequisites for the Monitoring Agent DA.
 ############################################################################################################
 
 set -e
@@ -16,7 +16,7 @@ TF_VARS_FILE="terraform.tfvars"
 (
   cwd=$(pwd)
   cd ${TERRAFORM_SOURCE_DIR}
-  echo "Provisioning prerequisite SLZ ROKS CLUSTER and Observability Instances .."
+  echo "Provisioning prerequisite SLZ ROKS CLUSTER and Logs Instance.."
   terraform init || exit 1
   # $VALIDATION_APIKEY is available in the catalog runtime
   {
@@ -36,7 +36,7 @@ TF_VARS_FILE="terraform.tfvars"
   cloud_logs_ingress_endpoint_var_name="cloud_logs_ingress_endpoint"
   cloud_logs_ingress_endpoint_value=$(terraform output -state=terraform.tfstate -raw cloud_logs_ingress_private_endpoint)
 
-  echo "Appending '${cluster_id_var_name}' and '${region_var_name}' input variable values to ${JSON_FILE}.."
+  echo "Appending '${region_var_name}', '${cluster_id_var_name}' '${cluster_resource_group_id_var_name}', '${logs_agent_trusted_profile_var_name}', and '${cloud_logs_ingress_endpoint_var_name}' input variable values to ${JSON_FILE}.."
 
   cd "${cwd}"
   jq -r --arg region_var_name "${region_var_name}" \
