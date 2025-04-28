@@ -216,4 +216,8 @@ variable "cloud_logs_ingress_port" {
   type        = number
   default     = 3443
   description = "The target port for the IBM Cloud Logs ingestion endpoint. The port must be 443 if you connect by using a VPE gateway, or port 3443 when you connect by using CSEs."
+  validation {
+    error_message = "The Logs Routing supertenant ingestion port can only be `3443` or `443`."
+    condition     = contains([3443, 443], var.cloud_logs_ingress_port)
+  }
 }
