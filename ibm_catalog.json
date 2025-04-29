@@ -78,14 +78,6 @@
             },
             {
               "key": "cluster_resource_group_id",
-              "custom_config": {
-                  "type": "resource_group",
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "identifier": "rg_id"
-                  }
-              },
               "required": true
             },
             {
