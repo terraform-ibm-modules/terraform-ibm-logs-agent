@@ -33,10 +33,21 @@
           "compliance": {},
           "iam_permissions": [
             {
-              "service_name": "containers-kubernetes",
+              "service_name": "sysdig-monitor",
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Viewer"
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ]
+            },
+            {
+              "service_name": "logs",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ]
+            },
+            {
+              "service_name": "metrics-router",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
               ]
             }
           ],
