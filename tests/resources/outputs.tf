@@ -12,23 +12,18 @@ output "prefix" {
   description = "prefix"
 }
 
-output "cluster_data" {
-  value       = module.landing_zone.cluster_data
-  description = "Details of OCP cluster."
-}
-
 output "workload_cluster_id" {
-  value       = module.landing_zone.workload_cluster_id
+  value       = module.ocp_base.cluster_id
   description = "ID of the workload cluster."
 }
 
 output "workload_cluster_crn" {
-  value       = local.cluster_crn
+  value       = module.ocp_base.cluster_crn
   description = "CRN of the workload cluster."
 }
 
 output "cluster_resource_group_id" {
-  value       = local.cluster_resource_group_id
+  value       = module.ocp_base.resource_group_id
   description = "Resource group ID of the workload cluster."
 }
 

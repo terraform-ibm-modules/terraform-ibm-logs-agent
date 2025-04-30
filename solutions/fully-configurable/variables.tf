@@ -107,7 +107,7 @@ variable "logs_agent_iam_api_key" {
 }
 
 variable "logs_agent_tolerations" {
-  description = "List of tolerations to apply to Logs agent. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md)."
+  description = "List of tolerations to apply to Logs agent. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md#configuring-logs-agent-tolerations)."
   type = list(object({
     key               = optional(string)
     operator          = optional(string)
@@ -121,7 +121,7 @@ variable "logs_agent_tolerations" {
 }
 
 variable "logs_agent_resources" {
-  description = "The resources configuration for cpu/memory/storage. Learn more [here](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-template-clusters#agent-helm-template-clusters-chart-options-resources) and [here](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md)."
+  description = "The resources configuration for cpu/memory/storage. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-logs-agent-resources)."
   type = object({
     limits = object({
       cpu    = string
@@ -193,7 +193,7 @@ variable "logs_agent_iam_environment" {
 }
 
 variable "logs_agent_additional_metadata" {
-  description = "The list of additional metadata fields to add to the routed logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md)."
+  description = "The list of additional metadata fields to add to the routed logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-logs-agent-additional-metadata)."
   type = list(object({
     key   = optional(string)
     value = optional(string)

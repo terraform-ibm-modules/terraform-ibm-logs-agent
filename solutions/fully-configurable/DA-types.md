@@ -74,7 +74,7 @@ The `logs_agent_additional_metadata` variable is used to configure additional me
 
 # Configuring Logs Agent Resources
 
-When you deploy the IBM Logs agent using the `terraform-ibm-logs-agent` module, you can configure the resource requests and limits for the logs agent pods by using the `logs_agent_resources` variable. This variable allows you to specify the CPU and memory resources allocated to the logs agent.
+When you deploy the IBM Logs agent using the `terraform-ibm-logs-agent` module, you can configure the resource requests and limits for the logs agent pods by using the `logs_agent_resources` variable. This variable allows you to specify the CPU and memory resources allocated to the logs agent. [Learn More](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-template-clusters#agent-helm-template-clusters-chart-options-resources).
 
 ### Options for `logs_agent_resources`
 - `requests` (optional): Specifies the minimum amount of resources required. Includes:
