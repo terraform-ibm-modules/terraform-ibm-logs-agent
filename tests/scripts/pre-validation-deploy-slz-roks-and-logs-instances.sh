@@ -15,12 +15,12 @@ TF_VARS_FILE="terraform.tfvars"
 (
   cwd=$(pwd)
   cd ${TERRAFORM_SOURCE_DIR}
-  echo "Provisioning prerequisite SLZ ROKS CLUSTER and Logs Instance.."
+  echo "Provisioning prerequisite OCP Cluster and Logs Instance.."
   terraform init || exit 1
   # $VALIDATION_APIKEY is available in the catalog runtime
   {
     echo "ibmcloud_api_key=\"${VALIDATION_APIKEY}\""
-    echo "prefix=\"slz-$(openssl rand -hex 2)\""
+    echo "prefix=\"ocp-$(openssl rand -hex 2)\""
   } >> ${TF_VARS_FILE}
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
 

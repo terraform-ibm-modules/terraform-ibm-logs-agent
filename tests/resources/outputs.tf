@@ -4,7 +4,7 @@
 
 output "region" {
   value       = var.region
-  description = "Region where SLZ ROKS Cluster is deployed."
+  description = "Region where OCP Cluster is deployed."
 }
 
 output "prefix" {

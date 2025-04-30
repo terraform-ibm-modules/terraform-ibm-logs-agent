@@ -9,5 +9,5 @@ offerings:
       - name: fully-configurable
         mark_ready: true
         install_type: fullstack
-        pre_validation: "tests/scripts/pre-validation-deploy-slz-roks-and-logs-instances.sh"
-        post_validation: "tests/scripts/post-validation-destroy-slz-roks-and-logs-instances.sh"
+        pre_validation: "tests/scripts/pre-validation-deploy-ocp-and-logs-instances.sh"
+        post_validation: "tests/scripts/post-validation-destroy-ocp-and-logs-instances.sh"

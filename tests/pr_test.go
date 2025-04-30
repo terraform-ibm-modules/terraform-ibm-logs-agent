@@ -67,10 +67,10 @@ func TestFullyConfigurableSolution(t *testing.T) {
 	var region = validRegions[rand.IntN(len(validRegions))]
 
 	// ------------------------------------------------------------------------------------------------------
-	// Deploy SLZ ROKS Cluster and Observability instances since it is needed to deploy Logs Agent
+	// Deploy OCP Cluster and Logs instance since it is needed to deploy Logs Agent
 	// ------------------------------------------------------------------------------------------------------
 
-	prefix := fmt.Sprintf("slz-%s", strings.ToLower(random.UniqueId()))
+	prefix := fmt.Sprintf("ocp-%s", strings.ToLower(random.UniqueId()))
 	realTerraformDir := "./resources"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
 
@@ -96,7 +96,7 @@ func TestFullyConfigurableSolution(t *testing.T) {
 	_, existErr := terraform.InitAndApplyE(t, existingTerraformOptions)
 
 	if existErr != nil {
-		assert.True(t, existErr == nil, "Init and Apply of temp resources (SLZ-ROKS and Observability Instances) failed")
+		assert.True(t, existErr == nil, "Init and Apply of temp resources (OCP and Logs Instance) failed")
 	} else {
 
 		options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
@@ -153,10 +153,10 @@ func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 	var region = validRegions[rand.IntN(len(validRegions))]
 
 	// ------------------------------------------------------------------------------------------------------
-	// Deploy SLZ ROKS Cluster and Observability instances since it is needed to deploy Logs Agent
+	// Deploy OCP Cluster and Observability instances since it is needed to deploy Logs Agent
 	// ------------------------------------------------------------------------------------------------------
 
-	prefix := fmt.Sprintf("slz-%s", strings.ToLower(random.UniqueId()))
+	prefix := fmt.Sprintf("ocp-%s", strings.ToLower(random.UniqueId()))
 	realTerraformDir := "./resources"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
 
@@ -182,7 +182,7 @@ func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 	_, existErr := terraform.InitAndApplyE(t, existingTerraformOptions)
 
 	if existErr != nil {
-		assert.True(t, existErr == nil, "Init and Apply of temp resources (SLZ-ROKS and Observability Instances) failed")
+		assert.True(t, existErr == nil, "Init and Apply of temp resources (OCP and Logs Instances) failed")
 	} else {
 
 		options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
