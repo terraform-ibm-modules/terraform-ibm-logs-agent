@@ -7,11 +7,6 @@ output "region" {
   description = "Region where OCP Cluster is deployed."
 }
 
-output "prefix" {
-  value       = module.landing_zone.prefix
-  description = "prefix"
-}
-
 output "workload_cluster_id" {
   value       = module.ocp_base.cluster_id
   description = "ID of the workload cluster."
