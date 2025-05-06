@@ -178,11 +178,11 @@ module "logs_agent" {
   cluster_id                = module.ocp_base.cluster_id
   cluster_resource_group_id = module.resource_group.resource_group_id
   # Logs agent
-  logs_agent_trusted_profile  = module.trusted_profile.trusted_profile.id
-  logs_agent_namespace        = local.logs_agent_namespace
-  logs_agent_name             = local.logs_agent_name
-  cloud_logs_ingress_endpoint = module.cloud_logs.ingress_private_endpoint
-  cloud_logs_ingress_port     = 443
+  logs_agent_trusted_profile_id = module.trusted_profile.trusted_profile.id
+  logs_agent_namespace          = local.logs_agent_namespace
+  logs_agent_name               = local.logs_agent_name
+  cloud_logs_ingress_endpoint   = module.cloud_logs.ingress_private_endpoint
+  cloud_logs_ingress_port       = 443
   # example of how to add additional metadata to the logs agent
   logs_agent_additional_metadata = [{
     key   = "cluster_id"

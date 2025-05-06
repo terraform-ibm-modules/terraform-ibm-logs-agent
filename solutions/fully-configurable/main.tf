@@ -26,7 +26,7 @@ module "logs_agent" {
   logs_agent_image_version               = var.logs_agent_image_version
   logs_agent_name                        = var.logs_agent_name
   logs_agent_namespace                   = var.logs_agent_namespace
-  logs_agent_trusted_profile             = var.logs_agent_trusted_profile_id
+  logs_agent_trusted_profile_id          = var.logs_agent_trusted_profile_id
   logs_agent_iam_api_key                 = var.logs_agent_iam_api_key
   logs_agent_tolerations                 = var.logs_agent_tolerations
   logs_agent_additional_log_source_paths = var.logs_agent_additional_log_source_paths

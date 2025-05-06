@@ -26,7 +26,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 locals {
   logs_agent_selected_log_source_paths = distinct(concat([for namespace in var.logs_agent_log_source_namespaces : "/var/log/containers/*_${namespace}_*.log"], var.logs_agent_selected_log_source_paths))
   logs_agent_iam_api_key               = var.logs_agent_iam_api_key != null ? var.logs_agent_iam_api_key : ""
-  logs_agent_trusted_profile           = var.logs_agent_trusted_profile != null ? var.logs_agent_trusted_profile : ""
+  logs_agent_trusted_profile_id        = var.logs_agent_trusted_profile_id != null ? var.logs_agent_trusted_profile_id : ""
   cloud_logs_ingress_endpoint          = var.cloud_logs_ingress_endpoint != null ? var.cloud_logs_ingress_endpoint : ""
   logs_agent_additional_metadata = length(var.logs_agent_additional_metadata) > 0 ? merge([
     for metadata in var.logs_agent_additional_metadata : {
@@ -74,7 +74,7 @@ resource "helm_release" "logs_agent" {
   set {
     name  = "env.trustedProfileID"
     type  = "string"
-    value = local.logs_agent_trusted_profile
+    value = local.logs_agent_trusted_profile_id
   }
   set {
     name  = "env.iamMode"
