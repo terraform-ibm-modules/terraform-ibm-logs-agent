@@ -1,6 +1,6 @@
 # Configuring Logs Agent Tolerations
 
-When you deploy the IBM Logs agent using the `terraform-ibm-logs-agent` module, you can configure the tolerations that the agent applies to its pods by using the `logs_agent_tolerations` variable. This variable allows you to specify tolerations for scheduling the logs agent pods on nodes with specific taints.
+When you deploy the IBM Logs agent using `Cloud automation for Logs agent`, you can configure the tolerations that the agent applies to its pods by using the `logs_agent_tolerations` variable. This variable allows you to specify tolerations for scheduling the logs agent pods on nodes with specific taints.
 
 ### Options for `logs_agent_tolerations`
 - `key` (optional): The taint key that the toleration applies to.
@@ -39,7 +39,7 @@ The `logs_agent_tolerations` variable is used to configure the tolerations for t
 
 # Configuring Logs Agent Additional Metadata
 
-When you deploy the IBM logs agent using the `terraform-ibm-logs-agent` module, you can configure additional metadata fields to be added to the routed logs by using the `logs_agent_additional_metadata` variable. This variable allows you to specify key-value pairs of metadata that will be included in the logs.
+When you deploy the IBM logs agent using `Cloud automation for Logs agent`, you can configure additional metadata fields to be added to the routed logs by using the `logs_agent_additional_metadata` variable. This variable allows you to specify key-value pairs of metadata that will be included in the logs.
 
 ### Options for `logs_agent_additional_metadata`
 - `key` (optional): The metadata key to add to the logs.
@@ -74,7 +74,7 @@ The `logs_agent_additional_metadata` variable is used to configure additional me
 
 # Configuring Logs Agent Resources
 
-When you deploy the IBM Logs agent using the `terraform-ibm-logs-agent` module, you can configure the resource requests and limits for the logs agent pods by using the `logs_agent_resources` variable. This variable allows you to specify the CPU and memory resources allocated to the logs agent. [Learn More](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-template-clusters#agent-helm-template-clusters-chart-options-resources).
+When you deploy the IBM Logs agent using `Cloud automation for Logs agent`, you can configure the resource requests and limits for the logs agent pods by using the `logs_agent_resources` variable. This variable allows you to specify the CPU and memory resources allocated to the logs agent. [Learn More](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-template-clusters#agent-helm-template-clusters-chart-options-resources).
 
 ### Options for `logs_agent_resources`
 - `requests` (optional): Specifies the minimum amount of resources required. Includes:

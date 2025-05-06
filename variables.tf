@@ -92,8 +92,8 @@ variable "logs_agent_name" {
 
 variable "logs_agent_namespace" {
   type        = string
-  description = "The namespace where the Logs agent is deployed. The default value is `ibm-agent`."
-  default     = "ibm-agent"
+  description = "The namespace where the Logs agent is deployed. The default value is `ibm-observe`."
+  default     = "ibm-observe"
   nullable    = false
 }
 

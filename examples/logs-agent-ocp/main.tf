@@ -15,7 +15,7 @@ module "resource_group" {
 ##############################################################################
 
 locals {
-  logs_agent_namespace = "ibm-agent"
+  logs_agent_namespace = "ibm-observe"
   logs_agent_name      = "logs-agent"
 }
 
@@ -32,7 +32,7 @@ module "trusted_profile" {
       service = "logs"
     }]
   }]
-  # Set up fine-grained authorization for `logs-agent` running in ROKS cluster in `ibm-agent` namespace.
+  # Set up fine-grained authorization for `logs-agent` running in ROKS cluster in `ibm-observe` namespace.
   trusted_profile_links = [{
     cr_type = "ROKS_SA"
     links = [{

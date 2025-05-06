@@ -21,7 +21,7 @@ variable "cluster_resource_group_id" {
 variable "cluster_config_endpoint_type" {
   description = "Specify the type of endpoint to use to access the cluster configuration. Possible values: `default`, `private`, `vpe`, `link`. The `default` value uses the default endpoint of the cluster."
   type        = string
-  default     = "private"
+  default     = "default"
   nullable    = false # use default if null is passed in
 }
 
@@ -84,8 +84,8 @@ variable "logs_agent_name" {
 
 variable "logs_agent_namespace" {
   type        = string
-  description = "The namespace where the Logs agent is deployed. The default value is `ibm-agent`."
-  default     = "ibm-agent"
+  description = "The namespace where the Logs agent is deployed. The default value is `ibm-observe`."
+  default     = "ibm-observe"
   nullable    = false
 }
 
@@ -93,6 +93,10 @@ variable "logs_agent_trusted_profile_id" {
   type        = string
   description = "The IBM Cloud trusted profile ID. Used only when `logs_agent_iam_mode` is set to `TrustedProfile`. The trusted profile must have an IBM Cloud Logs `Sender` role. Must provide a value for `logs_agent_iam_api_key` if `logs_agent_trusted_profile_id` is null."
   default     = null
+  validation {
+    condition     = !(var.logs_agent_iam_mode == "TrustedProfile" && var.logs_agent_trusted_profile_id == null)
+    error_message = "The `logs_agent_trusted_profile_id` is required when `logs_agent_iam_mode` is set to `TrustedProfile`."
+  }
 }
 
 variable "logs_agent_iam_api_key" {
