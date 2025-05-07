@@ -1,10 +1,16 @@
+variable "ibmcloud_api_key" {
+  type        = string
+  description = "The IBM Cloud API key."
+  sensitive   = true
+}
+
 ##############################################################################
 # Cluster variables
 ##############################################################################
 
 variable "cluster_id" {
   type        = string
-  description = "The ID of the cluster to deploy the agent."
+  description = "The ID of the cluster to deploy the agent in."
 }
 
 variable "cluster_resource_group_id" {
@@ -13,36 +19,22 @@ variable "cluster_resource_group_id" {
 }
 
 variable "cluster_config_endpoint_type" {
-  description = "The type of endpoint to use for the cluster config access: `default`, `private`, `vpe`, or `link`. The `default` value uses the default endpoint of the cluster."
+  description = "Specify the type of endpoint to use to access the cluster configuration. Possible values: `default`, `private`, `vpe`, `link`. The `default` value uses the default endpoint of the cluster."
   type        = string
   default     = "default"
   nullable    = false # use default if null is passed in
-  validation {
-    error_message = "Invalid endpoint type. Valid values are `default`, `private`, `vpe`, or `link`."
-    condition     = contains(["default", "private", "vpe", "link"], var.cluster_config_endpoint_type)
-  }
 }
 
 variable "is_vpc_cluster" {
-  description = "Specify true if the target cluster for the agent is a VPC cluster, false if it is a classic cluster."
   type        = bool
+  description = "Specify true if the target cluster for the DA is a VPC cluster, false if it is classic cluster."
   default     = true
 }
 
 variable "wait_till" {
-  description = "To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, `IngressReady` and `Normal`"
+  description = "Specify the stage when Terraform should mark the cluster resource creation as completed. Supported values: `MasterNodeReady`, `OneWorkerNodeReady`, `IngressReady`, `Normal`."
   type        = string
   default     = "Normal"
-
-  validation {
-    error_message = "`wait_till` value must be one of `MasterNodeReady`, `OneWorkerNodeReady`, `IngressReady` or `Normal`."
-    condition = contains([
-      "MasterNodeReady",
-      "OneWorkerNodeReady",
-      "IngressReady",
-      "Normal"
-    ], var.wait_till)
-  }
 }
 
 variable "wait_till_timeout" {
@@ -99,10 +91,10 @@ variable "logs_agent_namespace" {
 
 variable "logs_agent_trusted_profile_id" {
   type        = string
-  description = "The IBM Cloud trusted profile ID. Used only when `logs_agent_iam_mode` is set to `TrustedProfile`. The trusted profile must have an IBM Cloud Logs `Sender` role."
+  description = "The IBM Cloud trusted profile ID. Used only when `logs_agent_iam_mode` is set to `TrustedProfile`. The trusted profile must have an IBM Cloud Logs `Sender` role. Must provide a value for `logs_agent_iam_api_key` if `logs_agent_trusted_profile_id` is null."
   default     = null
   validation {
-    condition     = !(var.logs_agent_trusted_profile_id == null && var.logs_agent_iam_mode == "TrustedProfile")
+    condition     = !(var.logs_agent_iam_mode == "TrustedProfile" && var.logs_agent_trusted_profile_id == null)
     error_message = "The `logs_agent_trusted_profile_id` is required when `logs_agent_iam_mode` is set to `TrustedProfile`."
   }
 }
@@ -119,7 +111,7 @@ variable "logs_agent_iam_api_key" {
 }
 
 variable "logs_agent_tolerations" {
-  description = "List of tolerations to apply to Logs agent. The default value means a pod will run on every node."
+  description = "List of tolerations to apply to Logs agent. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md#configuring-logs-agent-tolerations)."
   type = list(object({
     key               = optional(string)
     operator          = optional(string)
@@ -133,7 +125,7 @@ variable "logs_agent_tolerations" {
 }
 
 variable "logs_agent_resources" {
-  description = "The resources configuration for cpu/memory/storage. [Learn More](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-template-clusters#agent-helm-template-clusters-chart-options-resources)"
+  description = "The resources configuration for cpu/memory/storage. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-logs-agent-resources)."
   type = object({
     limits = object({
       cpu    = string
@@ -158,7 +150,7 @@ variable "logs_agent_resources" {
 
 variable "logs_agent_additional_log_source_paths" {
   type        = list(string)
-  description = "The list of additional log sources. By default, the Logs agent collects logs from a single source at `/var/log/containers/*.log`."
+  description = "The list of additional log sources. By default, the Logs agent collects logs from a single source at `/var/log/containers/logger-agent-ds-*.log`."
   default     = []
   nullable    = false
 }
@@ -172,14 +164,14 @@ variable "logs_agent_exclude_log_source_paths" {
 
 variable "logs_agent_selected_log_source_paths" {
   type        = list(string)
-  description = "The list of specific log sources paths. Logs will only be collected from the specified log source paths. If no paths are specified, it will send logs from `/var/log/containers`."
+  description = "The list of specific log sources paths. Logs will only be collected from the specified log source paths."
   default     = []
   nullable    = false
 }
 
 variable "logs_agent_log_source_namespaces" {
   type        = list(string)
-  description = "The list of namespaces from which logs should be forwarded by agent. If namespaces are not listed, logs from all namespaces will be sent."
+  description = "The list of namespaces from which logs should be forwarded by agent. When specified logs from only these namespaces will be sent by the agent."
   default     = []
   nullable    = false
 }
@@ -197,7 +189,7 @@ variable "logs_agent_iam_mode" {
 variable "logs_agent_iam_environment" {
   type        = string
   default     = "PrivateProduction"
-  description = "IAM authentication Environment: `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`. `Production` specifies the public endpoint & `PrivateProduction` specifies the private endpoint."
+  description = "IAM authentication Environment: `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`."
   validation {
     error_message = "The IAM environment can only be `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`."
     condition     = contains(["Production", "PrivateProduction", "Staging", "PrivateStaging"], var.logs_agent_iam_environment)
@@ -205,7 +197,7 @@ variable "logs_agent_iam_environment" {
 }
 
 variable "logs_agent_additional_metadata" {
-  description = "The list of additional metadata fields to add to the routed logs."
+  description = "The list of additional metadata fields to add to the routed logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-logs-agent-additional-metadata)."
   type = list(object({
     key   = optional(string)
     value = optional(string)
@@ -213,7 +205,7 @@ variable "logs_agent_additional_metadata" {
   default = []
 }
 
-variable "logs_agent_enable_scc" {
+variable "is_ocp_cluster" {
   description = "Whether to enable creation of Security Context Constraints in Openshift. When installing on an OpenShift cluster, this setting is mandatory to configure permissions for pods within your cluster."
   type        = bool
   default     = true
