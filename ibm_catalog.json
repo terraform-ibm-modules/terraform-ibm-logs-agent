@@ -77,7 +77,15 @@
             },
             {
               "key": "cluster_resource_group_id",
-              "required": true
+              "required": true,
+              "custom_config": {
+                  "type": "resource_group",
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "identifier": "rg_id"
+                  }
+              }
             },
             {
               "key": "is_vpc_cluster",
@@ -115,13 +123,40 @@
               "key": "logs_agent_resources"
             },
             {
-              "key": "logs_agent_additional_log_source_paths"
+              "key": "logs_agent_additional_log_source_paths",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
             },
             {
               "key": "logs_agent_additional_metadata"
             },
             {
-              "key": "logs_agent_exclude_log_source_paths"
+              "key": "logs_agent_exclude_log_source_paths",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "key": "logs_agent_iam_mode",
+              "options": [
+                {
+                  "displayname": "Trusted Profile",
+                  "value": "TrustedProfile"
+                },
+                {
+                  "displayname": "IAM API Key",
+                  "value": "IAMAPIKey"
+                }
+              ]
             },
             {
               "key": "logs_agent_iam_api_key"
@@ -148,20 +183,14 @@
               ]
             },
             {
-              "key": "logs_agent_iam_mode",
-              "options": [
-                {
-                  "displayname": "Trusted Profile",
-                  "value": "TrustedProfile"
-                },
-                {
-                  "displayname": "IAM API Key",
-                  "value": "IAMAPIKey"
+              "key": "logs_agent_log_source_namespaces",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
                 }
-              ]
-            },
-            {
-              "key": "logs_agent_log_source_namespaces"
+              }
             },
             {
               "key": "logs_agent_name"
