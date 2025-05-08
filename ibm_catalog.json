@@ -53,7 +53,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/refs/heads/main/reference-architecture/deployable-architecture-logs-agent.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/refs/heads/fix-da/reference-architecture/deployable-architecture-logs-agent.svg",
                   "caption": "Logs Agent on a cluster",
                   "type": "image/svg+xml"
                 },
