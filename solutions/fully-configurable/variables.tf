@@ -99,17 +99,6 @@ variable "logs_agent_trusted_profile_id" {
   }
 }
 
-variable "logs_agent_iam_api_key" {
-  type        = string
-  description = "The IBM Cloud API key for the Logs agent to authenticate and communicate with the IBM Cloud Logs. It is required if `logs_agent_iam_mode` is set to `IAMAPIKey`."
-  sensitive   = true
-  default     = null
-  validation {
-    condition     = !(var.logs_agent_iam_mode == "IAMAPIKey" && var.logs_agent_iam_api_key == null)
-    error_message = "The `logs_agent_iam_api_key` is required when `logs_agent_iam_mode` is set to `IAMAPIKey`."
-  }
-}
-
 variable "logs_agent_tolerations" {
   description = "List of tolerations to apply to Logs agent. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/solutions/fully-configurable/DA-types.md#configuring-logs-agent-tolerations)."
   type = list(object({
@@ -179,10 +168,21 @@ variable "logs_agent_log_source_namespaces" {
 variable "logs_agent_iam_mode" {
   type        = string
   default     = "TrustedProfile"
-  description = "IAM authentication mode: `TrustedProfile` or `IAMAPIKey`."
+  description = "IAM authentication mode: `TrustedProfile` or `IAMAPIKey`. `logs_agent_iam_api_key` is required when `logs_agent_iam_mode` is set to `IAMAPIKey`."
   validation {
     error_message = "The IAM mode can only be `TrustedProfile` or `IAMAPIKey`."
     condition     = contains(["TrustedProfile", "IAMAPIKey"], var.logs_agent_iam_mode)
+  }
+}
+
+variable "logs_agent_iam_api_key" {
+  type        = string
+  description = "The IBM Cloud API key for the Logs agent to authenticate and communicate with the IBM Cloud Logs. It is required if `logs_agent_iam_mode` is set to `IAMAPIKey`."
+  sensitive   = true
+  default     = null
+  validation {
+    condition     = !(var.logs_agent_iam_mode == "IAMAPIKey" && var.logs_agent_iam_api_key == null)
+    error_message = "`logs_agent_iam_api_key` is required when `logs_agent_iam_mode` is set to `IAMAPIKey`."
   }
 }
 
