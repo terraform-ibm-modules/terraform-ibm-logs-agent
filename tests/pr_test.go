@@ -25,6 +25,10 @@ const fullyConfigurableSolutionDir = "solutions/fully-configurable"
 const fullyConfigurableSolutionKubeconfigDir = "solutions/fully-configurable/kubeconfig"
 const terraformDirLogsAgentIKS = "examples/logs-agent-iks"
 
+var IgnoreUpdates = []string{
+	"module.logs_agent.helm_release.logs_agent",
+}
+
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
 var validRegions = []string{
@@ -51,9 +55,7 @@ func setupOptions(t *testing.T, prefix string, terraformDir string) *testhelper.
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
 		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
-			List: []string{
-				"module.logs_agent.helm_release.logs_agent",
-			},
+			List: IgnoreUpdates,
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
@@ -110,9 +112,7 @@ func TestFullyConfigurableSolution(t *testing.T) {
 				fullyConfigurableSolutionKubeconfigDir + "/*.*",
 			},
 			IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
-				List: []string{
-					"module.logs_agent.helm_release.logs_agent",
-				},
+				List: IgnoreUpdates,
 			},
 			ResourceGroup:          resourceGroup,
 			TemplateFolder:         fullyConfigurableSolutionDir,
@@ -201,6 +201,9 @@ func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 			DeleteWorkspaceOnFail:  false,
 			WaitJobCompleteMinutes: 60,
 			Region:                 region,
+			IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
+				List: IgnoreUpdates,
+			},
 		})
 
 		options.TerraformVars = []testschematic.TestSchematicTerraformVar{
