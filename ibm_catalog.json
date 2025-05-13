@@ -69,9 +69,9 @@
             {
               "key": "cluster_id",
               "custom_config": {
-                  "type": "cluster_var",
-                  "grouping": "deployment",
-                  "original_grouping": "deployment"
+                "type": "cluster_var",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
               },
               "required": true
             },
@@ -79,12 +79,12 @@
               "key": "cluster_resource_group_id",
               "required": true,
               "custom_config": {
-                  "type": "resource_group",
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "identifier": "rg_id"
-                  }
+                "type": "resource_group",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "identifier": "rg_id"
+                }
               }
             },
             {
