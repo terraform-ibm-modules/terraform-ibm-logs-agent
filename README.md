@@ -1,4 +1,3 @@
-
 # Terraform IBM Logs agent module
 
 [![Graduated (Supported)](https://img.shields.io/badge/Status-Graduated%20(Supported)-brightgreen)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
@@ -31,8 +30,7 @@ This module deploys the following logs agent to an IBM Cloud Red Hat OpenShift C
 # ############################################################################
 
 data "ibm_container_cluster_config" "cluster_config" {
-  # update this value with the Id of the cluster where the agent will be provisioned
-  cluster_name_id = "cluster_id"
+  cluster_name_id = "xxxxxxxxx" # replace with cluster ID or name
 }
 
 # ############################################################################
@@ -40,8 +38,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 # ############################################################################
 
 provider "ibm" {
-  # update this value with your IBM Cloud API key value
-  ibmcloud_api_key = "api key value"  # pragma: allowlist secret
+  ibmcloud_api_key = "xxxxxxxxxxxx"  # pragma: allowlist secret
 }
 
 provider "helm" {
@@ -50,6 +47,18 @@ provider "helm" {
     token                  = data.ibm_container_cluster_config.cluster_config.token
     cluster_ca_certificate = data.ibm_container_cluster_config.cluster_config.ca_certificate
   }
+  # IBM Cloud credentials are required to authenticate to the helm repo
+  registry {
+    url      = "oci://icr.io/ibm/observe/logs-agent-helm"
+    username = "iamapikey"
+    password = "xxxxxxxxxxxx"  # pragma: allowlist secret
+  }
+}
+
+provider "kubernetes" {
+  host                   = data.ibm_container_cluster_config.cluster_config.host
+  token                  = data.ibm_container_cluster_config.cluster_config.token
+  cluster_ca_certificate = data.ibm_container_cluster_config.cluster_config.ca_certificate
 }
 
 # ############################################################################
@@ -57,15 +66,13 @@ provider "helm" {
 # ############################################################################
 
 module "logs_agent_module" {
-  source = "terraform-ibm-modules/logs-agent/ibm"
-  # update this with your cluster id where the agent will be installed
-  cluster_id = "cluster id"
-  # update this with the Id of your IBM Cloud resource group
-  cluster_resource_group_id = "resource group id"
-  # Logs Agent variables
-  logs_agent_trusted_profile_id  = "XXXXXXXX"
-  cloud_logs_ingress_endpoint = "<cloud-logs-instance-guid>.ingress.us-south.logs.cloud.ibm.com"
-  cloud_logs_ingress_port     = 443
+  source                        = "terraform-ibm-modules/logs-agent/ibm"
+  version                       = "X.Y.Z" # replace with actual version of module to consume
+  cluster_id                    = "xxxxxxx" # replace with ID of the cluster
+  cluster_resource_group_id     = "xxxxxxx" # replace with ID of the cluster resource group
+  logs_agent_trusted_profile_id = "XXXXXXXX" # replace with ID of the trusted profile to use for authentication
+  cloud_logs_ingress_endpoint   = "<cloud-logs-instance-guid>.ingress.us-south.logs.cloud.ibm.com"
+  cloud_logs_ingress_port       = 443
 }
 ```
 
