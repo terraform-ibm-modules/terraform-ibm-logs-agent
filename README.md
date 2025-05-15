@@ -71,8 +71,8 @@ module "logs_agent_module" {
   cluster_id                    = "xxxxxxx" # replace with ID of the cluster
   cluster_resource_group_id     = "xxxxxxx" # replace with ID of the cluster resource group
   logs_agent_trusted_profile_id = "XXXXXXXX" # replace with ID of the trusted profile to use for authentication
-  cloud_logs_ingress_endpoint = "<cloud-logs-instance-guid>.ingress.us-south.logs.cloud.ibm.com"
-  cloud_logs_ingress_port     = 443
+  cloud_logs_ingress_endpoint   = "<cloud-logs-instance-guid>.ingress.us-south.logs.cloud.ibm.com"
+  cloud_logs_ingress_port       = 443
 }
 ```
 
