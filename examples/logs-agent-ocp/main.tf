@@ -104,7 +104,7 @@ locals {
 
 module "ocp_base" {
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.47.0"
+  version              = "3.47.2"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   tags                 = var.resource_tags
@@ -129,7 +129,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.3.1"
+  version           = "1.3.5"
   resource_group_id = module.resource_group.resource_group_id
   plan              = "standard"
   region            = var.region
