@@ -43,4 +43,5 @@ module "logs_agent" {
   is_vpc_cluster                         = var.is_vpc_cluster
   wait_till                              = var.wait_till
   wait_till_timeout                      = var.wait_till_timeout
+  enable_multiline                       = var.enable_multiline
 }
