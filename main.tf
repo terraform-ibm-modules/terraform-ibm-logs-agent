@@ -112,7 +112,6 @@ resource "helm_release" "logs_agent" {
   }
   set {
     name  = "enableMultiline"
-    type  = "auto"
     value = var.enable_multiline
   }
 
