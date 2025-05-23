@@ -110,6 +110,10 @@ resource "helm_release" "logs_agent" {
     name  = "scc.create"
     value = var.logs_agent_enable_scc
   }
+  set {
+    name  = "enableMultiline"
+    value = var.enable_multiline
+  }
 
   # dummy value hack to force update https://github.com/hashicorp/terraform-provider-helm/issues/515#issuecomment-813088122
   values = [

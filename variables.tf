@@ -233,3 +233,8 @@ variable "cloud_logs_ingress_port" {
     condition     = contains([3443, 443], var.cloud_logs_ingress_port)
   }
 }
+variable "enable_multiline" {
+  description = "Enable or disable multiline log support. [Learn more](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-multiline)"
+  type        = bool
+  default     = false
+}

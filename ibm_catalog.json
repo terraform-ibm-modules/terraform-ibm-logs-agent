@@ -248,6 +248,9 @@
             },
             {
               "key": "wait_till_timeout"
+            },
+            {
+              "key": "enable_multiline"
             }
           ],
           "install_type": "fullstack"
