@@ -87,9 +87,9 @@ resource "helm_release" "logs_agent" {
     value = var.logs_agent_iam_environment
   }
   set {
-    name  = "additionalLogSourcePaths"
+    name  = "systemLogs"
     type  = "string"
-    value = join("\\,", var.logs_agent_additional_log_source_paths)
+    value = join("\\,", var.logs_agent_system_logs)
   }
   set {
     name  = "excludeLogSourcePaths"

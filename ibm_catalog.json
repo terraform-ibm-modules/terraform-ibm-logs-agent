@@ -123,7 +123,7 @@
               "key": "logs_agent_resources"
             },
             {
-              "key": "logs_agent_additional_log_source_paths",
+              "key": "logs_agent_system_logs",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
