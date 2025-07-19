@@ -14,7 +14,7 @@ When you deploy the IBM Logs agent using `Cloud automation for Logs agent`, you 
 To configure tolerations for the logs agent, you can set the `logs_agent_tolerations` variable as follows:
 
 ```hcl
-logs_agent_tolerations = [
+[
   {
     key      = "example-key"
     operator = "Equal"
@@ -50,7 +50,7 @@ When you deploy the IBM logs agent using `Cloud automation for Logs agent`, you 
 To configure additional metadata for the logs agent, you can set the `logs_agent_additional_metadata` variable as follows:
 
 ```hcl
-logs_agent_additional_metadata = [
+[
   {
     key   = "environment"
     value = "production"
@@ -89,7 +89,7 @@ When you deploy the IBM Logs agent using `Cloud automation for Logs agent`, you 
 To configure resource requests and limits for the logs agent, you can set the `logs_agent_resources` variable as follows:
 
 ```hcl
-logs_agent_resources = {
+{
   requests = {
     cpu    = "100m"
     memory = "128Mi"
