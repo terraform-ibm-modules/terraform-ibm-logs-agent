@@ -199,5 +199,5 @@ module "logs_agent" {
     }
   }
   # example of how to add additional log source path
-  logs_agent_additional_log_source_paths = ["/logs/*.log"]
+  logs_agent_system_logs = ["/logs/*.log"]
 }
