@@ -140,7 +140,7 @@ module "buckets" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.5.11"
+  version           = "1.6.0"
   resource_group_id = module.ocp_base.resource_group_id
   region            = var.region
   instance_name     = "${var.prefix}-cloud-logs"
