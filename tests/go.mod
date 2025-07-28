@@ -7,7 +7,7 @@ toolchain go1.24.5
 require (
 	github.com/gruntwork-io/terratest v0.50.0
 	github.com/stretchr/testify v1.10.0
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.56.1
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.58.2
 )
 
 require (
@@ -15,8 +15,8 @@ require (
 	github.com/IBM-Cloud/bluemix-go v0.0.0-20240719075425-078fcb3a55be // indirect
 	github.com/IBM-Cloud/power-go-client v1.12.0 // indirect
 	github.com/IBM/cloud-databases-go-sdk v0.8.0 // indirect
-	github.com/IBM/go-sdk-core/v5 v5.20.1 // indirect
-	github.com/IBM/platform-services-go-sdk v0.85.0 // indirect
+	github.com/IBM/go-sdk-core/v5 v5.21.0 // indirect
+	github.com/IBM/platform-services-go-sdk v0.85.1 // indirect
 	github.com/IBM/project-go-sdk v0.3.6 // indirect
 	github.com/IBM/schematics-go-sdk v0.4.0 // indirect
 	github.com/IBM/vpc-go-sdk v1.0.2 // indirect
@@ -80,6 +80,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
 	github.com/skeema/knownhosts v1.3.1 // indirect
+	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/tmccombs/hcl2json v0.6.4 // indirect
 	github.com/ulikunitz/xz v0.5.11 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect

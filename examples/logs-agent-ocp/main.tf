@@ -104,7 +104,7 @@ locals {
 
 module "ocp_base" {
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.52.3"
+  version              = "3.53.3"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   tags                 = var.resource_tags
@@ -129,7 +129,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.5.11"
+  version           = "1.6.0"
   resource_group_id = module.resource_group.resource_group_id
   plan              = "standard"
   region            = var.region
@@ -145,7 +145,7 @@ data "ibm_is_security_groups" "vpc_security_groups" {
 # The below code creates a VPE for Cloud logs in the provisioned VPC which allows the agent to access the private Cloud Logs Ingress endpoint.
 module "vpe" {
   source   = "terraform-ibm-modules/vpe-gateway/ibm"
-  version  = "4.6.7"
+  version  = "4.7.0"
   region   = var.region
   prefix   = var.prefix
   vpc_id   = ibm_is_vpc.vpc.id
@@ -199,5 +199,5 @@ module "logs_agent" {
     }
   }
   # example of how to add additional log source path
-  logs_agent_additional_log_source_paths = ["/logs/*.log"]
+  logs_agent_system_logs = ["/logs/*.log"]
 }

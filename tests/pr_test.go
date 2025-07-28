@@ -33,9 +33,10 @@ var sharedInfoSvc *cloudinfo.CloudInfoService
 
 var validRegions = []string{
 	"au-syd",
-	"eu-gb",
-	"eu-de",
-	"eu-es",
+	// Temporarily disabling europe regions due to IKS error
+	//"eu-gb",
+	//"eu-de",
+	//"eu-es",
 	"us-south",
 }
 
