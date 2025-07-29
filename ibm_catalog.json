@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "label": "Cloud automation for Logs agent",
+      "label": "Cloud automation for Logs Agent",
       "name": "deploy-arch-ibm-logs-agent",
       "product_kind": "solution",
       "tags": [
@@ -55,7 +55,7 @@
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Viewer"
               ],
-              "notes": "Required to create and edit Logs agent related resources."
+              "notes": "Required to create and edit Logs Agent related resources."
             },
             {
               "role_crns": [
@@ -128,6 +128,12 @@
             {
               "key": "logs_agent_trusted_profile_id",
               "required": true
+            },
+            {
+              "key": "logs_agent_name"
+            },
+            {
+              "key": "logs_agent_namespace"
             },
             {
               "key": "logs_agent_chart"
@@ -218,12 +224,6 @@
                   "type": "string"
                 }
               }
-            },
-            {
-              "key": "logs_agent_name"
-            },
-            {
-              "key": "logs_agent_namespace"
             },
             {
               "key": "logs_agent_selected_log_source_paths"
