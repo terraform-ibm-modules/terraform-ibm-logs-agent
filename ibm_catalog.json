@@ -124,7 +124,7 @@
               "key": "logs_agent_resources"
             },
             {
-              "key": "logs_agent_additional_log_source_paths",
+              "key": "logs_agent_system_logs",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -254,7 +254,8 @@
               "key": "enable_multiline"
             }
           ],
-          "install_type": "fullstack"
+          "install_type": "fullstack",
+          "terraform_version": "1.10.5"
         }
       ]
     }

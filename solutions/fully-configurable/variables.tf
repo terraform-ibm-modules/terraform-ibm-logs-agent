@@ -137,7 +137,7 @@ variable "logs_agent_resources" {
   }
 }
 
-variable "logs_agent_additional_log_source_paths" {
+variable "logs_agent_system_logs" {
   type        = list(string)
   description = "The list of additional log sources. By default, the Logs agent collects logs from a single source at `/var/log/containers/logger-agent-ds-*.log`."
   default     = []

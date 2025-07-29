@@ -83,6 +83,11 @@ resource "helm_release" "logs_agent" {
       value = var.logs_agent_iam_environment
     },
     {
+      name  = "systemLogs"
+      type  = "string"
+      value = join("\\,", var.logs_agent_system_logs)
+    },
+    {
       name  = "additionalLogSourcePaths"
       type  = "string"
       value = join("\\,", var.logs_agent_additional_log_source_paths)
