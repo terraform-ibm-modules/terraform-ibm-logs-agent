@@ -302,7 +302,8 @@
               ],
               "hidden": true
             }
-          ]
+          ],
+          "terraform_version": "1.10.5"
         }
       ]
     }
