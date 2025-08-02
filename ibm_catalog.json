@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "label": "Cloud automation for Logs agent",
+      "label": "Cloud automation for Logs Agent",
       "name": "deploy-arch-ibm-logs-agent",
       "product_kind": "solution",
       "tags": [
@@ -22,43 +22,64 @@
         "solution"
       ],
       "provider_name": "IBM",
-      "short_description": "Deploys IBM Logs Agent to a cluster",
-      "long_description": "Solution that support deploying IBM Logs Agent for logging.",
-      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/README.md",
+      "short_description": "Automates the installation of the IBM Logs Agent on a Red Hat OpenShift Cluster or Kubernetes Service",
+      "long_description": "The Cloud Automation for the [Logs Agent](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about) on a Red Hat OpenShift cluster or Kubernetes Service simplifies the configuration process, enabling the agent to collect and forward infrastructure and application logs directly to an IBM Cloud Logs instance.\n\nℹ️ This Terraform-based automation is part of a broader suite of IBM-maintained Infrastructure as Code (IaC) assets, each following the naming pattern \"Cloud automation for *servicename*\" and focusing on single IBM Cloud service. These single-service deployable architectures can be used on their own to streamline and automate service deployments through an [IaC approach](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-understanding-projects), or assembled together into a broader [automated IaC stack](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-config-stack) to automate the deployment of an end-to-end solution architecture.",
+      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/README.md",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/refs/heads/main/images/logs-icon.svg",
+      "features": [
+        {
+          "title": "Logs Agent",
+          "description": "Deploys the IBM Logs Agent on a [Red Hat OpenShift Cluster](https://cloud.ibm.com/docs/openshift) or [Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-getting-started)."
+        }
+      ],
       "flavors": [
         {
           "label": "Fully configurable",
           "name": "fully-configurable",
+          "index": 1,
+          "install_type": "fullstack",
           "working_directory": "solutions/fully-configurable",
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud Framework for Financial Services",
+                "profile_version": "1.7.0"
+              }
+            ]
+          },
           "iam_permissions": [
             {
               "service_name": "containers-kubernetes",
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Viewer"
-              ]
+              ],
+              "notes": "Required to create and edit Logs Agent related resources."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Viewer"
+              ],
+              "service_name": "Resource group only",
+              "notes": "Viewer access is required in the resource group you want to provision in."
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Works with any Openshift or k8s cluster",
-                "description": "Yes"
-              },
-              {
-                "title": "Deploys the IBM Logs Agent on an existing cluster.",
-                "description": "Yes"
+                "title": " ",
+                "description": "Configured to use IBM secure by default standards, but can be edited to fit your use case."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/refs/heads/main/reference-architecture/deployable-architecture-logs-agent.svg",
-                  "caption": "Logs Agent on a cluster",
+                  "caption": "Logs Agent topology",
                   "type": "image/svg+xml"
                 },
-                "description": "Logs Agent deployed on a cluster."
+                "description": "<b>Logs Agent</b> can be deployed on a Red Hat OpenShift cluster or a Kubernetes service to collect, process, and forward application and system logs to a [IBM Cloud Logs instance](https://cloud.ibm.com/docs/cloud-logs). This setup is essential for achieving comprehensive observability, supporting both real-time monitoring and historical analysis of workloads running within the cluster."
               }
             ]
           },
@@ -109,6 +130,12 @@
               "required": true
             },
             {
+              "key": "logs_agent_name"
+            },
+            {
+              "key": "logs_agent_namespace"
+            },
+            {
               "key": "logs_agent_chart"
             },
             {
@@ -134,7 +161,12 @@
               }
             },
             {
-              "key": "logs_agent_additional_metadata"
+              "key": "logs_agent_additional_metadata",
+              "custom_config": {
+                "type": "textarea",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
             },
             {
               "key": "logs_agent_exclude_log_source_paths",
@@ -194,16 +226,15 @@
               }
             },
             {
-              "key": "logs_agent_name"
-            },
-            {
-              "key": "logs_agent_namespace"
-            },
-            {
               "key": "logs_agent_selected_log_source_paths"
             },
             {
-              "key": "logs_agent_tolerations"
+              "key": "logs_agent_tolerations",
+              "custom_config": {
+                "type": "textarea",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
             },
             {
               "key": "cluster_config_endpoint_type",
@@ -252,9 +283,26 @@
             },
             {
               "key": "enable_multiline"
+            },
+            {
+              "key": "provider_visibility",
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
+                }
+              ],
+              "hidden": true
             }
           ],
-          "install_type": "fullstack",
           "terraform_version": "1.10.5"
         }
       ]
