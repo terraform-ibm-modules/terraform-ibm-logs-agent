@@ -248,6 +248,6 @@ variable "enable_annotations" {
 
 variable "log_filters" {
   description = "List of additional filters to be applied on logs."
-  type        = any
+  type        = list(any)
   default     = []
 }
