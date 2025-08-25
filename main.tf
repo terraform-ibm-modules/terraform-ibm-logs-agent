@@ -55,7 +55,17 @@ resource "helm_release" "logs_agent" {
   set {
     name  = "image.version"
     type  = "string"
-    value = var.logs_agent_image_version
+    value = split("@", var.logs_agent_image_version)[0]
+  }
+  set {
+    name  = "image.containerSha"
+    type  = "string"
+    value = strcontains(var.logs_agent_image_version, "@") ? split("@", var.logs_agent_image_version)[1] : ""
+  }
+  set {
+    name  = "image.initContainerSha"
+    type  = "string"
+    value = strcontains(var.logs_agent_init_image_version, "@") ? split("@", var.logs_agent_init_image_version)[1] : ""
   }
   set {
     name  = "env.ingestionHost"
