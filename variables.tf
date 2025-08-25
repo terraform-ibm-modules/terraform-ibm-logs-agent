@@ -247,7 +247,7 @@ variable "enable_annotations" {
 }
 
 variable "log_filters" {
-  description = "List of additional filters to be applied on logs."
-  type        = list(any)
+  description = "List of additional filters to be applied on logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-log-filters)."
+  type        = any
   default     = []
 }
