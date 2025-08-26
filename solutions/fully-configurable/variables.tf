@@ -166,10 +166,15 @@ variable "logs_agent_log_source_namespaces" {
 }
 
 variable "log_filters" {
+
+  # variable type is any because filters schema is not fixed and there are many filters each having its unique fields.
+  # logs-agent helm chart expects this variable to be provided in list format even if a single filter is passed.
+
   description = "List of additional filters to be applied on logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-log-filters)."
   type        = any
   default     = []
 }
+
 
 variable "logs_agent_iam_mode" {
   type        = string
