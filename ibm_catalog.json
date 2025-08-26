@@ -226,6 +226,9 @@
               }
             },
             {
+              "key": "log_filters"
+            },
+            {
               "key": "logs_agent_selected_log_source_paths"
             },
             {

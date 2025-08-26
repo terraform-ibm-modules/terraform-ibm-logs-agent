@@ -165,6 +165,12 @@ variable "logs_agent_log_source_namespaces" {
   nullable    = false
 }
 
+variable "log_filters" {
+  description = "List of additional filters to be applied on logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-log-filters)."
+  type        = any
+  default     = []
+}
+
 variable "logs_agent_iam_mode" {
   type        = string
   default     = "TrustedProfile"

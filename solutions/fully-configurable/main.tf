@@ -44,4 +44,5 @@ module "logs_agent" {
   wait_till                            = var.wait_till
   wait_till_timeout                    = var.wait_till_timeout
   enable_multiline                     = var.enable_multiline
+  log_filters                          = var.log_filters
 }
