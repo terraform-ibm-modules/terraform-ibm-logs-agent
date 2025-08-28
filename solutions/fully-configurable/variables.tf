@@ -166,7 +166,7 @@ variable "logs_agent_log_source_namespaces" {
 }
 
 variable "enable_annotations" {
-  description = "Enable or disable annotations in pod logs."
+  description = "Set to true to include pod annotations in log records. Default annotations such as pod IP address and container ID, along with any custom annotations on the pod, will be included. This can help filter logs based on pod annotations in Cloud Logs."
   type        = bool
   default     = false
 }
