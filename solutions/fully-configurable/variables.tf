@@ -168,7 +168,7 @@ variable "logs_agent_log_source_namespaces" {
 variable "enable_annotations" {
   description = "Enable or disable annotations in pod logs."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "log_filters" {
