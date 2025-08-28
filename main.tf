@@ -109,6 +109,10 @@ resource "helm_release" "logs_agent" {
     {
       name  = "enableMultiline"
       value = var.enable_multiline
+    },
+    {
+      name  = "includeAnnotations"
+      value = var.enable_annotations
     }
   ]
 
@@ -117,11 +121,6 @@ resource "helm_release" "logs_agent" {
     type  = "string"
     value = local.logs_agent_iam_api_key
   }]
-
-  set {
-    name  = "includeAnnotations"
-    value = var.enable_annotations
-  }
 
   # dummy value hack to force update https://github.com/hashicorp/terraform-provider-helm/issues/515#issuecomment-813088122
   values = [
