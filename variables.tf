@@ -243,7 +243,7 @@ variable "enable_multiline" {
 variable "enable_annotations" {
   description = "Enable or disable annotations in pod logs."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "log_filters" {
