@@ -125,10 +125,16 @@ resource "helm_release" "logs_agent" {
     value = var.enable_multiline
   }
 
+  set {
+    name  = "includeAnnotations"
+    value = var.enable_annotations
+  }
+
   # dummy value hack to force update https://github.com/hashicorp/terraform-provider-helm/issues/515#issuecomment-813088122
   values = [
     yamlencode({
       tolerations        = var.logs_agent_tolerations
+      additionalFilters  = var.log_filters
       resources          = var.logs_agent_resources
       additionalMetadata = local.logs_agent_additional_metadata
       dummy              = uuid()

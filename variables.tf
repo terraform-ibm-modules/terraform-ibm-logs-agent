@@ -244,8 +244,26 @@ variable "cloud_logs_ingress_port" {
     condition     = contains([3443, 443], var.cloud_logs_ingress_port)
   }
 }
+
 variable "enable_multiline" {
   description = "Enable or disable multiline log support. [Learn more](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-multiline)"
   type        = bool
   default     = false
+}
+
+variable "enable_annotations" {
+  description = "Set to true to include pod annotations in log records. Default annotations such as pod IP address and container ID, along with any custom annotations on the pod, will be included. This can help filter logs based on pod annotations in Cloud Logs."
+  type        = bool
+  default     = false
+}
+
+
+variable "log_filters" {
+
+  # variable type is any because filters schema is not fixed and there are many filters each having its unique fields.
+  # logs-agent helm chart expects this variable to be provided in list format even if a single filter is passed.
+
+  description = "List of additional filters to be applied on logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-log-filters)."
+  type        = any
+  default     = []
 }
