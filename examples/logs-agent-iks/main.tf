@@ -141,39 +141,39 @@ module "cloud_logs" {
 # Logs Agent
 ##############################################################################
 
-# module "logs_agent" {
-#   source                    = "../.."
-#   depends_on                = [time_sleep.wait_operators]
-#   cluster_id                = local.cluster_name_id
-#   is_vpc_cluster            = var.is_vpc_cluster
-#   cluster_resource_group_id = module.resource_group.resource_group_id
-#   # Logs Agent
-#   logs_agent_iam_mode         = "IAMAPIKey"
-#   logs_agent_iam_api_key      = module.iam_service_id.service_id_apikey
-#   cloud_logs_ingress_endpoint = module.cloud_logs.ingress_private_endpoint
-#   cloud_logs_ingress_port     = 3443
-#   logs_agent_enable_scc       = false # only true for Openshift
-#   log_filters = [
-#     {
-#       name  = "lua"
-#       match = "*"
-#       call  = "add_crn_field"
-#       code  = <<EOL
-#       -- Enrich records with CRN field
-#       -- This is just a sample code for showing usage of lua filter
-#       function add_crn_field(tag, timestamp, record)
+module "logs_agent" {
+  source                    = "../.."
+  depends_on                = [time_sleep.wait_operators]
+  cluster_id                = local.cluster_name_id
+  is_vpc_cluster            = var.is_vpc_cluster
+  cluster_resource_group_id = module.resource_group.resource_group_id
+  # Logs Agent
+  logs_agent_iam_mode         = "IAMAPIKey"
+  logs_agent_iam_api_key      = module.iam_service_id.service_id_apikey
+  cloud_logs_ingress_endpoint = module.cloud_logs.ingress_private_endpoint
+  cloud_logs_ingress_port     = 3443
+  logs_agent_enable_scc       = false # only true for Openshift
+  log_filters = [
+    {
+      name  = "lua"
+      match = "*"
+      call  = "add_crn_field"
+      code  = <<EOL
+      -- Enrich records with CRN field
+      -- This is just a sample code for showing usage of lua filter
+      function add_crn_field(tag, timestamp, record)
 
-#           record["logSourceCRN"] = "crn:v1:bluemix:public:postgres:us-south:a/123456::"
-#           record["saveServiceCopy"] = "true"
+          record["logSourceCRN"] = "crn:v1:bluemix:public:postgres:us-south:a/123456::"
+          record["saveServiceCopy"] = "true"
 
-#           return 2, 0, record
-#       end
-#       EOL
-#     },
-#     {
-#       name    = "grep"
-#       match   = "*"
-#       exclude = ["message.level debug"]
-#     }
-#   ]
-# }
+          return 2, 0, record
+      end
+      EOL
+    },
+    {
+      name    = "grep"
+      match   = "*"
+      exclude = ["message.level debug"]
+    }
+  ]
+}
