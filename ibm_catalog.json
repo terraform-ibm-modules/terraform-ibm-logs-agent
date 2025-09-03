@@ -163,7 +163,7 @@
             {
               "key": "logs_agent_additional_metadata",
               "custom_config": {
-                "type": "textarea",
+                "type": "code_editor",
                 "grouping": "deployment",
                 "original_grouping": "deployment"
               }
@@ -237,7 +237,7 @@
             {
               "key": "logs_agent_tolerations",
               "custom_config": {
-                "type": "textarea",
+                "type": "code_editor",
                 "grouping": "deployment",
                 "original_grouping": "deployment"
               }
