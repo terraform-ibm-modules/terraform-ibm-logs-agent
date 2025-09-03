@@ -119,6 +119,10 @@ resource "helm_release" "logs_agent" {
     name  = "includeAnnotations"
     value = var.enable_annotations
   }
+  set {
+    name  = "updateStrategy.maxUnavailable"
+    value = var.max_unavailable
+  }
 
   # dummy value hack to force update https://github.com/hashicorp/terraform-provider-helm/issues/515#issuecomment-813088122
   values = [

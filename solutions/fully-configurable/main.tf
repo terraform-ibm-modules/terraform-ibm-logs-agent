@@ -46,4 +46,5 @@ module "logs_agent" {
   enable_multiline                     = var.enable_multiline
   enable_annotations                   = var.enable_annotations
   log_filters                          = var.log_filters
+  max_unavailable                      = var.max_unavailable
 }

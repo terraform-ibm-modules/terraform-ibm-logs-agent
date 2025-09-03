@@ -244,6 +244,18 @@ variable "enable_annotations" {
   description = "Set to true to include pod annotations in log records. Default annotations such as pod IP address and container ID, along with any custom annotations on the pod, will be included. This can help filter logs based on pod annotations in Cloud Logs."
   type        = bool
   default     = false
+
+}
+
+variable "max_unavailable" {
+  type        = string
+  description = "The maximum number of pods that can be unavailable during a DaemonSet rolling update. Accepts absolute number or percentage (e.g., '1' or '10%')."
+  default     = "1"
+  nullable    = false
+  validation {
+    condition     = can(regex("^\\d+%?$", var.max_unavailable))
+    error_message = "max_unavailable must be a positive integer (e.g., '1') or a percentage (e.g., '10%')"
+  }
 }
 
 

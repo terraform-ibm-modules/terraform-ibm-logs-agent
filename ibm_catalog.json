@@ -229,6 +229,9 @@
               "key": "enable_annotations"
             },
             {
+              "key":"max_unavailable"
+            },
+            {
               "key": "log_filters"
             },
             {
