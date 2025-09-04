@@ -24,6 +24,7 @@ module "logs_agent" {
   logs_agent_chart_location            = var.logs_agent_chart_location
   logs_agent_chart_version             = var.logs_agent_chart_version
   logs_agent_image_version             = var.logs_agent_image_version
+  logs_agent_init_image_version        = var.logs_agent_init_image_version
   logs_agent_name                      = var.logs_agent_name
   logs_agent_namespace                 = var.logs_agent_namespace
   logs_agent_trusted_profile_id        = var.logs_agent_trusted_profile_id

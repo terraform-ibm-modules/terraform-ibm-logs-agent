@@ -32,7 +32,7 @@ locals {
     for metadata in var.logs_agent_additional_metadata : {
       (metadata.key) = metadata.value
   }]...) : {}                                                                                                                                       # DO NOT REMOVE "...", it is used to convert list of objects into a single object
-  cluster_name = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].resource_name : data.ibm_container_cluster.cluster[0].resource_name # Not publically documented in provider. See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4485
+  cluster_name = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].resource_name : data.ibm_container_cluster.cluster[0].resource_name # Not publicly documented in provider. See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4485
 }
 
 resource "helm_release" "logs_agent" {
@@ -55,7 +55,17 @@ resource "helm_release" "logs_agent" {
   set {
     name  = "image.version"
     type  = "string"
-    value = var.logs_agent_image_version
+    value = split("@", var.logs_agent_image_version)[0]
+  }
+  set {
+    name  = "image.containerSha"
+    type  = "string"
+    value = strcontains(var.logs_agent_image_version, "@") ? split("@", var.logs_agent_image_version)[1] : ""
+  }
+  set {
+    name  = "image.initContainerSha"
+    type  = "string"
+    value = strcontains(var.logs_agent_init_image_version, "@") ? split("@", var.logs_agent_init_image_version)[1] : ""
   }
   set {
     name  = "env.ingestionHost"

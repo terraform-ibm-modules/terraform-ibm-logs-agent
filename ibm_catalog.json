@@ -148,6 +148,9 @@
               "key": "logs_agent_image_version"
             },
             {
+              "key": "logs_agent_init_image_version"
+            },
+            {
               "key": "logs_agent_resources"
             },
             {

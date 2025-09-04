@@ -8,7 +8,7 @@
       "fileMatch": ["variables.tf$"],
       "datasourceTemplate": "docker",
       "matchStrings": [
-        "default\\s*=\\s*\"(?<currentValue>.*)\"\\s*# datasource: (?<depName>[^\\s]+)"
+        "default\\s*=\\s*\"(?<currentValue>[\\w.-]+)@(?<currentDigest>sha256:[a-f0-9]+)\"\\s*# datasource: (?<depName>[^\\s]+)"
       ]
     }
   ]
