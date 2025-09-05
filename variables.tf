@@ -72,7 +72,7 @@ variable "logs_agent_chart_location" {
 variable "logs_agent_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
-  default     = "1.6.1" # datasource: icr.io/ibm/observe/logs-agent-helm
+  default     = "1.6.2" # datasource: icr.io/ibm/observe/logs-agent-helm
   nullable    = false
 }
 
