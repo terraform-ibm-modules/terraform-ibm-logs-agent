@@ -255,6 +255,13 @@ variable "enable_multiline" {
   default     = false
 }
 
+variable "max_unavailable" {
+  type        = string
+  description = "The maximum number of pods that can be unavailable during a DaemonSet rolling update. Accepts absolute number or percentage (e.g., '1' or '10%')."
+  default     = "1"
+  nullable    = false
+}
+
 variable "provider_visibility" {
   description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. [Learn more](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/guides/custom-service-endpoints)."
   type        = string
