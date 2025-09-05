@@ -92,7 +92,7 @@ You need the following permissions to run this module.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.15.0, <3.0.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 3.0.0, <4.0.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.80.2, <2.0.0 |
 
 ### Modules
@@ -124,14 +124,14 @@ No modules.
 | <a name="input_logs_agent_additional_metadata"></a> [logs\_agent\_additional\_metadata](#input\_logs\_agent\_additional\_metadata) | The list of additional metadata fields to add to the routed logs. | <pre>list(object({<br/>    key   = optional(string)<br/>    value = optional(string)<br/>  }))</pre> | `[]` | no |
 | <a name="input_logs_agent_chart"></a> [logs\_agent\_chart](#input\_logs\_agent\_chart) | The name of the Helm chart to deploy. | `string` | `"logs-agent-helm"` | no |
 | <a name="input_logs_agent_chart_location"></a> [logs\_agent\_chart\_location](#input\_logs\_agent\_chart\_location) | The location of the Logs agent helm chart. | `string` | `"oci://icr.io/ibm/observe"` | no |
-| <a name="input_logs_agent_chart_version"></a> [logs\_agent\_chart\_version](#input\_logs\_agent\_chart\_version) | The version of the Helm chart to deploy. | `string` | `"1.6.1"` | no |
+| <a name="input_logs_agent_chart_version"></a> [logs\_agent\_chart\_version](#input\_logs\_agent\_chart\_version) | The version of the Helm chart to deploy. | `string` | `"1.6.2"` | no |
 | <a name="input_logs_agent_enable_scc"></a> [logs\_agent\_enable\_scc](#input\_logs\_agent\_enable\_scc) | Whether to enable creation of Security Context Constraints in Openshift. When installing on an OpenShift cluster, this setting is mandatory to configure permissions for pods within your cluster. | `bool` | `true` | no |
 | <a name="input_logs_agent_exclude_log_source_paths"></a> [logs\_agent\_exclude\_log\_source\_paths](#input\_logs\_agent\_exclude\_log\_source\_paths) | The list of log sources to exclude. Specify the paths that the Logs agent ignores. | `list(string)` | `[]` | no |
 | <a name="input_logs_agent_iam_api_key"></a> [logs\_agent\_iam\_api\_key](#input\_logs\_agent\_iam\_api\_key) | The IBM Cloud API key for the Logs agent to authenticate and communicate with the IBM Cloud Logs. It is required if `logs_agent_iam_mode` is set to `IAMAPIKey`. | `string` | `null` | no |
 | <a name="input_logs_agent_iam_environment"></a> [logs\_agent\_iam\_environment](#input\_logs\_agent\_iam\_environment) | IAM authentication Environment: `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`. `Production` specifies the public endpoint & `PrivateProduction` specifies the private endpoint. | `string` | `"PrivateProduction"` | no |
 | <a name="input_logs_agent_iam_mode"></a> [logs\_agent\_iam\_mode](#input\_logs\_agent\_iam\_mode) | IAM authentication mode: `TrustedProfile` or `IAMAPIKey`. | `string` | `"TrustedProfile"` | no |
-| <a name="input_logs_agent_image_version"></a> [logs\_agent\_image\_version](#input\_logs\_agent\_image\_version) | The version of the Logs agent image to deploy. | `string` | `"1.6.1@sha256:0265b85c698e74dfd9e21ad0332a430a3b398c4f0e590dad314c43b3cd796bce"` | no |
-| <a name="input_logs_agent_init_image_version"></a> [logs\_agent\_init\_image\_version](#input\_logs\_agent\_init\_image\_version) | The version of the Logs agent init container image to deploy. | `string` | `"1.6.1@sha256:d2c1bb5a97c0d8950d3dfee016cec4347a6cfa8a43123d9c2eecbdee70500f8b"` | no |
+| <a name="input_logs_agent_image_version"></a> [logs\_agent\_image\_version](#input\_logs\_agent\_image\_version) | The version of the Logs agent image to deploy. | `string` | `"1.6.2@sha256:dee214b548e063319f206c4c17e0015b57a9480031a89eb6125ce19a026bd116"` | no |
+| <a name="input_logs_agent_init_image_version"></a> [logs\_agent\_init\_image\_version](#input\_logs\_agent\_init\_image\_version) | The version of the Logs agent init container image to deploy. | `string` | `"1.6.2@sha256:d6f9964bbbe7c735b8e14a3496e30c403c067d3f729302eec6146626b117b515"` | no |
 | <a name="input_logs_agent_log_source_namespaces"></a> [logs\_agent\_log\_source\_namespaces](#input\_logs\_agent\_log\_source\_namespaces) | The list of namespaces from which logs should be forwarded by agent. If namespaces are not listed, logs from all namespaces will be sent. | `list(string)` | `[]` | no |
 | <a name="input_logs_agent_name"></a> [logs\_agent\_name](#input\_logs\_agent\_name) | The name of the Logs agent. The name is used in all Kubernetes and Helm resources in the cluster. | `string` | `"logs-agent"` | no |
 | <a name="input_logs_agent_namespace"></a> [logs\_agent\_namespace](#input\_logs\_agent\_namespace) | The namespace where the Logs agent is deployed. The default value is `ibm-observe`. | `string` | `"ibm-observe"` | no |
