@@ -113,6 +113,10 @@ resource "helm_release" "logs_agent" {
     {
       name  = "includeAnnotations"
       value = var.enable_annotations
+    },
+    {
+      name  = "updateStrategy.maxUnavailable"
+      value = var.max_unavailable
     }
   ]
 
