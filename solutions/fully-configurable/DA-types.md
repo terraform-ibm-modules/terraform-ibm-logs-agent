@@ -119,7 +119,7 @@ The `logs_agent_resources` variable is used to configure the resource requests a
 
 ### Example `log_filters` Usage
 
-To configure additional filters on logs, you can set the `log_filters` variable in below format.
+To configure additional filters on logs, you can set the `log_filters` variable in below format. Use `hcl` code editor format if using projects.
 
 ```hcl
 [
