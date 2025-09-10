@@ -1,0 +1,18 @@
+- name: post deploy playbook
+  hosts: localhost
+  tasks:
+    - name: get running ansible env variables
+      set_fact:
+        workspace_id: "{{ lookup('env', 'workspace_id') }}"
+        ibmcloud_api_key: "{{ lookup('env', 'ibmcloud_api_key')}}" # pragma: allowlist secret
+        cluster_id: "{{ lookup('env', 'cluster_id') }}"
+        cloud_logs_ingress_endpoint: "{{ lookup('env', 'cloud_logs_ingress_endpoint') }}"
+    - name: Extract value instance ID
+      set_fact:
+        instance: "{{ cloud_logs_ingress_endpoint | regex_replace('\\.ingress.*$', '') }}"
+    - name: Attach tags
+      ansible.builtin.shell: |
+        ibmcloud login --apikey "{{ ibmcloud_api_key }}" --no-region -q >/dev/null 2>&1
+        ibmcloud resource tag-attach --resource-id "$(ibmcloud resource service-instance "{{ cluster_id }}" --crn -q)" --tag-names "logging-instance:{{ instance }},logging-workspace:{{ workspace_id }}"
+      register: ibmcloud_auth_result
+      changed_when: false
