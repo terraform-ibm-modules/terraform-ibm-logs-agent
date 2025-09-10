@@ -74,7 +74,7 @@ locals {
 
 module "ocp_base" {
   source                              = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                             = "3.56.1"
+  version                             = "3.58.0"
   resource_group_id                   = module.resource_group.resource_group_id
   region                              = var.region
   tags                                = var.resource_tags
@@ -140,7 +140,7 @@ module "buckets" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.6.23"
+  version           = "1.6.24"
   resource_group_id = module.ocp_base.resource_group_id
   region            = var.region
   instance_name     = "${var.prefix}-cloud-logs"
