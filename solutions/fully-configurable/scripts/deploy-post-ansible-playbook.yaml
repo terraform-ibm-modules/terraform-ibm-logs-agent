@@ -12,8 +12,7 @@
         instance: "{{ cloud_logs_ingress_endpoint | regex_replace('\\.ingress.*$', '') }}"
     - name: Attach tags
       ansible.builtin.shell: |
-        ibmcloud login --apikey "{{ ibmcloud_api_key }}" --no-region -q >/dev/null 2>&1
-        ibmcloud resource tag-attach --resource-id "$(ibmcloud resource service-instance "{{ cluster_id }}" --crn -q)" --tag-names "logging-instance:{{ instance }},logging-workspace:{{ workspace_id }}"
+        ibmcloud login --apikey "{{ ibmcloud_api_key }}" --no-region -q && ibmcloud resource tag-attach --resource-id "$(ibmcloud resource service-instance "{{ cluster_id }}" --crn -q)" --tag-names "logging-instance:{{ instance }},logging-workspace:{{ workspace_id }}" >/dev/null 2>&1
       register: ibmcloud_auth_result
       changed_when: false
       ignore_errors: yes
