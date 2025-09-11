@@ -16,3 +16,4 @@
         ibmcloud resource tag-attach --resource-id "$(ibmcloud resource service-instance "{{ cluster_id }}" --crn -q)" --tag-names "logging-instance:{{ instance }},logging-workspace:{{ workspace_id }}"
       register: ibmcloud_auth_result
       changed_when: false
+      ignore_errors: yes
