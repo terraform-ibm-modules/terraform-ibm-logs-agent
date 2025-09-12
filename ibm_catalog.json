@@ -53,9 +53,9 @@
               "service_name": "containers-kubernetes",
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Viewer"
+                "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "notes": "Required to create and edit Logs Agent related resources."
+              "notes": "Required to create and edit OpenShift cluster and the related resources."
             },
             {
               "role_crns": [
@@ -63,6 +63,122 @@
               ],
               "service_name": "Resource group only",
               "notes": "Viewer access is required in the resource group you want to provision in."
+            },
+            {
+              "service_name": "logs",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "notes": "[Optional] Required to create an instance of Cloud Logs."
+            },
+            {
+              "service_name": "logs-router",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "notes": "[Optional] Required for configuring Cloud Logs routing."
+            },
+            {
+              "service_name": "sysdig-monitor",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "notes": "[Optional] Required to create an instance of Cloud Monitoring."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "sysdig-secure",
+              "notes": "[Optional] Required for creating and managing SCC Workload Protection instance."
+            },
+            {
+              "service_name": "iam-identity",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
+                "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator"
+              ],
+              "notes": "[Optional] Required to create the containers-kubernetes-key needed by the OpenShift cluster on IBM Cloud."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "All Account Management services",
+              "notes": "[Optional] Required to create new resource groups when enabling the Account Configuration integration."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "All Identity and Access enabled services",
+              "notes": "[Optional] Required to create new resource groups with account settings when enabling the Account Configuration integration."
+            },
+            {
+              "service_name": "is.vpc",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "notes": "[Optional] Required for creating Virtual Private Cloud(VPC)."
+            },
+            {
+              "service_name": "cloud-object-storage",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "notes": "[Optional] Required to create Cloud Object Storage (COS) Instance."
+            },
+            {
+              "service_name": "hs-crypto",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "notes": "[Optional] Required if KMS encryption is enabled and IBM Hyper Protect Crypto Services is used to encrypt the Kubernetes Secrets and Object Storage bucket."
+            },
+            {
+              "service_name": "kms",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "notes": "[Optional] Required if Key Protect is used for encryption for Kubernetes Secrets and Object Storage bucket."
+            },
+            {
+              "service_name": "atracker",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Writer",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "notes": "[Optional] Required to set up Activity Tracker event routing of auditing events."
+            },
+            {
+              "service_name": "secrets-manager",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "notes": "[Optional] Required when enabling the Secrets Manager integration for the cluster."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "apprapp",
+              "notes": "[Optional] Required for provisioning the App Configuration instance."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "event-notifications",
+              "notes": "[Optional] Required when enabling the Event Notifications integration for secrets manager."
             }
           ],
           "architecture": {
@@ -118,7 +234,7 @@
               "required": true
             },
             {
-              "key": "instance_region",
+              "key": "region",
               "type": "string",
               "custom_config": {
                 "config_constraints": {
@@ -128,23 +244,9 @@
                 "original_grouping": "deployment",
                 "type": "vpc_region"
               },
-              "description": "Region in which cloud logs instance will be deployed. [Learn More](https://terraform-ibm-modules.github.io/documentation/#/region).",
+              "description": "Region in which cloud logs instance or OpenShift cluster will be deployed. [Learn More](https://terraform-ibm-modules.github.io/documentation/#/region).",
               "virtual": true,
-              "default_value": "us-south"
-            },
-            {
-              "key": "cluster_region",
-              "type": "string",
-              "custom_config": {
-                "config_constraints": {
-                  "generationType": "2"
-                },
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "vpc_region"
-              },
-              "description": "Region in which cluster will be deployed. [Learn More](https://terraform-ibm-modules.github.io/documentation/#/region).",
-              "virtual": true,
+              "required": true,
               "default_value": "us-south"
             },
             {
@@ -336,7 +438,7 @@
           "dependencies": [
             {
               "name": "deploy-arch-ibm-cloud-logs",
-              "description": "Enable IBM Cloud Monitoring to gain operational visibility on applications running on OpenShift Cluster.",
+              "description": "Create IBM Cloud Logs Instance for storing and analysing platform and application logs .",
               "id": "63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global",
               "version": "v1.6.15",
               "flavors": [
@@ -348,7 +450,7 @@
               "input_mapping": [
                 {
                   "dependency_input": "region",
-                  "version_input": "instance_region",
+                  "version_input": "region",
                   "reference_version": true
                 },
                 {
@@ -359,12 +461,12 @@
             },
             {
               "name": "deploy-arch-ibm-base-ocp-vpc",
-              "description": "Configure the Red Hat OpenShift cluster on which monitoring agent will be installed.",
-              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
+              "description": "Configure the Red Hat OpenShift cluster on which logs agent will be installed.",
+              "catalog_id": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
               "flavors": [
                 "fully-configurable"
               ],
-              "id": "1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global",
+              "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
@@ -373,12 +475,16 @@
                   "version_input": "cluster_id"
                 },
                 {
+                  "dependency_output": "resource_group_id",
+                  "version_input": "cluster_resource_group_id"
+                },
+                {
                   "version_input": "is_vpc_cluster",
                   "value": true
                 },
                 {
                   "dependency_input": "region",
-                  "version_input": "cluster_region",
+                  "version_input": "region",
                   "reference_version": true
                 },
                 {
@@ -387,27 +493,7 @@
                   "reference_version": true
                 }
               ],
-              "version": "v3.50.0"
-            },
-            {
-              "name": "deploy-arch-ibm-account-infra-base",
-              "description": "Cloud automation for Account Configuration organizes your IBM Cloud account with a ready-made set of resource groups by default and, when you enable the \"with Account Settings\" option, it also applies baseline security and governance settings. ",
-              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-              "flavors": [
-                "resource-group-only",
-                "resource-groups-with-account-settings"
-              ],
-              "default_flavor": "resource-group-only",
-              "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
-              "input_mapping": [
-                {
-                  "dependency_output": "workload_resource_group_id",
-                  "version_input": "cluster_resource_group_id"
-                }
-              ],
-              "optional": true,
-              "on_by_default": false,
-              "version": "v3.0.7"
+              "version": "v3.58.2"
             }
           ],
           "dependency_version_2": true,
