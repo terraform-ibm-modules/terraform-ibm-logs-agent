@@ -14,6 +14,34 @@ locals {
   is_vpc_cluster               = var.is_vpc_cluster
 }
 
+module "trusted_profile" {
+  count                       = (var.logs_agent_iam_mode == "TrustedProfile" && var.logs_agent_trusted_profile_id == null) ? 1 : 0
+  source                      = "terraform-ibm-modules/trusted-profile/ibm"
+  version                     = "3.1.1"
+  trusted_profile_name        = "trusted-profile-${var.cluster_id}"
+  trusted_profile_description = "Logs agent Trusted Profile"
+  # As a `Sender`, you can send logs to your IBM Cloud Logs service instance - but not query or tail logs. This role is meant to be used by agents and routers sending logs.
+  trusted_profile_policies = [{
+    unique_identifier = "${var.cluster_id}-policy-0"
+    roles             = ["Sender"]
+    resources = [{
+      service = "logs"
+    }]
+  }]
+
+  # Set up fine-grained authorization for `logs-agent` running in ROKS cluster in `ibm-observe` namespace.
+  trusted_profile_links = [{
+    unique_identifier = "${var.cluster_id}-link-0"
+    cr_type           = "ROKS_SA"
+    links = [{
+      crn       = local.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].crn : data.ibm_container_cluster.cluster[0].crn
+      namespace = var.logs_agent_namespace
+      name      = var.logs_agent_name
+    }]
+    }
+  ]
+}
+
 module "logs_agent" {
   source                       = "../.."
   cluster_id                   = var.cluster_id
@@ -26,7 +54,7 @@ module "logs_agent" {
   logs_agent_image_version             = var.logs_agent_image_version
   logs_agent_name                      = var.logs_agent_name
   logs_agent_namespace                 = var.logs_agent_namespace
-  logs_agent_trusted_profile_id        = var.logs_agent_trusted_profile_id
+  logs_agent_trusted_profile_id        = var.logs_agent_iam_mode == "TrustedProfile" ? (var.logs_agent_trusted_profile_id != null ? var.logs_agent_trusted_profile_id : module.trusted_profile[0].trusted_profile.id) : null
   logs_agent_iam_api_key               = var.logs_agent_iam_api_key
   logs_agent_tolerations               = var.logs_agent_tolerations
   logs_agent_system_logs               = var.logs_agent_system_logs

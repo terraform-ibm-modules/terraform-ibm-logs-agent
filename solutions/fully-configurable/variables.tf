@@ -93,10 +93,6 @@ variable "logs_agent_trusted_profile_id" {
   type        = string
   description = "The IBM Cloud trusted profile ID. Used only when `logs_agent_iam_mode` is set to `TrustedProfile`. The trusted profile must have an IBM Cloud Logs `Sender` role. Must provide a value for `logs_agent_iam_api_key` if `logs_agent_trusted_profile_id` is null."
   default     = null
-  validation {
-    condition     = !(var.logs_agent_iam_mode == "TrustedProfile" && var.logs_agent_trusted_profile_id == null)
-    error_message = "The `logs_agent_trusted_profile_id` is required when `logs_agent_iam_mode` is set to `TrustedProfile`."
-  }
 }
 
 variable "logs_agent_tolerations" {
