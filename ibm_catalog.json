@@ -280,6 +280,9 @@
               "key": "logs_agent_image_version"
             },
             {
+              "key": "logs_agent_init_image_version"
+            },
+            {
               "key": "logs_agent_resources"
             },
             {
@@ -295,7 +298,7 @@
             {
               "key": "logs_agent_additional_metadata",
               "custom_config": {
-                "type": "textarea",
+                "type": "code_editor",
                 "grouping": "deployment",
                 "original_grouping": "deployment"
               }
@@ -358,12 +361,26 @@
               }
             },
             {
+              "key": "enable_annotations"
+            },
+            {
+              "key": "max_unavailable"
+            },
+            {
+              "key": "log_filters",
+              "custom_config": {
+                "type": "code_editor",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
+            },
+            {
               "key": "logs_agent_selected_log_source_paths"
             },
             {
               "key": "logs_agent_tolerations",
               "custom_config": {
-                "type": "textarea",
+                "type": "code_editor",
                 "grouping": "deployment",
                 "original_grouping": "deployment"
               }

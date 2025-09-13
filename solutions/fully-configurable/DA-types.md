@@ -108,3 +108,47 @@ In this example:
 ### What It Does
 
 The `logs_agent_resources` variable is used to configure the resource requests and limits for the logs agent pods. This ensures that the logs agent has sufficient resources to operate efficiently while preventing it from consuming excessive resources on the node. The configuration is passed to the Helm chart during deployment, ensuring that the specified resource constraints are applied.
+
+===================================================================
+
+# Configuring Log filters
+
+:exclamation: **Important:** `log_filters` variable should be passed as a list to the input even if there is only one filter which you want to apply.
+
+`log_filters` can be used to apply some filters on the logs which you want to send to Cloud Logs instance such as modifying some fields, dropping info/debug logs to just keep error logs, or running some custom functions with the help of lua filter. For more information please refer [this](https://docs.fluentbit.io/manual/data-pipeline/filters)
+
+### Example `log_filters` Usage
+
+To configure additional filters on logs, you can set the `log_filters` variable in below format. Use `hcl` code editor format if using projects.
+
+```hcl
+[
+    {
+      name  = "lua"
+      match = "*"
+      call  = "add_crn_field"
+      code  = <<EOL
+      -- Enrich records with CRN field
+      -- This is just a sample code for showing usage of lua filter
+      function add_crn_field(tag, timestamp, record)
+
+          record["logSourceCRN"] = "crn:v1:bluemix:public:postgres:us-south:a/123456::"
+          record["saveServiceCopy"] = "true"
+
+          return 2, 0, record
+      end
+      EOL
+    },
+    {
+      name  = "grep"
+      match = "*"
+      exclude = ["message.level debug"]
+    }
+]
+```
+
+In this example:
+- First filter in the list is a lua filter with which you can run a custom code on your logs. Here an extra logSourceCRN field is getting appended in the log record.
+- Second filter in the list is grep filter which is dropping all the records which have message.level field set to debug in the log record.
+
+We can use other filters such as modify, nest also.

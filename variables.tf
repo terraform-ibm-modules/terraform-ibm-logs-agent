@@ -72,15 +72,26 @@ variable "logs_agent_chart_location" {
 variable "logs_agent_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
-  default     = "1.6.1" # datasource: icr.io/ibm/observe/logs-agent-helm
+  default     = "1.6.3" # datasource: icr.io/ibm/observe/logs-agent-helm
+  nullable    = false
+}
+
+variable "logs_agent_init_image_version" {
+  description = "The version of the Logs agent init container image to deploy."
+  type        = string
+  default     = "1.6.3@sha256:0696d9be28088aad5ebcce26855d6de9abd7d4b0f8b98d050fb4507625ca465f" # datasource: icr.io/ibm/observe/logs-router-agent-init
   nullable    = false
 }
 
 variable "logs_agent_image_version" {
   description = "The version of the Logs agent image to deploy."
   type        = string
-  default     = "1.6.1" # datasource: icr.io/ibm/observe/logs-agent-helm
+  default     = "1.6.3@sha256:c4c03d39002278558e7be9a7349a3408c703de788ebc7ef5846edf1f8f5e4584" # datasource: icr.io/ibm/observe/logs-router-agent
   nullable    = false
+  validation {
+    condition     = split("@", var.logs_agent_image_version)[0] == split("@", var.logs_agent_init_image_version)[0]
+    error_message = "The image tags for `logs_agent_init_image_version` and `logs_agent_image_version` should be same."
+  }
 }
 
 variable "logs_agent_name" {
@@ -233,8 +244,38 @@ variable "cloud_logs_ingress_port" {
     condition     = contains([3443, 443], var.cloud_logs_ingress_port)
   }
 }
+
 variable "enable_multiline" {
   description = "Enable or disable multiline log support. [Learn more](https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-multiline)"
   type        = bool
   default     = false
+}
+
+variable "enable_annotations" {
+  description = "Set to true to include pod annotations in log records. Default annotations such as pod IP address and container ID, along with any custom annotations on the pod, will be included. This can help filter logs based on pod annotations in Cloud Logs."
+  type        = bool
+  default     = false
+
+}
+
+variable "max_unavailable" {
+  type        = string
+  description = "The maximum number of pods that can be unavailable during a DaemonSet rolling update. Accepts absolute number or percentage (e.g., '1' or '10%')."
+  default     = "1"
+  nullable    = false
+  validation {
+    condition     = can(regex("^\\d+%?$", var.max_unavailable))
+    error_message = "max_unavailable must be a positive integer (e.g., '1') or a percentage (e.g., '10%')"
+  }
+}
+
+
+variable "log_filters" {
+
+  # variable type is any because filters schema is not fixed and there are many filters each having its unique fields.
+  # logs-agent helm chart expects this variable to be provided in list format even if a single filter is passed.
+
+  description = "List of additional filters to be applied on logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-log-filters)."
+  type        = any
+  default     = []
 }
