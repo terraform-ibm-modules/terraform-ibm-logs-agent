@@ -64,21 +64,21 @@ variable "logs_agent_chart_location" {
 variable "logs_agent_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
-  default     = "1.6.2" # datasource: icr.io/ibm/observe/logs-agent-helm
+  default     = "1.6.3" # datasource: icr.io/ibm/observe/logs-agent-helm
   nullable    = false
 }
 
 variable "logs_agent_init_image_version" {
   description = "The version of the Logs agent init container image to deploy."
   type        = string
-  default     = "1.6.2@sha256:d6f9964bbbe7c735b8e14a3496e30c403c067d3f729302eec6146626b117b515" # datasource: icr.io/ibm/observe/logs-router-agent-init
+  default     = "1.6.3@sha256:0696d9be28088aad5ebcce26855d6de9abd7d4b0f8b98d050fb4507625ca465f" # datasource: icr.io/ibm/observe/logs-router-agent-init
   nullable    = false
 }
 
 variable "logs_agent_image_version" {
   description = "The version of the Logs agent image to deploy."
   type        = string
-  default     = "1.6.2@sha256:dee214b548e063319f206c4c17e0015b57a9480031a89eb6125ce19a026bd116" # datasource: icr.io/ibm/observe/logs-router-agent
+  default     = "1.6.3@sha256:c4c03d39002278558e7be9a7349a3408c703de788ebc7ef5846edf1f8f5e4584" # datasource: icr.io/ibm/observe/logs-router-agent
   nullable    = false
 }
 

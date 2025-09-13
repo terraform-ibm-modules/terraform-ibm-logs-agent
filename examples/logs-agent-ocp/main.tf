@@ -131,7 +131,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.6.24"
+  version           = "1.6.25"
   resource_group_id = module.resource_group.resource_group_id
   plan              = "standard"
   region            = var.region
