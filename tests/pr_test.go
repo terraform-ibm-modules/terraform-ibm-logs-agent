@@ -257,6 +257,7 @@ func TestAgentDefaultConfiguration(t *testing.T) {
 
 	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
 		Testing:   t,
+		Prefix:    "la-def",
 		QuietMode: false,
 	})
 
@@ -265,7 +266,9 @@ func TestAgentDefaultConfiguration(t *testing.T) {
 		"deploy-arch-ibm-logs-agent",
 		"fully-configurable",
 		map[string]interface{}{
-			"region": "eu-de",
+			"region":                       "eu-de",
+			"prefix":                       options.Prefix,
+			"secrets_manager_service_plan": "trial",
 		},
 	)
 

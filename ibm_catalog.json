@@ -435,6 +435,14 @@
               "description": "The pricing plan to use when provisioning a Secrets Manager instance for centrally managing ingress certificates for OpenShift cluster. Possible values: `standard`, `trial`. You can create only one Trial instance of Secrets Manager per account. Before you can create a new Trial instance, you must delete the existing Trial instance and its reclamation. [Learn more](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-create-instance&interface=ui#upgrade-instance-standard)."
             },
             {
+              "key": "prefix",
+              "type": "string",
+              "default_value": "__NOT_SET__",
+              "description": "Prefix input which will be added in the front of the name of addon resources selected in this configuration",
+              "required": true,
+              "virtual": true
+            },
+            {
               "key": "enable_platform_metrics",
               "type": "boolean",
               "default_value": false,
@@ -505,6 +513,11 @@
                   "reference_version": true
                 },
                 {
+                  "dependency_input": "prefix",
+                  "version_input": "prefix",
+                  "reference_version": true
+                },
+                {
                   "dependency_output": "cloud_logs_ingress_endpoint",
                   "version_input": "cloud_logs_ingress_endpoint"
                 },
@@ -546,6 +559,11 @@
                 {
                   "dependency_input": "region",
                   "version_input": "region",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "prefix",
+                  "version_input": "prefix",
                   "reference_version": true
                 },
                 {
