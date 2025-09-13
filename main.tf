@@ -32,7 +32,7 @@ locals {
     for metadata in var.logs_agent_additional_metadata : {
       (metadata.key) = metadata.value
   }]...) : {}                                                                                                                                       # DO NOT REMOVE "...", it is used to convert list of objects into a single object
-  cluster_name = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].resource_name : data.ibm_container_cluster.cluster[0].resource_name # Not publically documented in provider. See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4485
+  cluster_name = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].resource_name : data.ibm_container_cluster.cluster[0].resource_name # Not publicly documented in provider. See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4485
 }
 
 resource "helm_release" "logs_agent" {
@@ -47,78 +47,100 @@ resource "helm_release" "logs_agent" {
   recreate_pods    = true
   force_update     = true
 
-  set {
-    name  = "metadata.name"
-    type  = "string"
-    value = var.logs_agent_name
-  }
-  set {
-    name  = "image.version"
-    type  = "string"
-    value = var.logs_agent_image_version
-  }
-  set {
-    name  = "env.ingestionHost"
-    type  = "string"
-    value = local.cloud_logs_ingress_endpoint
-  }
-  set {
-    name  = "env.ingestionPort"
-    value = var.cloud_logs_ingress_port
-  }
-  set_sensitive {
+  set = [
+    {
+      name  = "metadata.name"
+      type  = "string"
+      value = var.logs_agent_name
+    },
+    {
+      name  = "image.version"
+      type  = "string"
+      value = split("@", var.logs_agent_image_version)[0]
+    },
+    {
+      name  = "image.containerSha"
+      type  = "string"
+      value = strcontains(var.logs_agent_image_version, "@") ? split("@", var.logs_agent_image_version)[1] : ""
+    },
+    {
+      name  = "image.initContainerSha"
+      type  = "string"
+      value = strcontains(var.logs_agent_init_image_version, "@") ? split("@", var.logs_agent_init_image_version)[1] : ""
+    },
+    {
+      name  = "env.ingestionHost"
+      type  = "string"
+      value = local.cloud_logs_ingress_endpoint
+    },
+    {
+      name  = "env.ingestionPort"
+      value = var.cloud_logs_ingress_port
+    },
+    {
+      name  = "env.trustedProfileID"
+      type  = "string"
+      value = local.logs_agent_trusted_profile_id
+    },
+    {
+      name  = "env.iamMode"
+      type  = "string"
+      value = var.logs_agent_iam_mode
+    },
+    {
+      name  = "env.iamEnvironment"
+      type  = "string"
+      value = var.logs_agent_iam_environment
+    },
+    {
+      name  = "systemLogs"
+      type  = "string"
+      value = join("\\,", var.logs_agent_system_logs)
+    },
+    {
+      name  = "excludeLogSourcePaths"
+      type  = "string"
+      value = join("\\,", var.logs_agent_exclude_log_source_paths)
+    },
+    {
+      name  = "selectedLogSourcePaths"
+      type  = "string"
+      value = join("\\,", local.logs_agent_selected_log_source_paths)
+    },
+    {
+      name  = "clusterName"
+      type  = "string"
+      value = local.cluster_name
+    },
+    {
+      name  = "scc.create"
+      value = var.logs_agent_enable_scc
+    },
+    {
+      name  = "enableMultiline"
+      value = var.enable_multiline
+    },
+    {
+      name  = "includeAnnotations"
+      value = var.enable_annotations
+    },
+    {
+      name  = "updateStrategy.maxUnavailable"
+      value = var.max_unavailable
+    }
+  ]
+
+  set_sensitive = [{
     name  = "secret.iamAPIKey"
     type  = "string"
     value = local.logs_agent_iam_api_key
-  }
-  set {
-    name  = "env.trustedProfileID"
-    type  = "string"
-    value = local.logs_agent_trusted_profile_id
-  }
-  set {
-    name  = "env.iamMode"
-    type  = "string"
-    value = var.logs_agent_iam_mode
-  }
-  set {
-    name  = "env.iamEnvironment"
-    type  = "string"
-    value = var.logs_agent_iam_environment
-  }
-  set {
-    name  = "systemLogs"
-    type  = "string"
-    value = join("\\,", var.logs_agent_system_logs)
-  }
-  set {
-    name  = "excludeLogSourcePaths"
-    type  = "string"
-    value = join("\\,", var.logs_agent_exclude_log_source_paths)
-  }
-  set {
-    name  = "selectedLogSourcePaths"
-    type  = "string"
-    value = join("\\,", local.logs_agent_selected_log_source_paths)
-  }
-  set {
-    name  = "clusterName"
-    type  = "string"
-    value = local.cluster_name
-  }
-  set {
-    name  = "scc.create"
-    value = var.logs_agent_enable_scc
-  }
-  set {
-    name  = "enableMultiline"
-    value = var.enable_multiline
-  }
+  }]
 
   # dummy value hack to force update https://github.com/hashicorp/terraform-provider-helm/issues/515#issuecomment-813088122
   values = [
     yamlencode({
       tolerations        = var.logs_agent_tolerations
+      additionalFilters  = var.log_filters
       resources          = var.logs_agent_resources
       additionalMetadata = local.logs_agent_additional_metadata
       dummy              = uuid()

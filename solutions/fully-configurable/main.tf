@@ -52,6 +52,7 @@ module "logs_agent" {
   logs_agent_chart_location            = var.logs_agent_chart_location
   logs_agent_chart_version             = var.logs_agent_chart_version
   logs_agent_image_version             = var.logs_agent_image_version
+  logs_agent_init_image_version        = var.logs_agent_init_image_version
   logs_agent_name                      = var.logs_agent_name
   logs_agent_namespace                 = var.logs_agent_namespace
   logs_agent_trusted_profile_id        = var.logs_agent_iam_mode == "TrustedProfile" ? (var.logs_agent_trusted_profile_id != null ? var.logs_agent_trusted_profile_id : module.trusted_profile[0].trusted_profile.id) : null
@@ -72,4 +73,7 @@ module "logs_agent" {
   wait_till                            = var.wait_till
   wait_till_timeout                    = var.wait_till_timeout
   enable_multiline                     = var.enable_multiline
+  enable_annotations                   = var.enable_annotations
+  log_filters                          = var.log_filters
+  max_unavailable                      = var.max_unavailable
 }

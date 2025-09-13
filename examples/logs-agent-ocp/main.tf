@@ -22,19 +22,21 @@ locals {
 
 module "trusted_profile" {
   source                      = "terraform-ibm-modules/trusted-profile/ibm"
-  version                     = "2.3.1"
+  version                     = "3.1.1"
   trusted_profile_name        = "${var.prefix}-profile"
   trusted_profile_description = "Logs agent Trusted Profile"
   # As a `Sender`, you can send logs to your IBM Cloud Logs service instance - but not query or tail logs. This role is meant to be used by agent and routers sending logs.
   trusted_profile_policies = [{
-    roles = ["Sender"]
+    roles             = ["Sender"]
+    unique_identifier = "logs-agent"
     resources = [{
       service = "logs"
     }]
   }]
   # Set up fine-grained authorization for `logs-agent` running in ROKS cluster in `ibm-observe` namespace.
   trusted_profile_links = [{
-    cr_type = "ROKS_SA"
+    cr_type           = "ROKS_SA"
+    unique_identifier = "logs-agent-link"
     links = [{
       crn       = module.ocp_base.cluster_crn
       namespace = local.logs_agent_namespace
@@ -104,7 +106,7 @@ locals {
 
 module "ocp_base" {
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.54.5"
+  version              = "3.59.0"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   tags                 = var.resource_tags
@@ -129,7 +131,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.6.4"
+  version           = "1.6.27"
   resource_group_id = module.resource_group.resource_group_id
   plan              = "standard"
   region            = var.region
@@ -145,7 +147,7 @@ data "ibm_is_security_groups" "vpc_security_groups" {
 # The below code creates a VPE for Cloud logs in the provisioned VPC which allows the agent to access the private Cloud Logs Ingress endpoint.
 module "vpe" {
   source   = "terraform-ibm-modules/vpe-gateway/ibm"
-  version  = "4.7.1"
+  version  = "4.7.7"
   region   = var.region
   prefix   = var.prefix
   vpc_id   = ibm_is_vpc.vpc.id

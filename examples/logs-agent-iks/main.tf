@@ -129,7 +129,7 @@ resource "time_sleep" "wait_operators" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.6.4"
+  version           = "1.6.27"
   resource_group_id = module.resource_group.resource_group_id
   plan              = "standard"
   region            = var.region
@@ -153,4 +153,27 @@ module "logs_agent" {
   cloud_logs_ingress_endpoint = module.cloud_logs.ingress_private_endpoint
   cloud_logs_ingress_port     = 3443
   logs_agent_enable_scc       = false # only true for Openshift
+  log_filters = [
+    {
+      name  = "lua"
+      match = "*"
+      call  = "add_crn_field"
+      code  = <<EOL
+      -- Enrich records with CRN field
+      -- This is just a sample code for showing usage of lua filter
+      function add_crn_field(tag, timestamp, record)
+
+          record["logSourceCRN"] = "crn:v1:bluemix:public:postgres:us-south:a/123456::"
+          record["saveServiceCopy"] = "true"
+
+          return 2, 0, record
+      end
+      EOL
+    },
+    {
+      name    = "grep"
+      match   = "*"
+      exclude = ["message.level debug"]
+    }
+  ]
 }
