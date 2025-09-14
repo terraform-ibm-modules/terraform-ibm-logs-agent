@@ -460,6 +460,24 @@
               "virtual": true
             },
             {
+              "key": "allow_public_access_to_cluster",
+              "type": "boolean",
+              "default_value": true,
+              "description": "When set to `true`, public endpoint will be enabled for the cluster which will allow access to master node of the cluster from outside the VPC network.",
+              "required": true,
+              "virtual": true,
+              "options": [
+                {
+                  "displayname": "true",
+                  "value": "true"
+                },
+                {
+                  "displayname": "false",
+                  "value": "false"
+                }
+              ]
+            },
+            {
               "key": "enable_platform_metrics",
               "type": "boolean",
               "default_value": false,
@@ -581,6 +599,11 @@
                 {
                   "dependency_input": "prefix",
                   "version_input": "prefix",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "allow_public_access_to_cluster",
+                  "version_input": "allow_public_access_to_cluster",
                   "reference_version": true
                 },
                 {

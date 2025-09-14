@@ -270,6 +270,7 @@ func TestAgentDefaultConfiguration(t *testing.T) {
 			"region":                       "eu-de",
 			"prefix":                       options.Prefix,
 			"secrets_manager_service_plan": "trial",
+			"wait_till":                    "IngressReady",
 		},
 	)
 
