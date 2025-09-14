@@ -553,7 +553,7 @@
                   "reference_version": true
                 },
                 {
-                  "dependency_output": "cloud_logs_ingress_endpoint",
+                  "dependency_output": "cloud_logs_ingress_private_endpoint",
                   "version_input": "cloud_logs_ingress_endpoint"
                 },
                 {
