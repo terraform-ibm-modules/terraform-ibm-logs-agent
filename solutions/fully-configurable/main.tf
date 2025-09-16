@@ -49,3 +49,11 @@ module "logs_agent" {
   log_filters                          = var.log_filters
   max_unavailable                      = var.max_unavailable
 }
+
+# Attach user tags to the cluster with details of the cloud logs and workspace
+resource "ibm_resource_tag" "user_tags" {
+  count       = var.IC_SCHEMATICS_WORKSPACE_ID != null ? 1 : 0
+  resource_id = local.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].crn : data.ibm_container_cluster.cluster[0].crn
+  tags        = ["logging-instance:${coalescelist(split(".", var.cloud_logs_ingress_endpoint))[0]}", "logging-workspace:${var.IC_SCHEMATICS_WORKSPACE_ID}"]
+  tag_type    = "user"
+}

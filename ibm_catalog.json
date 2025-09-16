@@ -318,6 +318,10 @@
                 }
               ],
               "hidden": true
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
             }
           ],
           "terraform_version": "1.10.5"
