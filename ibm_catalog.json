@@ -697,6 +697,14 @@
               "description": "Set to true to allow public outbound access from the cluster workers."
             },
             {
+              "key": "cloud_logs_instance_name",
+              "type": "string",
+              "required": true,
+              "virtual": true,
+              "default_value": "openshift",
+              "description": "The name of the Cloud Logs Instance."
+            },
+            {
               "key": "secrets_manager_service_plan",
               "type": "string",
               "required": true,
@@ -787,6 +795,11 @@
                 {
                   "dependency_input": "prefix",
                   "version_input": "prefix",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "cloud_logs_instance_name",
+                  "version_input": "cloud_logs_instance_name",
                   "reference_version": true
                 },
                 {
