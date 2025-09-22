@@ -446,6 +446,36 @@
               "virtual": true
             },
             {
+              "key": "cluster_name",
+              "type": "string",
+              "required": true,
+              "virtual": true,
+              "default_value": "openshift",
+              "description": "The name of the OpenShift Cluster."
+            },
+            {
+              "key": "openshift_version",
+              "type": "string",
+              "required": true,
+              "virtual": true,
+              "default_value": "4.18",
+              "options": [
+                {
+                  "displayname": "4.18",
+                  "value": "4.18"
+                },
+                {
+                  "displayname": "4.17",
+                  "value": "4.17"
+                },
+                {
+                  "displayname": "4.16",
+                  "value": "4.16"
+                }
+              ],
+              "description": "The version of the OpenShift Cluster."
+            },
+            {
               "key": "default_worker_pool_machine_type",
               "required": true,
               "virtual": true,
@@ -697,6 +727,27 @@
               "description": "Set to true to allow public outbound access from the cluster workers."
             },
             {
+              "key": "subnets",
+              "type": "object",
+              "default_value": "{\n    zone-1 = [\n      {\n        name           = \"subnet-a\"\n        cidr           = \"10.10.10.0/24\"\n        public_gateway = true\n        acl_name       = \"vpc-acl\"\n        no_addr_prefix = false\n      }\n    ],\n    zone-2 = [\n      {\n        name           = \"subnet-b\"\n        cidr           = \"10.20.10.0/24\"\n        public_gateway = true\n        acl_name       = \"vpc-acl\"\n        no_addr_prefix = false\n      }\n    ],\n    zone-3 = [\n      {\n        name           = \"subnet-c\"\n        cidr           = \"10.30.10.0/24\"\n        public_gateway = true\n        acl_name       = \"vpc-acl\"\n        no_addr_prefix = false\n      }\n    ]\n  }",
+              "description": "List of subnets for the vpc. For each item in each array, a subnet will be created. Items can be either CIDR blocks or total ipv4 addresses. Public gateways will be enabled only in zones where a gateway has been created. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/blob/main/solutions/fully-configurable/DA-types.md#subnets-).",
+              "required": false,
+              "virtual": true
+            },
+            {
+              "key": "network_acls",
+              "type": "list(object)",
+              "default_value": "[\n  {\n    name                         = \"vpc-acl\"\n    add_ibm_cloud_internal_rules = true\n    add_vpc_connectivity_rules   = true\n    prepend_ibm_rules            = true\n    rules = [\n      {\n        name      = \"allow-all-443-inbound\"\n        action    = \"allow\"\n        direction = \"inbound\"\n        tcp = {\n          port_min = 443\n          port_max = 443\n        }\n        destination = \"0.0.0.0/0\"\n        source      = \"0.0.0.0/0\"\n      },\n      {\n        name      = \"allow-all-80-inbound\"\n        action    = \"allow\"\n        direction = \"inbound\"\n        tcp = {\n          port_min        = 80\n          port_max        = 80\n          source_port_min = 80\n          source_port_max = 80\n        }\n        destination = \"0.0.0.0/0\"\n        source      = \"0.0.0.0/0\"\n      },\n      {\n        name      = \"allow-all-ingress-inbound\"\n        action    = \"allow\"\n        direction = \"inbound\"\n        tcp = {\n          source_port_min = 30000\n          source_port_max = 32767\n        }\n        destination = \"0.0.0.0/0\"\n        source      = \"0.0.0.0/0\"\n      },\n      {\n        name      = \"allow-all-443-outbound\"\n        action    = \"allow\"\n        direction = \"outbound\"\n        tcp = {\n          source_port_min = 443\n          source_port_max = 443\n        }\n        destination = \"0.0.0.0/0\"\n        source      = \"0.0.0.0/0\"\n      },\n      {\n        name      = \"allow-all-80-outbound\"\n        action    = \"allow\"\n        direction = \"outbound\"\n        tcp = {\n          source_port_min = 80\n          source_port_max = 80\n          port_min        = 80\n          port_max        = 80\n        }\n        destination = \"0.0.0.0/0\"\n        source      = \"0.0.0.0/0\"\n      },\n      {\n        name      = \"allow-all-ingress-outbound\"\n        action    = \"allow\"\n        direction = \"outbound\"\n        tcp = {\n          port_min = 30000\n          port_max = 32767\n        }\n        destination = \"0.0.0.0/0\"\n        source      = \"0.0.0.0/0\"\n      }\n    ]\n  }\n]",
+              "description": "The list of ACLs to create. Provide at least one rule for each ACL. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/blob/main/solutions/fully-configurable/DA-types.md#network-acls-).",
+              "required": false,
+              "virtual": true,
+              "custom_config": {
+                "type": "code_editor",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
+            },
+            {
               "key": "cloud_logs_instance_name",
               "type": "string",
               "required": true,
@@ -894,6 +945,26 @@
                 {
                   "dependency_input": "secrets_manager_service_plan",
                   "version_input": "secrets_manager_service_plan",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "subnets",
+                  "version_input": "subnets",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "network_acls",
+                  "version_input": "network_acls",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "cluster_name",
+                  "version_input": "cluster_name",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "openshift_version",
+                  "version_input": "openshift_version",
                   "reference_version": true
                 }
               ],
