@@ -24,16 +24,19 @@ module "trusted_profile" {
   trusted_profile_description = "Logs agent Trusted Profile"
   # As a `Sender`, you can send logs to your IBM Cloud Logs service instance - but not query or tail logs. This role is meant to be used by agents and routers sending logs.
   trusted_profile_policies = [{
-    unique_identifier = "${var.cluster_id}-policy-0"
+    unique_identifier = "${local.cloud_logs_instance_id}-policy-0"
     roles             = ["Sender"]
-    resources = [{
-      service = "logs"
-      resource_attributes = [{
+    resource_attributes = [
+      {
         name     = "serviceInstance"
         operator = "stringEquals"
         value    = local.cloud_logs_instance_id
-      }]
-    }]
+      },
+      {
+        name  = "serviceName"
+        value = "logs"
+      }
+    ]
   }]
 
   # Set up fine-grained authorization for `logs-agent` running in ROKS cluster in `ibm-observe` namespace.
