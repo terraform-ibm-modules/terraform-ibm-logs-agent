@@ -13,6 +13,7 @@ locals {
   prefix                       = var.prefix != null ? trimspace(var.prefix) != "" ? "${var.prefix}-" : "" : ""
   cluster_config_endpoint_type = var.cluster_config_endpoint_type
   is_vpc_cluster               = var.is_vpc_cluster
+  cloud_logs_instance_id       = split(".", var.cloud_logs_ingress_endpoint)[0]
 }
 
 module "trusted_profile" {
@@ -27,13 +28,18 @@ module "trusted_profile" {
     roles             = ["Sender"]
     resources = [{
       service = "logs"
+      resource_attributes = [{
+        name     = "serviceInstance"
+        operator = "stringEquals"
+        value    = local.cloud_logs_instance_id
+      }]
     }]
   }]
 
   # Set up fine-grained authorization for `logs-agent` running in ROKS cluster in `ibm-observe` namespace.
   trusted_profile_links = [{
     unique_identifier = "${var.cluster_id}-link-0"
-    cr_type           = "ROKS_SA"
+    cr_type           = var.is_ocp_cluster ? "ROKS_SA" : "IKS_SA"
     links = [{
       crn       = local.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].crn : data.ibm_container_cluster.cluster[0].crn
       namespace = var.logs_agent_namespace

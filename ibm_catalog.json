@@ -59,7 +59,7 @@
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "notes": "Required to create and edit OpenShift cluster and the related resources."
+              "notes": "Required to create and edit Logs Agent related resources. Editor access is required only if you are provisioning cluster."
             },
             {
               "role_crns": [
