@@ -9,6 +9,7 @@ import (
 
 	"math/rand/v2"
 
+	"github.com/IBM/go-sdk-core/core"
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
@@ -16,6 +17,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testaddons"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testschematic"
 )
@@ -125,6 +127,7 @@ func TestFullyConfigurableSolution(t *testing.T) {
 
 		options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 			{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+			{Name: "prefix", Value: options.Prefix, DataType: "string"},
 			{Name: "cluster_id", Value: terraform.Output(t, existingTerraformOptions, "workload_cluster_id"), DataType: "string"},
 			{Name: "logs_agent_trusted_profile_id", Value: terraform.Output(t, existingTerraformOptions, "trusted_profile_id"), DataType: "string"},
 			{Name: "cloud_logs_ingress_endpoint", Value: terraform.Output(t, existingTerraformOptions, "cloud_logs_ingress_private_endpoint"), DataType: "string"},
@@ -209,6 +212,7 @@ func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 
 		options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 			{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+			{Name: "prefix", Value: options.Prefix, DataType: "string"},
 			{Name: "cluster_id", Value: terraform.Output(t, existingTerraformOptions, "workload_cluster_id"), DataType: "string"},
 			{Name: "logs_agent_trusted_profile_id", Value: terraform.Output(t, existingTerraformOptions, "trusted_profile_id"), DataType: "string"},
 			{Name: "cloud_logs_ingress_endpoint", Value: terraform.Output(t, existingTerraformOptions, "cloud_logs_ingress_private_endpoint"), DataType: "string"},
@@ -249,4 +253,51 @@ func TestRunAgentVpcKubernetes(t *testing.T) {
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestAgentDefaultConfiguration(t *testing.T) {
+
+	/*
+		Skipping this test because auto-approve is not working as expected in projects
+		Config gets stuck in approved state and doesn't move to deployment
+		https://github.ibm.com/epx/projects/issues/4814
+	*/
+	t.Skip("Skipping because of projects issue")
+	t.Parallel()
+
+	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
+		Testing:   t,
+		Prefix:    "la-def",
+		QuietMode: false,
+	})
+
+	options.AddonConfig = cloudinfo.NewAddonConfigTerraform(
+		options.Prefix,
+		"deploy-arch-ibm-logs-agent",
+		"fully-configurable",
+		map[string]interface{}{
+			"region":                       "eu-de",
+			"prefix":                       options.Prefix,
+			"secrets_manager_service_plan": "trial",
+		},
+	)
+
+	/*
+		Event notifications is manually disabled in this test because event notifications DA creates kms keys and during undeploy the order of key protect and event notifications
+		is not considered by projects as EN is not a direct dependency of VSI DA. So undeploy fails, because
+		key protect instance can't be deleted because of active keys created by EN. Hence for now, we don't want to deploy
+		EN.
+
+		Issue has been created for projects team. https://github.ibm.com/epx/projects/issues/4750
+		Once that is fixed, we can remove the logic to disable EN
+	*/
+	options.AddonConfig.Dependencies = []cloudinfo.AddonConfig{
+		{
+			OfferingName:   "deploy-arch-ibm-event-notifications",
+			OfferingFlavor: "fully-configurable",
+			Enabled:        core.BoolPtr(false), // explicitly disabled
+		},
+	}
+	err := options.RunAddonTest()
+	require.NoError(t, err)
 }
