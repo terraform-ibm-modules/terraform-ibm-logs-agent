@@ -47,11 +47,9 @@ provider "helm" {
     token                  = data.ibm_container_cluster_config.cluster_config.token
     cluster_ca_certificate = data.ibm_container_cluster_config.cluster_config.ca_certificate
   }
-  # IBM Cloud credentials are required to authenticate to the helm repo
+  # Using public registry - no authentication required
   registry {
-    url      = "oci://icr.io/ibm/observe/logs-agent-helm"
-    username = "iamapikey"
-    password = "xxxxxxxxxxxx"  # pragma: allowlist secret
+    url = "oci://icr.io/ibm-observe/logs-agent-helm"
   }
 }
 
@@ -123,7 +121,7 @@ No modules.
 | <a name="input_log_filters"></a> [log\_filters](#input\_log\_filters) | List of additional filters to be applied on logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-log-filters). | `any` | `[]` | no |
 | <a name="input_logs_agent_additional_metadata"></a> [logs\_agent\_additional\_metadata](#input\_logs\_agent\_additional\_metadata) | The list of additional metadata fields to add to the routed logs. | <pre>list(object({<br/>    key   = optional(string)<br/>    value = optional(string)<br/>  }))</pre> | `[]` | no |
 | <a name="input_logs_agent_chart"></a> [logs\_agent\_chart](#input\_logs\_agent\_chart) | The name of the Helm chart to deploy. | `string` | `"logs-agent-helm"` | no |
-| <a name="input_logs_agent_chart_location"></a> [logs\_agent\_chart\_location](#input\_logs\_agent\_chart\_location) | The location of the Logs agent helm chart. | `string` | `"oci://icr.io/ibm/observe"` | no |
+| <a name="input_logs_agent_chart_location"></a> [logs\_agent\_chart\_location](#input\_logs\_agent\_chart\_location) | The location of the Logs agent helm chart. | `string` | `"oci://icr.io/ibm-observe"` | no |
 | <a name="input_logs_agent_chart_version"></a> [logs\_agent\_chart\_version](#input\_logs\_agent\_chart\_version) | The version of the Helm chart to deploy. | `string` | `"1.6.3"` | no |
 | <a name="input_logs_agent_enable_scc"></a> [logs\_agent\_enable\_scc](#input\_logs\_agent\_enable\_scc) | Whether to enable creation of Security Context Constraints in Openshift. When installing on an OpenShift cluster, this setting is mandatory to configure permissions for pods within your cluster. | `bool` | `true` | no |
 | <a name="input_logs_agent_exclude_log_source_paths"></a> [logs\_agent\_exclude\_log\_source\_paths](#input\_logs\_agent\_exclude\_log\_source\_paths) | The list of log sources to exclude. Specify the paths that the Logs agent ignores. | `list(string)` | `[]` | no |
