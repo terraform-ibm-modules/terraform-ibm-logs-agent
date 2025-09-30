@@ -7,7 +7,7 @@ variable "ibmcloud_api_key" {
 variable "prefix" {
   type        = string
   description = "A prefix for the name of all resources that are created by this example"
-  default     = "logs-agent-iks"
+  default     = "pub-iks"
 }
 
 variable "resource_group" {
