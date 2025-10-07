@@ -65,14 +65,14 @@ variable "logs_agent_chart" {
 variable "logs_agent_chart_location" {
   description = "The location of the Logs agent helm chart."
   type        = string
-  default     = "oci://icr.io/ibm/observe" # Replace with the actual repository URL if different
+  default     = "oci://icr.io/ibm-observe" # Public registry - no authentication required
   nullable    = false
 }
 
 variable "logs_agent_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
-  default     = "1.6.3" # datasource: icr.io/ibm/observe/logs-agent-helm
+  default     = "1.6.3" # datasource: icr.io/ibm-observe/logs-agent-helm
   nullable    = false
 }
 
