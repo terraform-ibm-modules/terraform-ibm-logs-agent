@@ -195,7 +195,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/refs/heads/main/reference-architecture/deployable-architecture-logs-agent.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-logs-agent/refs/heads/main/reference-architectures/deployable-architecture-logs-agent.svg",
                   "caption": "Logs Agent topology",
                   "type": "image/svg+xml"
                 },
