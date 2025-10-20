@@ -286,7 +286,6 @@ func TestAgentDefaultConfiguration(t *testing.T) {
 		"fully-configurable",
 		map[string]interface{}{
 			"region": "eu-de",
-			"prefix": options.Prefix,
 		},
 	)
 
