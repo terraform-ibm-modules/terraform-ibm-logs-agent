@@ -148,11 +148,11 @@ resource "helm_release" "logs_agent" {
   ]
 
 
-  provisioner "local-exec" {
-    command     = "${path.module}/scripts/confirm-rollout-status.sh ${var.logs_agent_name} ${var.logs_agent_namespace}"
-    interpreter = ["/bin/bash", "-c"]
-    environment = {
-      KUBECONFIG = data.ibm_container_cluster_config.cluster_config.config_file_path
-    }
-  }
+  # provisioner "local-exec" {
+  #   command     = "${path.module}/scripts/confirm-rollout-status.sh ${var.logs_agent_name} ${var.logs_agent_namespace}"
+  #   interpreter = ["/bin/bash", "-c"]
+  #   environment = {
+  #     KUBECONFIG = data.ibm_container_cluster_config.cluster_config.config_file_path
+  #   }
+  # }
 }
