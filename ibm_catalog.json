@@ -233,6 +233,7 @@
             },
             {
               "key": "cluster_id",
+              "display_name": "cluster",
               "custom_config": {
                 "type": "cluster_var",
                 "grouping": "deployment",
@@ -242,6 +243,7 @@
             },
             {
               "key": "cluster_resource_group_id",
+              "display_name": "cluster_resource_group",
               "required": true,
               "custom_config": {
                 "type": "resource_group",
