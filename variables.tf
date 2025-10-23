@@ -264,7 +264,7 @@ variable "max_unavailable" {
   default     = "1"
   nullable    = false
   validation {
-    condition     = can(regex("^\\d+%?$", var.max_unavailable))
+    condition     = can(regex("^[1-9]\\d*(?:%)?$", var.max_unavailable))
     error_message = "max_unavailable must be a positive integer (e.g., '1') or a percentage (e.g., '10%')"
   }
 }

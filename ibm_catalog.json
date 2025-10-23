@@ -384,7 +384,7 @@
                 {
                   "type": "regex",
                   "description": "The value provided for 'max_unavailable' must be a positive integer (e.g., '1') or a percentage (e.g., '10%').",
-                  "value": "^\\d+%?$"
+                  "value": "^[1-9]\\d*(?:%)?$"
                 }
               ]
             },
