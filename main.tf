@@ -113,6 +113,10 @@ resource "helm_release" "logs_agent" {
       value = local.cluster_name
     },
     {
+      name  = "outputWorkers"
+      value = var.logs_agent_multi_process_workers
+    },
+    {
       name  = "scc.create"
       value = var.logs_agent_enable_scc
     },
