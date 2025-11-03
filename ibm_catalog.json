@@ -501,7 +501,7 @@
                 "grouping": "deployment",
                 "original_grouping": "deployment"
               },
-              "virtual": false
+              "virtual": true
             },
             {
               "key": "default_worker_pool_workers_per_zone",
