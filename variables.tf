@@ -72,21 +72,21 @@ variable "logs_agent_chart_location" {
 variable "logs_agent_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
-  default     = "1.6.3" # datasource: icr.io/ibm-observe/logs-agent-helm
+  default     = "1.7.0" # datasource: icr.io/ibm-observe/logs-agent-helm
   nullable    = false
 }
 
 variable "logs_agent_init_image_version" {
   description = "The version of the Logs agent init container image to deploy."
   type        = string
-  default     = "1.6.3@sha256:0696d9be28088aad5ebcce26855d6de9abd7d4b0f8b98d050fb4507625ca465f" # datasource: icr.io/ibm/observe/logs-router-agent-init
+  default     = "1.7.0@sha256:20acbf81ea70135644d12b6505476b54ed4bfe0db8f1571dee8215c03689cfd8" # datasource: icr.io/ibm/observe/logs-router-agent-init
   nullable    = false
 }
 
 variable "logs_agent_image_version" {
   description = "The version of the Logs agent image to deploy."
   type        = string
-  default     = "1.6.3@sha256:c4c03d39002278558e7be9a7349a3408c703de788ebc7ef5846edf1f8f5e4584" # datasource: icr.io/ibm/observe/logs-router-agent
+  default     = "1.7.0@sha256:50357cf3d3c7f0e649ce2ad044ace154d7eb6984847e70b1c052a6b7e285c548" # datasource: icr.io/ibm/observe/logs-router-agent
   nullable    = false
   validation {
     condition     = split("@", var.logs_agent_image_version)[0] == split("@", var.logs_agent_init_image_version)[0]
