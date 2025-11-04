@@ -215,6 +215,16 @@ variable "logs_agent_iam_environment" {
   }
 }
 
+variable "logs_agent_multi_process_workers" {
+  type        = number
+  default     = 4
+  description = "Specifies the number of multi-process workers to launch. Each worker runs in a separate process, enabling agent to utilize multiple features designed for multi-process operation."
+  validation {
+    condition     = can(regex("^[1-9][0-9]*$", var.logs_agent_multi_process_workers))
+    error_message = "logs_agent_multi_process_workers must be a positive integer (e.g., '1')."
+  }
+}
+
 variable "logs_agent_additional_metadata" {
   description = "The list of additional metadata fields to add to the routed logs."
   type = list(object({
