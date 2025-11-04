@@ -503,7 +503,7 @@
             {
               "key": "default_worker_pool_machine_type",
               "type": "string",
-              "default_value": "bx2.8x32",
+              "default_value": "bx2.4x16",
               "description": "A worker node flavor that defines the architecture, virtual CPU, memory, and disk space in the default worker pool.",
               "required": true,
               "custom_config": {
