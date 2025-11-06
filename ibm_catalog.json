@@ -838,7 +838,7 @@
               "name": "deploy-arch-ibm-cloud-logs",
               "description": "Create IBM Cloud Logs Instance for storing and analysing platform and application logs .",
               "id": "63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global",
-              "version": "v1.9.0",
+              "version": "v1.9.10",
               "flavors": [
                 "fully-configurable"
               ],
