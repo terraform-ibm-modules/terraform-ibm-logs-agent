@@ -483,8 +483,12 @@
               "type": "string",
               "required": true,
               "virtual": true,
-              "default_value": "4.18",
+              "default_value": "4.19",
               "options": [
+                {
+                  "displayname": "4.19",
+                  "value": "4.19"
+                },
                 {
                   "displayname": "4.18",
                   "value": "4.18"
@@ -662,7 +666,7 @@
               "name": "deploy-arch-ibm-cloud-logs",
               "description": "Create IBM Cloud Logs Instance for storing and analysing platform and application logs .",
               "id": "63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global",
-              "version": "v1.9.0",
+              "version": "v1.9.10",
               "flavors": [
                 "fully-configurable"
               ],
@@ -805,7 +809,7 @@
                   "reference_version": true
                 }
               ],
-              "version": "v3.66.0"
+              "version": "v3.71.3"
             }
           ],
           "dependency_version_2": true,
