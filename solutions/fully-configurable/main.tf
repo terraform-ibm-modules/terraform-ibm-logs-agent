@@ -16,6 +16,12 @@ locals {
   cloud_logs_instance_id       = split(".", var.cloud_logs_ingress_endpoint)[0]
 }
 
+module "instance_crn_parser" {
+  source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
+  version = "1.2.0"
+  crn     = var.instance_crn
+}
+
 module "trusted_profile" {
   count                       = (var.logs_agent_iam_mode == "TrustedProfile" && var.logs_agent_trusted_profile_id == null) ? 1 : 0
   source                      = "terraform-ibm-modules/trusted-profile/ibm"
