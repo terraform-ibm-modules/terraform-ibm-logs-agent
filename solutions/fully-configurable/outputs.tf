@@ -18,7 +18,7 @@ output "next_step_primary_label" {
 }
 
 output "next_step_primary_url" {
-  value       = "https://dashboard.${element(split(":", var.instance_crn), 5)}.logs.cloud.ibm.com/${element(split(":", var.instance_crn), 7)}"
+  value       = "https://dashboard.${region}.logs.cloud.ibm.com/${cloud_logs_instance_id}"
   description = "Primary URL"
 }
 
