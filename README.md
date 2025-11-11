@@ -15,8 +15,8 @@ This module deploys the following logs agent to an IBM Cloud Red Hat OpenShift C
 ## Overview
 * [terraform-ibm-logs-agent](#terraform-ibm-logs-agent)
 * [Examples](./examples)
-    * <div style="display: inline-block;"><a href="./examples/logs-agent-iks">Logs agent on Kubernetes using CSE ingress endpoint with an apikey</a></div> <div style="display: inline-block; vertical-align: middle;"><a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=la-logs-agent-iks-example&repository=github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/examples/logs-agent-iks" target="_blank"><img src="https://cloud.ibm.com/media/docs/images/icons/Deploy_to_cloud.svg" alt="Deploy to IBM Cloud button"></a></div>
-    * <div style="display: inline-block;"><a href="./examples/logs-agent-ocp">Logs agent on OCP using VPE ingress endpoint with a Trusted Profile</a></div> <div style="display: inline-block; vertical-align: middle;"><a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=la-logs-agent-ocp-example&repository=github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/examples/logs-agent-ocp" target="_blank"><img src="https://cloud.ibm.com/media/docs/images/icons/Deploy_to_cloud.svg" alt="Deploy to IBM Cloud button"></a></div>
+    * [Logs agent on Kubernetes using CSE ingress endpoint with an apikey](./examples/logs-agent-iks)
+    * [Logs agent on OCP using VPE ingress endpoint with a Trusted Profile](./examples/logs-agent-ocp)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
