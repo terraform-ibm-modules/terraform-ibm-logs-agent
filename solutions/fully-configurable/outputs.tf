@@ -28,7 +28,7 @@ output "next_step_secondary_label" {
 }
 
 output "next_step_secondary_url" {
-  value       = "https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-getting-started"
+  value       = "https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-ov"
   description = "Secondary URL"
 }
 
