@@ -8,12 +8,12 @@
 ##############################################################################
 
 output "next_steps_text" {
-  value       = "Your Logs Instance Environment is ready."
+  value       = "Your logs agent is ready to send logs to the instance."
   description = "Next steps text"
 }
 
 output "next_step_primary_label" {
-  value       = "Go to Logs Instance Dashboard" 
+  value       = "Go to Cloud Logs dashboard" 
   description = "Primary label"
 }
 
@@ -23,12 +23,12 @@ output "next_step_primary_url" {
 }
 
 output "next_step_secondary_label" {
-  value       = "Learn more about IBM Cloud logging"
+  value       = "About the logging agent"
   description = "Secondary label"
 }
 
 output "next_step_secondary_url" {
-  value       = "https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about#agent-about-ov"
+  value       = "https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-about"
   description = "Secondary URL"
 }
 
