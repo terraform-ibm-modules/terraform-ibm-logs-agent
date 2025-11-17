@@ -13,7 +13,7 @@ output "next_steps_text" {
 }
 
 output "next_step_primary_label" {
-  value       = "Go to Cloud Logs dashboard" 
+  value       = "Go to Cloud Logs dashboard"
   description = "Primary label"
 }
 
