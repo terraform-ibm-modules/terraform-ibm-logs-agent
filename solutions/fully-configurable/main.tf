@@ -14,6 +14,7 @@ locals {
   cluster_config_endpoint_type = var.cluster_config_endpoint_type
   is_vpc_cluster               = var.is_vpc_cluster
   cloud_logs_instance_id       = split(".", var.cloud_logs_ingress_endpoint)[0]
+  region                       = split(".", var.cloud_logs_ingress_endpoint)[index(split(".", var.cloud_logs_ingress_endpoint), "logs") - 1]
 }
 
 module "trusted_profile" {
