@@ -2,13 +2,13 @@
 package test
 
 import (
+	"crypto/rand"
 	"fmt"
 	"log"
+	"math/big"
 	"os"
 	"strings"
 	"testing"
-
-	"math/rand/v2"
 
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
@@ -60,6 +60,15 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
+// getRandomRegion returns a random region from the validRegions slice using crypto/rand
+func getRandomRegion() string {
+	n, err := rand.Int(rand.Reader, big.NewInt(int64(len(validRegions))))
+	if err != nil {
+		panic(fmt.Sprintf("failed to generate random region: %v", err))
+	}
+	return validRegions[n.Int64()]
+}
+
 func setupOptions(t *testing.T, prefix string, terraformDir string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
@@ -80,7 +89,7 @@ func setupOptions(t *testing.T, prefix string, terraformDir string) *testhelper.
 func TestFullyConfigurableSolution(t *testing.T) {
 	t.Parallel()
 
-	var region = validRegions[rand.IntN(len(validRegions))]
+	var region = getRandomRegion()
 
 	// ------------------------------------------------------------------------------------------------------
 	// Deploy OCP Cluster and Logs instance since it is needed to deploy Logs Agent
@@ -166,7 +175,7 @@ func TestFullyConfigurableSolution(t *testing.T) {
 func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 	t.Parallel()
 
-	var region = validRegions[rand.IntN(len(validRegions))]
+	var region = getRandomRegion()
 
 	// ------------------------------------------------------------------------------------------------------
 	// Deploy OCP Cluster and Observability instances since it is needed to deploy Logs Agent
