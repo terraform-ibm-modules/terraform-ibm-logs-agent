@@ -671,6 +671,10 @@
                 }
               ],
               "hidden": true
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
             }
           ],
           "dependencies": [
