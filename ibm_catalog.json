@@ -472,6 +472,9 @@
               "key": "wait_till_timeout"
             },
             {
+              "key": "storage_name"
+            },
+            {
               "key": "enable_multiline"
             },
             {

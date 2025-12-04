@@ -28,6 +28,7 @@ locals {
   logs_agent_iam_api_key               = var.logs_agent_iam_api_key != null ? var.logs_agent_iam_api_key : ""
   logs_agent_trusted_profile_id        = var.logs_agent_trusted_profile_id != null ? var.logs_agent_trusted_profile_id : ""
   cloud_logs_ingress_endpoint          = var.cloud_logs_ingress_endpoint != null ? var.cloud_logs_ingress_endpoint : ""
+  storage_name                         = var.storage_name != null ? var.storage_name : ""
   logs_agent_additional_metadata = length(var.logs_agent_additional_metadata) > 0 ? merge([
     for metadata in var.logs_agent_additional_metadata : {
       (metadata.key) = metadata.value
@@ -131,6 +132,10 @@ resource "helm_release" "logs_agent" {
     {
       name  = "updateStrategy.maxUnavailable"
       value = var.max_unavailable
+    },
+    {
+      name  = "storageName"
+      value = local.storage_name
     }
   ]
 
