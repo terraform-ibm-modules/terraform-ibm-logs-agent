@@ -47,7 +47,7 @@
           "index": 1,
           "install_type": "fullstack",
           "working_directory": "solutions/fully-configurable",
-          "short_description": "Ideal for users who want flexibility with a reliable starting point",
+          "short_description": "Ideal for users who want flexibility with a reliable starting point.",
           "iam_permissions": [
             {
               "service_name": "containers-kubernetes",
