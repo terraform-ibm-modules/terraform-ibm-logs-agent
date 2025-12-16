@@ -261,6 +261,12 @@ variable "enable_multiline" {
   default     = false
 }
 
+variable "enable_kubernetes_filter" {
+  description = "Whether to enable the Kubernetes filter in logs-agent. When true, log records are enriched using the Kubernetes API with full metadata such as pod name, container name, namespace, labels, and annotations. When false, Kubernetes API enrichment is skipped and a Lua filter is used to extract limited metadata (e.g. pod name and namespace) from log tags only."
+  type        = bool
+  default     = true
+}
+
 variable "enable_annotations" {
   description = "Set to true to include pod annotations in log records. Default annotations such as pod IP address and container ID, along with any custom annotations on the pod, will be included. This can help filter logs based on pod annotations in Cloud Logs."
   type        = bool

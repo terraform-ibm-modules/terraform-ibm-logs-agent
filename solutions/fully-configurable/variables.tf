@@ -211,6 +211,12 @@ variable "enable_annotations" {
   default     = false
 }
 
+variable "enable_kubernetes_filter" {
+  description = "Whether to enable the Kubernetes filter in logs-agent. When true, log records are enriched using the Kubernetes API with full metadata such as pod name, container name, namespace, labels, and annotations. When false, Kubernetes API enrichment is skipped and a Lua filter is used to extract limited metadata (e.g. pod name and namespace) from log tags only."
+  type        = bool
+  default     = true
+}
+
 variable "log_filters" {
 
   # variable type is any because filters schema is not fixed and there are many filters each having its unique fields.
