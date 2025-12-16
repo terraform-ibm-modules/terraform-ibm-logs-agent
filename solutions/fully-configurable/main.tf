@@ -87,5 +87,6 @@ module "logs_agent" {
   enable_annotations                   = var.enable_annotations
   log_filters                          = var.log_filters
   max_unavailable                      = var.max_unavailable
+  storage_name                         = var.storage_name
   logs_agent_multi_process_workers     = var.logs_agent_multi_process_workers
 }

@@ -72,7 +72,7 @@ variable "logs_agent_chart_location" {
 variable "logs_agent_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
-  default     = "1.7.0" # datasource: icr.io/ibm-observe/logs-agent-helm
+  default     = "1.7.1" # datasource: icr.io/ibm-observe/logs-agent-helm
   nullable    = false
 }
 
@@ -288,4 +288,11 @@ variable "log_filters" {
   description = "List of additional filters to be applied on logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-log-filters)."
   type        = any
   default     = []
+}
+
+variable "storage_name" {
+  type        = string
+  description = "The custom name for the fluent cache that stores data streams and chunks, as well as the database file that tracks processed files and their states, helping prevent multiple logs-agents from using the same cache and database."
+  default     = ""
+  nullable    = false
 }

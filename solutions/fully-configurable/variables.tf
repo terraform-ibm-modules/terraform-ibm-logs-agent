@@ -91,7 +91,7 @@ variable "logs_agent_chart_location" {
 variable "logs_agent_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
-  default     = "1.7.0" # datasource: icr.io/ibm-observe/logs-agent-helm
+  default     = "1.7.1" # datasource: icr.io/ibm-observe/logs-agent-helm
   nullable    = false
 }
 
@@ -292,6 +292,13 @@ variable "max_unavailable" {
   type        = string
   description = "The maximum number of pods that can be unavailable during a DaemonSet rolling update. Accepts absolute number or percentage (e.g., '1' or '10%')."
   default     = "1"
+  nullable    = false
+}
+
+variable "storage_name" {
+  type        = string
+  description = "The custom name for the fluent cache that stores data streams and chunks, as well as the database file that tracks processed files and their states, helping prevent multiple logs-agents from using the same cache and database."
+  default     = ""
   nullable    = false
 }
 
