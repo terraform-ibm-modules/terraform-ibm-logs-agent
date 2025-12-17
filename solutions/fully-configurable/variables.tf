@@ -209,6 +209,11 @@ variable "enable_annotations" {
   description = "Set to true to include pod annotations in log records. Default annotations such as pod IP address and container ID, along with any custom annotations on the pod, will be included. This can help filter logs based on pod annotations in Cloud Logs."
   type        = bool
   default     = false
+
+  validation {
+    condition     = !(var.enable_annotations && !var.enable_kubernetes_filter)
+    error_message = "enable_annotations requires enable_kubernetes_filter to be true, as annotations are enriched via the Kubernetes API."
+  }
 }
 
 variable "enable_kubernetes_filter" {
