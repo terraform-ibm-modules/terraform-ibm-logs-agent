@@ -292,7 +292,6 @@ variable "log_filters" {
 
 variable "storage_name" {
   type        = string
-  description = "The custom name for the fluent cache that stores data streams and chunks, as well as the database file that tracks processed files and their states, helping prevent multiple logs-agents from using the same cache and database."
-  default     = ""
-  nullable    = false
+  description = "The custom name for the fluent cache that stores data streams and chunks, as well as the database file that tracks processed files and their states, helping prevent multiple logs-agents from using the same cache and database. If no value is passed, the storage name is set to `fluent-bit`."
+  default     = null
 }
