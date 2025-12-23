@@ -135,6 +135,10 @@ resource "helm_release" "logs_agent" {
     {
       name  = "updateStrategy.maxUnavailable"
       value = var.max_unavailable
+    },
+    {
+      name  = "storageName"
+      value = var.storage_name
     }
   ]
 
