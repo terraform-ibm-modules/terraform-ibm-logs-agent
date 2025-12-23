@@ -85,6 +85,7 @@ module "logs_agent" {
   wait_till_timeout                    = var.wait_till_timeout
   enable_multiline                     = var.enable_multiline
   enable_annotations                   = var.enable_annotations
+  enable_kubernetes_filter             = var.enable_kubernetes_filter
   log_filters                          = var.log_filters
   max_unavailable                      = var.max_unavailable
   storage_name                         = var.storage_name
