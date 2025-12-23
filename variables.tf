@@ -274,7 +274,7 @@ variable "enable_annotations" {
 
   validation {
     condition     = !(var.enable_annotations && !var.enable_kubernetes_filter)
-    error_message = "enable_annotations requires enable_kubernetes_filter to be true, as annotations are enriched via the Kubernetes API."
+    error_message = "'enable_annotations' requires 'enable_kubernetes_filter' to be true, as annotations are enriched via the Kubernetes API."
   }
 }
 
