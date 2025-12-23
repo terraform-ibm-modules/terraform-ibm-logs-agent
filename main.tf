@@ -125,6 +125,10 @@ resource "helm_release" "logs_agent" {
       value = var.enable_multiline
     },
     {
+      name  = "enableKubernetesFilter"
+      value = var.enable_kubernetes_filter
+    },
+    {
       name  = "includeAnnotations"
       value = var.enable_annotations
     },

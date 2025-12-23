@@ -491,6 +491,9 @@
               "key": "enable_multiline"
             },
             {
+              "key": "enable_kubernetes_filter"
+            },
+            {
               "key": "cluster_name",
               "type": "string",
               "required": true,
