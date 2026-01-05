@@ -2,11 +2,13 @@
 package test
 
 import (
+	"bytes"
 	"crypto/rand"
 	"fmt"
 	"log"
 	"math/big"
 	"os"
+	"os/exec"
 	"strings"
 	"testing"
 
@@ -69,12 +71,38 @@ func getRandomRegion() string {
 	return validRegions[n.Int64()]
 }
 
+func validateEnvVariable(t *testing.T, varName string) string {
+	val, present := os.LookupEnv(varName)
+	require.True(t, present, "%s environment variable not set", varName)
+	require.NotEqual(t, "", val, "%s environment variable is empty", varName)
+	return val
+}
+
+func createContainersApikey(t *testing.T, region string, rg string) {
+
+	err := os.Setenv("IBMCLOUD_API_KEY", validateEnvVariable(t, "TF_VAR_ibmcloud_api_key"))
+	require.NoError(t, err, "Failed to set IBMCLOUD_API_KEY environment variable")
+	scriptPath := "../common-dev-assets/scripts/iks-api-key-reset/reset_iks_api_key.sh"
+	cmd := exec.Command("bash", scriptPath, region, rg)
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+
+	// Execute the command
+	if err := cmd.Run(); err != nil {
+		log.Fatalf("Failed to execute script: %v\nStderr: %s", err, stderr.String())
+	}
+	// Print script output
+	fmt.Println(stdout.String())
+}
+
 func setupOptions(t *testing.T, prefix string, terraformDir string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  terraformDir,
 		Prefix:        prefix,
+		Region:        getRandomRegion(),
 		ResourceGroup: resourceGroup,
 		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
 			List: IgnoreUpdates,
@@ -109,13 +137,17 @@ func TestFullyConfigurableSolution(t *testing.T) {
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: tempTerraformDir,
 		Vars: map[string]any{
-			"prefix": prefix,
-			"region": region,
+			"prefix":         prefix,
+			"region":         region,
+			"resource_group": resourceGroup,
 		},
 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
 		// This is the same as setting the -upgrade=true flag with terraform.
 		Upgrade: true,
 	})
+
+	// Temp workaround for https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc?tab=readme-ov-file#the-specified-api-key-could-not-be-found
+	createContainersApikey(t, region, resourceGroup)
 
 	terraform.WorkspaceSelectOrNew(t, existingTerraformOptions, prefix)
 	_, existErr := terraform.InitAndApplyE(t, existingTerraformOptions)
@@ -195,13 +227,17 @@ func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: tempTerraformDir,
 		Vars: map[string]any{
-			"prefix": prefix,
-			"region": region,
+			"prefix":         prefix,
+			"region":         region,
+			"resource_group": resourceGroup,
 		},
 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
 		// This is the same as setting the -upgrade=true flag with terraform.
 		Upgrade: true,
 	})
+
+	// Temp workaround for https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc?tab=readme-ov-file#the-specified-api-key-could-not-be-found
+	createContainersApikey(t, region, resourceGroup)
 
 	terraform.WorkspaceSelectOrNew(t, existingTerraformOptions, prefix)
 	_, existErr := terraform.InitAndApplyE(t, existingTerraformOptions)
@@ -264,6 +300,10 @@ func TestRunAgentClassicKubernetes(t *testing.T) {
 
 	options := setupOptions(t, "logs-agent-iks", terraformDirLogsAgentIKS)
 	options.TerraformVars["is_vpc_cluster"] = false
+
+	// Temp workaround for https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc?tab=readme-ov-file#the-specified-api-key-could-not-be-found
+	createContainersApikey(t, options.Region, resourceGroup)
+
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
@@ -274,6 +314,10 @@ func TestRunAgentVpcKubernetes(t *testing.T) {
 
 	options := setupOptions(t, "logs-agent-iks", terraformDirLogsAgentIKS)
 	output, err := options.RunTestConsistency()
+
+	// Temp workaround for https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc?tab=readme-ov-file#the-specified-api-key-could-not-be-found
+	createContainersApikey(t, options.Region, resourceGroup)
+
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
@@ -281,6 +325,8 @@ func TestRunAgentVpcKubernetes(t *testing.T) {
 func TestAgentDefaultConfiguration(t *testing.T) {
 
 	t.Parallel()
+
+	var region = getRandomRegion()
 
 	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
 		Testing:   t,
@@ -293,7 +339,8 @@ func TestAgentDefaultConfiguration(t *testing.T) {
 		"deploy-arch-ibm-logs-agent",
 		"fully-configurable",
 		map[string]interface{}{
-			"region": "eu-de",
+			"region":                       region,
+			"existing_resource_group_name": resourceGroup,
 		},
 	)
 
@@ -325,6 +372,9 @@ func TestAgentDefaultConfiguration(t *testing.T) {
 			},
 		},
 	}
+
+	// Temp workaround for https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc?tab=readme-ov-file#the-specified-api-key-could-not-be-found
+	createContainersApikey(t, region, resourceGroup)
 
 	err := options.RunAddonTest()
 	require.NoError(t, err)
