@@ -15,7 +15,7 @@ terraform {
     # The kubernetes provider is not actually required by the module itself, just this example, so OK to use ">=" here instead of locking into a version
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.16.1"
+      version = ">= 3.0.1"
     }
     # The time provider is not actually required by the module itself, just this example, so OK to use ">=" here instead of locking into a version
     time = {
