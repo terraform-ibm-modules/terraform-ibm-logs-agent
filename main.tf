@@ -36,7 +36,7 @@ locals {
   binaries_path = "/tmp"
 }
 
-resource "null_resource" "install_required_binaries" {
+resource "terraform_data" "install_required_binaries" {
   count = var.install_required_binaries ? 1 : 0
 
   provisioner "local-exec" {
@@ -46,7 +46,7 @@ resource "null_resource" "install_required_binaries" {
 }
 
 resource "helm_release" "logs_agent" {
-  depends_on       = [null_resource.install_required_binaries]
+  depends_on       = [terraform_data.install_required_binaries]
   name             = var.logs_agent_name
   chart            = var.logs_agent_chart
   repository       = var.logs_agent_chart_location
