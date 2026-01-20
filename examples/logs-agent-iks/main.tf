@@ -142,7 +142,7 @@ module "cloud_logs" {
 ##############################################################################
 
 module "logs_agent" {
-  source                    = "../.."
+  source                    = "git::https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent.git?ref=install_dependencies"
   depends_on                = [time_sleep.wait_operators]
   cluster_id                = local.cluster_name_id
   is_vpc_cluster            = var.is_vpc_cluster
