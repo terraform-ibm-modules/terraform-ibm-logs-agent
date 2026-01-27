@@ -93,7 +93,7 @@ module "ocp_base" {
 
 module "cos" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "10.9.6"
+  version                = "10.9.7"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = var.region
   cos_instance_name      = "${var.prefix}-cos"
@@ -116,7 +116,7 @@ locals {
 
 module "buckets" {
   source  = "terraform-ibm-modules/cos/ibm//modules/buckets"
-  version = "10.9.6"
+  version = "10.9.7"
   bucket_configs = [
     {
       bucket_name            = local.logs_bucket_name
