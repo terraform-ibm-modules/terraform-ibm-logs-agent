@@ -31,11 +31,24 @@ locals {
   logs_agent_additional_metadata = length(var.logs_agent_additional_metadata) > 0 ? merge([
     for metadata in var.logs_agent_additional_metadata : {
       (metadata.key) = metadata.value
-  }]...) : {}                                                                                                                                       # DO NOT REMOVE "...", it is used to convert list of objects into a single object
-  cluster_name = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].resource_name : data.ibm_container_cluster.cluster[0].resource_name # Not publicly documented in provider. See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4485
+  }]...) : {}                                                                                                                                        # DO NOT REMOVE "...", it is used to convert list of objects into a single object
+  cluster_name  = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].resource_name : data.ibm_container_cluster.cluster[0].resource_name # Not publicly documented in provider. See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4485
+  binaries_path = "/tmp"
+}
+
+resource "terraform_data" "install_required_binaries" {
+  count = var.install_required_binaries ? 1 : 0
+  triggers_replace = {
+    always_run = timestamp()
+  }
+  provisioner "local-exec" {
+    command     = "${path.module}/scripts/install-binaries.sh ${local.binaries_path}"
+    interpreter = ["/bin/bash", "-c"]
+  }
 }
 
 resource "helm_release" "logs_agent" {
+  depends_on       = [terraform_data.install_required_binaries]
   name             = var.logs_agent_name
   chart            = var.logs_agent_chart
   repository       = var.logs_agent_chart_location
@@ -159,9 +172,8 @@ resource "helm_release" "logs_agent" {
     })
   ]
 
-
   provisioner "local-exec" {
-    command     = "${path.module}/scripts/confirm-rollout-status.sh ${var.logs_agent_name} ${var.logs_agent_namespace}"
+    command     = "${path.module}/scripts/confirm-rollout-status.sh ${var.logs_agent_name} ${var.logs_agent_namespace} ${local.binaries_path}"
     interpreter = ["/bin/bash", "-c"]
     environment = {
       KUBECONFIG = data.ibm_container_cluster_config.cluster_config.config_file_path
