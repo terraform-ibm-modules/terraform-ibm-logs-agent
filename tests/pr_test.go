@@ -36,7 +36,7 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 var permanentResources map[string]interface{}
 var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
-	"module.logs_agent.terraform_data.install_required_binaries",
+	"module.logs_agent.terraform_data.install_required_binaries[0]",
 }
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
