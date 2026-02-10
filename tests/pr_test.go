@@ -39,6 +39,10 @@ var IgnoreUpdates = []string{
 	"module.logs_agent.terraform_data.install_required_binaries[0]",
 }
 
+var IgnoreDestroys = []string{
+	"module.logs_agent.terraform_data.install_required_binaries[0]",
+}
+
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
 var validRegions = []string{
@@ -111,6 +115,9 @@ func setupOptions(t *testing.T, prefix string, terraformDir string) *testhelper.
 		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
 			List: IgnoreUpdates,
 		},
+		IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
+			List: []string{"module.logs_agent.terraform_data.install_required_binaries[0]"},
+		},
 		CloudInfoService:           sharedInfoSvc,
 		CheckApplyResultForUpgrade: true,
 	})
@@ -172,6 +179,9 @@ func TestFullyConfigurableSolution(t *testing.T) {
 			},
 			IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
 				List: IgnoreUpdates,
+			},
+			IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
+				List: IgnoreDestroys,
 			},
 			ResourceGroup:          resourceGroup,
 			TemplateFolder:         fullyConfigurableSolutionDir,
@@ -268,6 +278,9 @@ func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 			Region:                 region,
 			IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
 				List: IgnoreUpdates,
+			},
+			IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
+				List: IgnoreDestroys,
 			},
 			TerraformVersion:           terraformVersion,
 			CheckApplyResultForUpgrade: true,
