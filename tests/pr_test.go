@@ -12,6 +12,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
@@ -332,9 +333,10 @@ func TestAgentDefaultConfiguration(t *testing.T) {
 	var region = getRandomRegion()
 
 	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
-		Testing:   t,
-		Prefix:    "la-def",
-		QuietMode: false,
+		Testing:               t,
+		Prefix:                "la-def",
+		QuietMode:             false,
+		OverrideInputMappings: core.BoolPtr(true),
 	})
 
 	options.AddonConfig = cloudinfo.NewAddonConfigTerraform(
