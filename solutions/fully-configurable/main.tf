@@ -90,4 +90,6 @@ module "logs_agent" {
   max_unavailable                      = var.max_unavailable
   storage_name                         = var.storage_name
   logs_agent_multi_process_workers     = var.logs_agent_multi_process_workers
+  additional_outputs                   = var.additional_outputs
+  output_match_regex                   = var.output_match_regex
 }

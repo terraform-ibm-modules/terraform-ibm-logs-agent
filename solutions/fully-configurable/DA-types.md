@@ -152,3 +152,58 @@ In this example:
 - Second filter in the list is grep filter which is dropping all the records which have message.level field set to debug in the log record.
 
 We can use other filters such as modify, nest also.
+
+===================================================================
+
+# Configuring Additional Outputs
+
+:exclamation: **Important:** `additional_outputs` variable should be passed as a list to the input even if there is only one filter which you want to apply.
+
+`additional_outputs` allows you to configure extra output settings so logs can be sent to targets other than the default destination. For more information please refer [this](https://docs.fluentbit.io/manual/data-pipeline/outputs)
+
+### Example `additional_outputs` Usage
+
+To configure additional output for logs agent, you can set the `additional_outputs` variable in below format. Use `hcl` code editor format if using projects.
+
+```hcl
+[
+    {
+      name : "logger-icl-output-plugin-2",
+      id : "logs-router-icl-output-plugin-2",
+      match : "*",
+      retry_limit : "False",
+      target_host : "123456.ingress.private.eu-gb.logs.cloud.ibm.com",
+      target_port : 3443,
+      target_path : "/logs/v1/singles",
+      authentication_mode : "TrustedProfile",
+      iam_environment : "PrivateProduction",
+      trusted_profile_id : "Profile-123456",
+      cr_token_mount_path : "/var/run/secrets/tokens/vault-token",
+      logging_level : "info",
+      workers : 4,
+      "storage.total_limit_size" : "5G",
+    },
+    {
+      name : "logger-icl-output-plugin-3",
+      id : "logs-router-icl-output-plugin-3",
+      match : "*",
+      retry_limit : "False",
+      target_host : "56789.ingress.eu-gb.logs.cloud.ibm.com",
+      target_port : 443,
+      target_path : "/logs/v1/singles",
+      authentication_mode : "TrustedProfile",
+      iam_environment : "Production",
+      trusted_profile_id : "Profile-56789",
+      cr_token_mount_path : "/var/run/secrets/tokens/vault-token",
+      logging_level : "info",
+      workers : 2,
+      "storage.total_limit_size" : "5G",
+    }
+]
+```
+
+In this example, the list includes two output plugin configurations, with each one specifying a different destination for forwarding logs.
+
+- The first output plugin `logger-icl-output-plugin-2` forwards logs to a private IBM Cloud Logs endpoint `ingress.private.eu-gb.logs.cloud.ibm.com` over port `3443`. It uses TrustedProfile authentication in the `PrivateProduction` IAM environment and is configured with 4 workers, a 5GB storage limit, and retry handling disabled.
+
+- The second output plugin `logger-icl-output-plugin-3` forwards logs to a public IBM Cloud Logs endpoint `ingress.eu-gb.logs.cloud.ibm.com` over port `443`. It also uses TrustedProfile authentication, but in the `Production` IAM environment. This configuration uses 2 workers and the same 5GB storage limit.

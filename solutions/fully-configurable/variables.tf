@@ -312,6 +312,23 @@ variable "storage_name" {
   default     = null
 }
 
+variable "additional_outputs" {
+
+  # variable type is any because additionalOutputs schema is not fixed and there are many additionalOutputs each having its unique fields.
+  # logs-agent helm chart expects this variable to be provided in list format even if a single additional output is passed.
+
+  description = "Use this input to replace the default additional outputs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-additional-outputs)."
+  type        = any
+  default     = []
+  nullable    = false
+}
+
+variable "output_match_regex" {
+  type        = string
+  description = "This is an optional field that defines a regular expression pattern to match against incoming record tags. Use this variable to selectively send records based on their tag values. Supports full regex syntax for complex matching patterns."
+  default     = null
+}
+
 variable "provider_visibility" {
   description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. [Learn more](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/guides/custom-service-endpoints)."
   type        = string
