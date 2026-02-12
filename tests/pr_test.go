@@ -116,7 +116,7 @@ func setupOptions(t *testing.T, prefix string, terraformDir string) *testhelper.
 			List: IgnoreUpdates,
 		},
 		IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
-			List: []string{"module.logs_agent.terraform_data.install_required_binaries[0]"},
+			List: IgnoreDestroys,
 		},
 		CloudInfoService:           sharedInfoSvc,
 		CheckApplyResultForUpgrade: true,
