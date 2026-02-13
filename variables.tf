@@ -300,6 +300,23 @@ variable "log_filters" {
   default     = []
 }
 
+variable "additional_outputs" {
+
+  # variable type is any because additionalOutputs schema is not fixed and there are many additionalOutputs each having its unique fields.
+  # logs-agent helm chart expects this variable to be provided in list format even if a single additional output is passed.
+
+  description = "Use this input to replace the default additional outputs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-additional-outputs)."
+  type        = any
+  default     = []
+  nullable    = false
+}
+
+variable "output_match_regex" {
+  type        = string
+  description = "This is an optional field that defines a regular expression pattern to match against incoming record tags. Use this variable to selectively send records based on their tag values. Supports full regex syntax for complex matching patterns."
+  default     = null
+}
+
 variable "storage_name" {
   type        = string
   description = "The custom name for the fluent cache that stores data streams and chunks, as well as the database file that tracks processed files and their states, helping prevent multiple logs-agents from using the same cache and database. If no value is passed, the storage name is set to `fluent-bit`."
