@@ -152,6 +152,10 @@ resource "helm_release" "logs_agent" {
     {
       name  = "storageName"
       value = var.storage_name
+    },
+    {
+      name  = "output_match_regex"
+      value = var.output_match_regex
     }
   ]
 
@@ -168,6 +172,7 @@ resource "helm_release" "logs_agent" {
       additionalFilters  = var.log_filters
       resources          = var.logs_agent_resources
       additionalMetadata = local.logs_agent_additional_metadata
+      additionalOutputs  = var.additional_outputs
       dummy              = uuid()
     })
   ]
