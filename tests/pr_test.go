@@ -37,6 +37,11 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 var permanentResources map[string]interface{}
 var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
+	"module.logs_agent.terraform_data.install_required_binaries[0]",
+}
+
+var IgnoreDestroys = []string{
+	"module.logs_agent.terraform_data.install_required_binaries[0]",
 }
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
@@ -111,6 +116,9 @@ func setupOptions(t *testing.T, prefix string, terraformDir string) *testhelper.
 		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
 			List: IgnoreUpdates,
 		},
+		IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
+			List: IgnoreDestroys,
+		},
 		CloudInfoService:           sharedInfoSvc,
 		CheckApplyResultForUpgrade: true,
 	})
@@ -172,6 +180,9 @@ func TestFullyConfigurableSolution(t *testing.T) {
 			},
 			IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
 				List: IgnoreUpdates,
+			},
+			IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
+				List: IgnoreDestroys,
 			},
 			ResourceGroup:          resourceGroup,
 			TemplateFolder:         fullyConfigurableSolutionDir,
@@ -268,6 +279,9 @@ func TestFullyConfigurableUpgradeSolution(t *testing.T) {
 			Region:                 region,
 			IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
 				List: IgnoreUpdates,
+			},
+			IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
+				List: IgnoreDestroys,
 			},
 			TerraformVersion:           terraformVersion,
 			CheckApplyResultForUpgrade: true,

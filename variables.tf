@@ -322,3 +322,10 @@ variable "storage_name" {
   description = "The custom name for the fluent cache that stores data streams and chunks, as well as the database file that tracks processed files and their states, helping prevent multiple logs-agents from using the same cache and database. If no value is passed, the storage name is set to `fluent-bit`."
   default     = null
 }
+
+variable "install_required_binaries" {
+  type        = bool
+  default     = true
+  description = "When set to true, a script will run to check if `kubectl` exist on the runtime and if not attempt to download it from the public internet and install it to /tmp. Set to false to skip running this script."
+  nullable    = false
+}
