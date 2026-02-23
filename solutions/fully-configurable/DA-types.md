@@ -157,7 +157,7 @@ We can use other filters such as modify, nest also.
 
 # Configuring Additional Outputs
 
-:exclamation: **Important:** `additional_outputs` variable should be passed as a list to the input even if there is only one filter which you want to apply.
+:exclamation: **Important:** `additional_outputs` variable should be passed as a list to the input even if there is only one output which you want to apply.
 
 `additional_outputs` allows you to configure extra output settings so logs can be sent to targets other than the default destination. For more information please refer [this](https://docs.fluentbit.io/manual/data-pipeline/outputs)
 
