@@ -309,6 +309,11 @@ variable "additional_outputs" {
   type        = any
   default     = []
   nullable    = false
+
+  validation {
+    condition     = can(tolist(var.additional_outputs))
+    error_message = "`additional_outputs` must be a list."
+  }
 }
 
 variable "output_match_regex" {

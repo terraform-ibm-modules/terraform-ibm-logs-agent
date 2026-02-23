@@ -115,7 +115,7 @@ The `logs_agent_resources` variable is used to configure the resource requests a
 
 :exclamation: **Important:** `log_filters` variable should be passed as a list to the input even if there is only one filter which you want to apply.
 
-`log_filters` can be used to apply some filters on the logs which you want to send to Cloud Logs instance such as modifying some fields, dropping info/debug logs to just keep error logs, or running some custom functions with the help of lua filter. For more information please refer [this](https://docs.fluentbit.io/manual/data-pipeline/filters)
+`log_filters` can be used to apply some filters on the logs which you want to send to Cloud Logs instance such as modifying some fields, dropping info/debug logs to just keep error logs, or running some custom functions with the help of lua filter. For more information, see [this](https://docs.fluentbit.io/manual/data-pipeline/filters)
 
 ### Example `log_filters` Usage
 
@@ -159,7 +159,7 @@ We can use other filters such as modify, nest also.
 
 :exclamation: **Important:** `additional_outputs` variable should be passed as a list to the input even if there is only one output which you want to apply.
 
-`additional_outputs` allows you to configure extra output settings so logs can be sent to targets other than the default destination. For more information please refer [this](https://docs.fluentbit.io/manual/data-pipeline/outputs)
+`additional_outputs` allows you to configure extra output settings so logs can be sent to targets other than the default destination. For more information, see [this](https://docs.fluentbit.io/manual/data-pipeline/outputs)
 
 ### Example `additional_outputs` Usage
 
