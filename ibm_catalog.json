@@ -428,6 +428,22 @@
               }
             },
             {
+              "key": "additional_outputs",
+              "custom_config": {
+                "type": "code_editor",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "hcl"
+                  ]
+                }
+              }
+            },
+            {
+              "key": "output_match_regex"
+            },
+            {
               "key": "logs_agent_selected_log_source_paths"
             },
             {

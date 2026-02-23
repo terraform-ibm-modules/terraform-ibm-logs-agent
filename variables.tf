@@ -72,21 +72,21 @@ variable "logs_agent_chart_location" {
 variable "logs_agent_chart_version" {
   description = "The version of the Helm chart to deploy."
   type        = string
-  default     = "1.7.1" # datasource: icr.io/ibm-observe/logs-agent-helm
+  default     = "1.8.0" # datasource: icr.io/ibm-observe/logs-agent-helm
   nullable    = false
 }
 
 variable "logs_agent_init_image_version" {
   description = "The version of the Logs agent init container image to deploy."
   type        = string
-  default     = "1.7.1@sha256:6cb1dfe206b4c0f739c7459930719577ef3f1ef3eed022f5590c52785410c042" # datasource: icr.io/ibm/observe/logs-router-agent-init
+  default     = "1.8.0@sha256:3283ccdba98ac586877ce31aeb1357b1a14de2551f366971fd22f4c4ef23e997" # datasource: icr.io/ibm/observe/logs-router-agent-init
   nullable    = false
 }
 
 variable "logs_agent_image_version" {
   description = "The version of the Logs agent image to deploy."
   type        = string
-  default     = "1.7.1@sha256:868a425f2e3cb7bbef609acc4af75cc4dd53e9a455e90fee1d1abc505512c518" # datasource: icr.io/ibm/observe/logs-router-agent
+  default     = "1.8.0@sha256:54366bba87919d15619b604cfbfcbb64911e0a729089c54db38a9d91ae79c664" # datasource: icr.io/ibm/observe/logs-router-agent
   nullable    = false
   validation {
     condition     = split("@", var.logs_agent_image_version)[0] == split("@", var.logs_agent_init_image_version)[0]
@@ -298,6 +298,28 @@ variable "log_filters" {
   description = "List of additional filters to be applied on logs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-log-filters)."
   type        = any
   default     = []
+}
+
+variable "additional_outputs" {
+
+  # variable type is any because additionalOutputs schema is not fixed and there are many additionalOutputs each having its unique fields.
+  # logs-agent helm chart expects this variable to be provided in list format even if a single additional output is passed.
+
+  description = "Use this input to replace the default additional outputs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-additional-outputs)."
+  type        = any
+  default     = []
+  nullable    = false
+
+  validation {
+    condition     = can(tolist(var.additional_outputs))
+    error_message = "`additional_outputs` must be a list."
+  }
+}
+
+variable "output_match_regex" {
+  type        = string
+  description = "This is an optional field that defines a regular expression pattern to match against incoming record tags. Use this variable to selectively send records based on their tag values. Supports full regex syntax for complex matching patterns."
+  default     = null
 }
 
 variable "storage_name" {
