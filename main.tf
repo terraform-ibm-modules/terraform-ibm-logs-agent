@@ -146,6 +146,10 @@ resource "helm_release" "logs_agent" {
       value = var.enable_annotations
     },
     {
+      name  = "keepParsedLog"
+      value = var.keep_parsed_log
+    },
+    {
       name  = "updateStrategy.maxUnavailable"
       value = var.max_unavailable
     },

@@ -267,6 +267,17 @@ variable "enable_kubernetes_filter" {
   default     = true
 }
 
+variable "keep_parsed_log" {
+  description = "Controls Fluent Bit Kubernetes filter keep_log setting: when true, preserves the original parsed log under the 'log' field after merge_log; when false, removes it to reduce log size."
+  type        = bool
+  default     = false
+
+  validation {
+    condition     = !(var.keep_parsed_log && !var.enable_kubernetes_filter)
+    error_message = "'keep_parsed_log' requires 'enable_kubernetes_filter' to be true."
+  }
+}
+
 variable "enable_annotations" {
   description = "Set to true to include pod annotations in log records. Default annotations such as pod IP address and container ID, along with any custom annotations on the pod, will be included. This can help filter logs based on pod annotations in Cloud Logs."
   type        = bool
