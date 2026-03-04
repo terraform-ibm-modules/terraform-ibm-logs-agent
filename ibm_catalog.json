@@ -395,6 +395,9 @@
               "key": "enable_annotations"
             },
             {
+              "key": "keep_parsed_log"
+            },
+            {
               "key": "max_unavailable",
               "value_constraints": [
                 {

@@ -222,6 +222,12 @@ variable "enable_kubernetes_filter" {
   default     = true
 }
 
+variable "keep_parsed_log" {
+  description = "Controls Fluent Bit Kubernetes filter keep_log setting: when true, preserves the original parsed log under the 'log' field after merge_log; when false, removes it to reduce log size."
+  type        = bool
+  default     = false
+}
+
 variable "log_filters" {
 
   # variable type is any because filters schema is not fixed and there are many filters each having its unique fields.
