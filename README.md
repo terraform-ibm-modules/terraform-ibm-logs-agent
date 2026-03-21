@@ -14,14 +14,28 @@ This module deploys the following logs agent to an IBM Cloud Red Hat OpenShift C
 <!-- Below content is automatically populated via pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
-* [terraform-ibm-logs-agent](#terraform-ibm-logs-agent)
-* [Examples](./examples)
-:information_source: Ctrl/Cmd+Click or right-click on the Schematics deploy button to open in a new tab
-    * <a href="./examples/logs-agent-iks">Logs agent on Kubernetes using CSE ingress endpoint with an apikey</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=logs-agent-logs-agent-iks-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/examples/logs-agent-iks"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-    * <a href="./examples/logs-agent-ocp">Logs agent on OCP using VPE ingress endpoint with a Trusted Profile</a> <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=logs-agent-logs-agent-ocp-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/examples/logs-agent-ocp"><img src="https://img.shields.io/badge/Deploy%20with IBM%20Cloud%20Schematics-0f62fe?logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
-* [Deployable Architectures](./solutions)
-    * <a href="./solutions/fully-configurable">Cloud automation for Logs agent (Fully configurable)</a>
-* [Contributing](#contributing)
+<ul>
+  <li><a href="#terraform-ibm-logs-agent">terraform-ibm-logs-agent</a></li>
+  <li><a href="./examples">Examples</a>
+    <ul>
+      <li>
+        <a href="./examples/logs-agent-iks">Logs agent on Kubernetes using CSE ingress endpoint with an apikey</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=logs-agent-logs-agent-iks-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/examples/logs-agent-iks"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+      <li>
+        <a href="./examples/logs-agent-ocp">Logs agent on OCP using VPE ingress endpoint with a Trusted Profile</a>
+        <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=logs-agent-logs-agent-ocp-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/tree/main/examples/logs-agent-ocp"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
+      </li>
+    </ul>
+    ℹ️ Ctrl/Cmd+Click or right-click on the Schematics deploy button to open in a new tab.
+  </li>
+  <li><a href="./solutions">Deployable Architectures</a>
+    <ul>
+      <li><a href="./solutions/fully-configurable">Cloud automation for Logs agent (Fully configurable)</a></li>
+    </ul>
+  </li>
+  <li><a href="#contributing">Contributing</a></li>
+</ul>
 <!-- END OVERVIEW HOOK -->
 
 ## terraform-ibm-logs-agent
