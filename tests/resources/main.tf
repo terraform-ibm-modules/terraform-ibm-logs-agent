@@ -4,7 +4,7 @@
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.4.8"
+  version = "1.5.0"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
   existing_resource_group_name = var.resource_group
@@ -74,7 +74,7 @@ locals {
 
 module "ocp_base" {
   source                              = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                             = "3.82.2"
+  version                             = "3.82.3"
   resource_group_id                   = module.resource_group.resource_group_id
   region                              = var.region
   tags                                = var.resource_tags
@@ -93,14 +93,13 @@ module "ocp_base" {
 
 module "cos" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "10.14.8"
+  version                = "10.14.9"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = var.region
   cos_instance_name      = "${var.prefix}-cos"
   cos_tags               = var.resource_tags
   bucket_name            = "${var.prefix}-bucket"
   create_cos_bucket      = false
-  retention_enabled      = false # disable retention for test environments - enable for stage/prod
   kms_encryption_enabled = false
 }
 
@@ -116,7 +115,7 @@ locals {
 
 module "buckets" {
   source  = "terraform-ibm-modules/cos/ibm//modules/buckets"
-  version = "10.14.8"
+  version = "10.14.9"
   bucket_configs = [
     {
       bucket_name            = local.logs_bucket_name
