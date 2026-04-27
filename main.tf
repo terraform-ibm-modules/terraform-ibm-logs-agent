@@ -59,7 +59,7 @@ resource "helm_release" "logs_agent" {
   wait             = true
   recreate_pods    = true
   force_update     = true
-  atomic           = true
+  atomic           = var.rollback_on_failure
 
   set = [
     {
