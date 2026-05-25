@@ -342,7 +342,6 @@ func TestRunAgentVpcKubernetes(t *testing.T) {
 }
 
 func TestAgentDefaultConfiguration(t *testing.T) {
-	t.Skip() // To be removed once IAM error is fixed.
 	t.Parallel()
 
 	var region = getRandomRegion()
