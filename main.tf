@@ -106,6 +106,11 @@ resource "helm_release" "logs_agent" {
       type  = "string"
       value = var.logs_agent_iam_environment
     },
+  ], var.logs_agent_iam_custom_endpoint != null ? [{
+    name  = "env.iamHost"
+    type  = "string"
+    value = var.logs_agent_iam_custom_endpoint
+  }] : [], [
     {
       name  = "systemLogs"
       type  = "string"
