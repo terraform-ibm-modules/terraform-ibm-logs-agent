@@ -208,11 +208,17 @@ variable "logs_agent_iam_mode" {
 variable "logs_agent_iam_environment" {
   type        = string
   default     = "PrivateProduction"
-  description = "IAM authentication Environment: `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`. `Production` specifies the public endpoint & `PrivateProduction` specifies the private endpoint."
+  description = "IAM authentication Environment: `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`. `Production` specifies the public endpoint & `PrivateProduction` specifies the private endpoint. Set to `Custom` when using `logs_agent_iam_custom_endpoint`."
   validation {
-    error_message = "The IAM environment can only be `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`."
-    condition     = contains(["Production", "PrivateProduction", "Staging", "PrivateStaging"], var.logs_agent_iam_environment)
+    error_message = "The IAM environment can only be `Production` or `PrivateProduction` or `Staging` or `PrivateStaging` or `Custom`."
+    condition     = contains(["Production", "PrivateProduction", "Staging", "PrivateStaging", "Custom"], var.logs_agent_iam_environment)
   }
+}
+
+variable "logs_agent_iam_custom_endpoint" {
+  type        = string
+  default     = null
+  description = "Custom IAM endpoint for regions requiring region-specific IAM endpoints (e.g., 'private.iam.eu-fr2.cloud.ibm.com' for eu-fr2). When specified, set `logs_agent_iam_environment` to `Custom`. See https://cloud.ibm.com/docs/cloud-logs?topic=cloud-logs-agent-helm-iam-endpoint"
 }
 
 variable "logs_agent_multi_process_workers" {

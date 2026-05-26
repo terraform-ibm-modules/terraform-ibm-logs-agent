@@ -33,6 +33,7 @@ locals {
       (metadata.key) = metadata.value
   }]...) : {}                                                                                                                                       # DO NOT REMOVE "...", it is used to convert list of objects into a single object
   cluster_name = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].resource_name : data.ibm_container_cluster.cluster[0].resource_name # Not publicly documented in provider. See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4485
+
 }
 
 resource "helm_release" "logs_agent" {
@@ -47,7 +48,7 @@ resource "helm_release" "logs_agent" {
   recreate_pods    = true
   force_update     = true
 
-  set = [
+  set = concat([
     {
       name  = "metadata.name"
       type  = "string"
@@ -92,6 +93,11 @@ resource "helm_release" "logs_agent" {
       type  = "string"
       value = var.logs_agent_iam_environment
     },
+  ], var.logs_agent_iam_custom_endpoint != null ? [{
+    name  = "env.iamHost"
+    type  = "string"
+    value = var.logs_agent_iam_custom_endpoint
+  }] : [], [
     {
       name  = "systemLogs"
       type  = "string"
@@ -132,7 +138,7 @@ resource "helm_release" "logs_agent" {
       name  = "updateStrategy.maxUnavailable"
       value = var.max_unavailable
     }
-  ]
+  ])
 
   set_sensitive = [{
     name  = "secret.iamAPIKey"

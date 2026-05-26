@@ -75,6 +75,7 @@ module "logs_agent" {
   logs_agent_log_source_namespaces     = var.logs_agent_log_source_namespaces
   logs_agent_iam_mode                  = var.logs_agent_iam_mode
   logs_agent_iam_environment           = var.logs_agent_iam_environment
+  logs_agent_iam_custom_endpoint       = var.logs_agent_iam_custom_endpoint
   logs_agent_additional_metadata       = var.logs_agent_additional_metadata
   logs_agent_enable_scc                = var.is_ocp_cluster
   logs_agent_resources                 = var.logs_agent_resources
