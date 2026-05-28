@@ -225,7 +225,7 @@ variable "logs_agent_iam_custom_endpoint" {
   type        = string
   default     = null
   description = "Custom IAM endpoint hostname (without https://) for regions requiring region-specific IAM endpoints (e.g., `iam.eu-fr2.cloud.ibm.com` or `private.iam.eu-fr2.cloud.ibm.com`). Only used when `logs_agent_iam_environment` is set to `Custom`."
-  
+
   validation {
     error_message = "When logs_agent_iam_environment is set to 'Custom', logs_agent_iam_custom_endpoint must be provided and non-empty."
     condition = (
