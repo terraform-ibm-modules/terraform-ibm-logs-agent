@@ -61,7 +61,7 @@ resource "helm_release" "logs_agent" {
   force_update     = true
   atomic           = var.rollback_on_failure
 
-  set = concat([
+  set = [
     {
       name  = "metadata.name"
       type  = "string"
@@ -105,12 +105,12 @@ resource "helm_release" "logs_agent" {
       name  = "env.iamEnvironment"
       type  = "string"
       value = var.logs_agent_iam_environment
-    }
-    ], var.logs_agent_iam_custom_endpoint != null ? [{
+    },
+    {
       name  = "env.iamHost"
       type  = "string"
       value = var.logs_agent_iam_custom_endpoint
-    }] : [], [
+    },
     {
       name  = "systemLogs"
       type  = "string"
@@ -167,7 +167,7 @@ resource "helm_release" "logs_agent" {
       name  = "output_match_regex"
       value = var.output_match_regex
     }
-  ])
+  ]
 
   set_sensitive = [{
     name  = "secret.iamAPIKey"
