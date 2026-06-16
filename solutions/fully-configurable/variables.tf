@@ -263,10 +263,24 @@ variable "logs_agent_iam_api_key" {
 variable "logs_agent_iam_environment" {
   type        = string
   default     = "PrivateProduction"
-  description = "IAM authentication Environment: `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`."
+  description = "IAM authentication Environment: `Production` or `PrivateProduction` or `Staging` or `PrivateStaging` or `Custom`. Use `Custom` with `logs_agent_iam_custom_endpoint` for region-specific IAM endpoints."
   validation {
-    error_message = "The IAM environment can only be `Production` or `PrivateProduction` or `Staging` or `PrivateStaging`."
-    condition     = contains(["Production", "PrivateProduction", "Staging", "PrivateStaging"], var.logs_agent_iam_environment)
+    error_message = "The IAM environment can only be `Production` or `PrivateProduction` or `Staging` or `PrivateStaging` or `Custom`."
+    condition     = contains(["Production", "PrivateProduction", "Staging", "PrivateStaging", "Custom"], var.logs_agent_iam_environment)
+  }
+}
+
+variable "logs_agent_iam_custom_endpoint" {
+  type        = string
+  default     = null
+  description = "Custom IAM endpoint hostname (without https://) for regions requiring region-specific IAM endpoints (e.g., `iam.<region>.cloud.ibm.com` or `private.iam.<region>.cloud.ibm.com`). Required when `logs_agent_iam_environment` is set to `Custom`."
+
+  validation {
+    error_message = "When logs_agent_iam_environment is set to 'Custom', logs_agent_iam_custom_endpoint must be provided and non-empty."
+    condition = (
+      var.logs_agent_iam_environment != "Custom" ||
+      (var.logs_agent_iam_custom_endpoint != null && var.logs_agent_iam_custom_endpoint != "")
+    )
   }
 }
 

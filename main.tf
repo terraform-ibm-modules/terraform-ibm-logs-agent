@@ -107,6 +107,11 @@ resource "helm_release" "logs_agent" {
       value = var.logs_agent_iam_environment
     },
     {
+      name  = "env.iamHost"
+      type  = "string"
+      value = var.logs_agent_iam_custom_endpoint
+    },
+    {
       name  = "systemLogs"
       type  = "string"
       value = join("\\,", var.logs_agent_system_logs)

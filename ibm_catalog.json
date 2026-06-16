@@ -378,8 +378,15 @@
                 {
                   "displayname": "Private Staging",
                   "value": "PrivateStaging"
+                },
+                {
+                  "displayname": "Custom",
+                  "value": "Custom"
                 }
               ]
+            },
+            {
+              "key": "logs_agent_iam_custom_endpoint"
             },
             {
               "key": "logs_agent_log_source_namespaces",
