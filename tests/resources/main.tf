@@ -74,7 +74,7 @@ locals {
 
 module "ocp_base" {
   source                              = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                             = "3.89.0"
+  version                             = "3.90.0"
   resource_group_id                   = module.resource_group.resource_group_id
   region                              = var.region
   tags                                = var.resource_tags
@@ -93,7 +93,7 @@ module "ocp_base" {
 
 module "cos" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "10.16.5"
+  version                = "10.17.0"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = var.region
   cos_instance_name      = "${var.prefix}-cos"
@@ -115,7 +115,7 @@ locals {
 
 module "buckets" {
   source  = "terraform-ibm-modules/cos/ibm//modules/buckets"
-  version = "10.16.5"
+  version = "10.17.0"
   bucket_configs = [
     {
       bucket_name            = local.logs_bucket_name
@@ -139,7 +139,7 @@ module "buckets" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.13.12"
+  version           = "1.13.15"
   resource_group_id = module.ocp_base.resource_group_id
   region            = var.region
   instance_name     = "${var.prefix}-cloud-logs"
@@ -170,7 +170,7 @@ locals {
 
 module "trusted_profile" {
   source                      = "terraform-ibm-modules/trusted-profile/ibm"
-  version                     = "4.1.0"
+  version                     = "4.2.0"
   trusted_profile_name        = "${var.prefix}-profile"
   trusted_profile_description = "Logs agent Trusted Profile"
   # As a `Sender`, you can send logs to your IBM Cloud Logs service instance - but not query or tail logs. This role is meant to be used by agent and routers sending logs.
