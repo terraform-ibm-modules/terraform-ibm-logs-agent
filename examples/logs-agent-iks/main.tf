@@ -129,7 +129,7 @@ resource "time_sleep" "wait_operators" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.13.19"
+  version           = "1.13.20"
   resource_group_id = module.resource_group.resource_group_id
   plan              = "standard"
   region            = var.region
