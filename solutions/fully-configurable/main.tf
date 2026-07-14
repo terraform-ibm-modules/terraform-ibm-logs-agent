@@ -62,6 +62,9 @@ module "logs_agent" {
   logs_agent_chart                     = var.logs_agent_chart
   logs_agent_chart_location            = var.logs_agent_chart_location
   logs_agent_chart_version             = var.logs_agent_chart_version
+  logs_agent_image_name                = var.logs_agent_image_name
+  logs_agent_init_image_name           = var.logs_agent_init_image_name
+  logs_agent_image_pull_secrets        = var.logs_agent_image_pull_secrets
   logs_agent_image_version             = var.logs_agent_image_version
   logs_agent_init_image_version        = var.logs_agent_init_image_version
   logs_agent_name                      = var.logs_agent_name
