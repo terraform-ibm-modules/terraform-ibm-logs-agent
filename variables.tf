@@ -82,6 +82,18 @@ variable "logs_agent_chart_version" {
   nullable    = false
 }
 
+variable "logs_agent_init_image_name" {
+  description = "The container image used by the Logs agent init container. When set to null, the image defaults to `icr.io/ibm/observe/logs-router-agent-init`."
+  type        = string
+  default     = null
+}
+
+variable "logs_agent_image_name" {
+  description = "The container image used by the Logs agent container. When set to null, the image defaults to `icr.io/ibm/observe/logs-router-agent`."
+  type        = string
+  default     = null
+}
+
 variable "logs_agent_init_image_version" {
   description = "The version of the Logs agent init container image to deploy."
   type        = string
@@ -147,6 +159,13 @@ variable "logs_agent_tolerations" {
   default = [{
     operator = "Exists"
   }]
+}
+
+variable "logs_agent_image_pull_secrets" {
+  description = "The list of global imagePullSecrets to be added to all Logs Agent deployments. The referenced secrets must already exist in the target Kubernetes namespace before deployment. This module does not create or manage imagePullSecret resources; it only configures existing secrets for use by the Logs Agent deployments."
+  type        = list(string)
+  default     = []
+  nullable    = false
 }
 
 variable "logs_agent_resources" {

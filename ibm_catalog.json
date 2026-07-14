@@ -303,6 +303,23 @@
               "key": "logs_agent_chart_version"
             },
             {
+              "key": "logs_agent_image_name"
+            },
+            {
+              "key": "logs_agent_init_image_name"
+            },
+            {
+              "key": "logs_agent_image_pull_secrets",
+              "custom_config": {
+                "type": "array",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
+            },
+            {
               "key": "logs_agent_image_version"
             },
             {

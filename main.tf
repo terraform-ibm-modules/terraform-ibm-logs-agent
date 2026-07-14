@@ -68,6 +68,16 @@ resource "helm_release" "logs_agent" {
       value = var.logs_agent_name
     },
     {
+      name  = "image.initContainerName"
+      type  = "string"
+      value = var.logs_agent_init_image_name
+    },
+    {
+      name  = "image.name"
+      type  = "string"
+      value = var.logs_agent_image_name
+    },
+    {
       name  = "image.version"
       type  = "string"
       value = split("@", var.logs_agent_image_version)[0]
@@ -168,6 +178,11 @@ resource "helm_release" "logs_agent" {
       value = var.output_match_regex
     }
   ]
+
+  set_list = [{
+    name  = "image.imagePullSecrets"
+    value = var.logs_agent_image_pull_secrets
+  }]
 
   set_sensitive = [{
     name  = "secret.iamAPIKey"
