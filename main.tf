@@ -179,10 +179,10 @@ resource "helm_release" "logs_agent" {
     }
   ]
 
-  set_list = [{
+  set_list = length(var.logs_agent_image_pull_secrets) > 0 ? [{
     name  = "image.imagePullSecrets"
     value = var.logs_agent_image_pull_secrets
-  }]
+  }] : []
 
   set_sensitive = [{
     name  = "secret.iamAPIKey"
