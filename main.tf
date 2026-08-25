@@ -176,6 +176,18 @@ resource "helm_release" "logs_agent" {
     {
       name  = "output_match_regex"
       value = var.output_match_regex
+    },
+    {
+      name  = "bufferChunkSize"
+      value = var.buffer_chunk_size
+    },
+    {
+      name  = "bufferMaxSize"
+      value = var.buffer_max_size
+    },
+    {
+      name  = "storageTotalLimitSize"
+      value = var.storage_total_limit_size
     }
   ]
 

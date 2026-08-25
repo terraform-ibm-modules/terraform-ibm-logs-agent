@@ -351,6 +351,24 @@ variable "storage_name" {
   default     = null
 }
 
+variable "buffer_chunk_size" {
+  type        = string
+  description = "The initial buffer chunk size for the Fluent Bit tail input plugin. Controls the amount of memory allocated per chunk when reading log files. If not set, the helm chart default value will be used."
+  default     = null
+}
+
+variable "buffer_max_size" {
+  type        = string
+  description = "The maximum buffer size per monitored file for the Fluent Bit tail input plugin. If a chunk is not flushed in time and exceeds this limit, it is removed. If not set, the helm chart default value will be used."
+  default     = null
+}
+
+variable "storage_total_limit_size" {
+  type        = string
+  description = "The maximum total size of the filesystem storage used by the Fluent Bit output plugin. When the limit is reached, older chunks are discarded. If not set, the helm chart default value will be used."
+  default     = null
+}
+
 variable "additional_outputs" {
 
   # variable type is any because additionalOutputs schema is not fixed and there are many additionalOutputs each having its unique fields.

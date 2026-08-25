@@ -97,4 +97,7 @@ module "logs_agent" {
   logs_agent_multi_process_workers     = var.logs_agent_multi_process_workers
   additional_outputs                   = var.additional_outputs
   output_match_regex                   = var.output_match_regex
+  buffer_chunk_size                    = var.buffer_chunk_size
+  buffer_max_size                      = var.buffer_max_size
+  storage_total_limit_size             = var.storage_total_limit_size
 }
