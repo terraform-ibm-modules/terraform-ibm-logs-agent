@@ -535,6 +535,15 @@
               "key": "storage_name"
             },
             {
+              "key": "buffer_chunk_size"
+            },
+            {
+              "key": "buffer_max_size"
+            },
+            {
+              "key": "storage_total_limit_size"
+            },
+            {
               "key": "enable_multiline"
             },
             {
