@@ -103,7 +103,7 @@ You need the following permissions to run this module.
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 3.0.0, <4.0.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.81.1, <3.0.0 |
@@ -115,7 +115,7 @@ No modules.
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [helm_release.logs_agent](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [terraform_data.install_required_binaries](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [ibm_container_cluster.cluster](https://registry.terraform.io/providers/ibm-cloud/ibm/latest/docs/data-sources/container_cluster) | data source |
@@ -125,7 +125,7 @@ No modules.
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_outputs"></a> [additional\_outputs](#input\_additional\_outputs) | Use this input to replace the default additional outputs. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-logs-agent/blob/main/solutions/fully-configurable/DA-types.md#configuring-additional-outputs). | `any` | `[]` | no |
 | <a name="input_buffer_chunk_size"></a> [buffer\_chunk\_size](#input\_buffer\_chunk\_size) | The initial buffer chunk size for the Fluent Bit tail input plugin. Controls the amount of memory allocated per chunk when reading log files. If not set, the helm chart default value will be used. | `string` | `null` | no |
 | <a name="input_buffer_max_size"></a> [buffer\_max\_size](#input\_buffer\_max\_size) | The maximum buffer size per monitored file for the Fluent Bit tail input plugin. If a chunk is not flushed in time and exceeds this limit, it is removed. If not set, the helm chart default value will be used. | `string` | `null` | no |
