@@ -74,7 +74,7 @@ locals {
 
 module "ocp_base" {
   source                              = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                             = "4.0.7"
+  version                             = "4.1.0"
   resource_group_id                   = module.resource_group.resource_group_id
   region                              = var.region
   resource_tags                       = var.resource_tags
@@ -93,7 +93,7 @@ module "ocp_base" {
 
 module "cos" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "11.1.4"
+  version                = "11.2.2"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = var.region
   cos_instance_name      = "${var.prefix}-cos"
@@ -115,7 +115,7 @@ locals {
 
 module "buckets" {
   source  = "terraform-ibm-modules/cos/ibm//modules/buckets"
-  version = "11.1.4"
+  version = "11.2.2"
   bucket_configs = [
     {
       bucket_name            = local.logs_bucket_name
@@ -139,7 +139,7 @@ module "buckets" {
 
 module "cloud_logs" {
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "2.1.6"
+  version           = "2.1.9"
   resource_group_id = module.ocp_base.resource_group_id
   region            = var.region
   instance_name     = "${var.prefix}-cloud-logs"
